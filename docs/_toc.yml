@@ -1,0 +1,15 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+- file: welcome
+
+- part: preamble
+  chapters:
+  - file: preamble/step0
+
+- part: tutorial
+  chapters:
+  - file: tutorial/jetzel
+  - file: tutorial/emacnicol
+  - file: tutorial/oesteban
+

@@ -1,0 +1,9 @@
+
+[build]
+  command = "pip install -r requirements.txt && jupyter-book build docs"
+  publish = "docs/_build/html"
+  latex = true
+ 
+[build.environment]
+  PYTHON_VERSION = "3.7"
+  

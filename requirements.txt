@@ -1,0 +1,10 @@
+attr
+ghp-import
+jupyter-book
+jupytext
+matplotlib
+nibabel
+nilearn
+numpy
+pytest
+requests

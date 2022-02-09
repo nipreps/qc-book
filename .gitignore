@@ -1,0 +1,14 @@
+# pyenv
+.python-version
+
+# documentation
+_build/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# miscellaneous
+.DS_Store

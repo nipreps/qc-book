@@ -1,0 +1,48 @@
+# Book settings
+title: "ISMRM'22 QC Book"
+author:
+  - Das, D.
+  - Etzel, J.
+  - MacNicol, E.
+  - Esteban, O.
+  - Alfaro-Almagro, F.
+  - Ghosh, S.
+copyright: "2022"
+
+# Sphinx customizations
+sphinx:
+  config:
+    html_extra_path: ["assets"]
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# Execution settings
+execute:
+  timeout: 3000
+  exclude_patterns:
+    - 0*ipynb
+  execute_notebooks: auto
+
+# HTML-specific settings
+html:
+  use_repository_button: true
+  use_issues_button: true
+  use_edit_page_button: false
+  home_page_in_navbar: true
+
+# Launch button settings
+launch_buttons:
+  notebook_interface: jupyterlab
+
+repository:
+  url: https://github.com/nipreps/qc-book
+  path_to_book: docs
+  branch: main
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - amsmath
+    - dollarmath
+    - html_image
+
