@@ -1,12 +1,6 @@
 # Book settings
 title: "ISMRM'22 QC Book"
-author:
-  - Das, D.
-  - Etzel, J.
-  - MacNicol, E.
-  - Esteban, O.
-  - Alfaro-Almagro, F.
-  - Ghosh, S.
+author: "The tutorial authors"
 copyright: "2022"
 
 # Sphinx customizations
