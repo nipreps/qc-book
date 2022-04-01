@@ -330,6 +330,8 @@ Both data tables <code class="docutils literal notranslate"><span class="pre">tr
 </div>
 </div>
 </div>
+<p>These sites correspond to the following acquisition parameters:</p>
+<img alt="https://journals.plos.org/plosone/article/figure/image?size=large&amp;download=&amp;id=10.1371/journal.pone.0184661.t001" src="https://journals.plos.org/plosone/article/figure/image?size=large&amp;download=&amp;id=10.1371/journal.pone.0184661.t001" />
 <div class="section" id="a-first-look-on-the-dataset">
 <h2>A first look on the dataset<a class="headerlink" href="#a-first-look-on-the-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Lets now have a first quick look over the data:</p>
@@ -671,7 +673,7 @@ Let’s make use of one plotting utility of <code class="docutils literal notran
 </div>
 <div class="section" id="homogenizing-across-sites">
 <h2>Homogenizing across sites<a class="headerlink" href="#homogenizing-across-sites" title="Permalink to this headline">¶</a></h2>
-<p>One first though to make these IQMs more homogeneus would be to site-wise standardize them.
+<p>One first thought to make these IQMs more homogeneous would be to site-wise standardize them.
 This means, for each site, calculate mean and standard deviation and apply them to convert IQMs to zero-mean, unit-variance distributions.
 <code class="docutils literal notranslate"><span class="pre">mriqc-learn</span></code> has a filter (derived from, and compatible with <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>) to do this:</p>
 <div class="cell docutils container">
@@ -696,7 +698,7 @@ In other words, our machine-learning model will operate like a human would do: <
 </div>
 <div class="section" id="manual-ratings-are-very-correlated-with-the-acquisition-site">
 <h2>Manual ratings are very correlated with the acquisition site<a class="headerlink" href="#manual-ratings-are-very-correlated-with-the-acquisition-site" title="Permalink to this headline">¶</a></h2>
-<p>Let’s go further in exploring this effect, by now focusing our attention on the dataset’s targets (<code class="docutils literal notranslate"><span class="pre">train_y</span></code>).</p>
+<p>Let’s go further in exploring this effect, by now focusing our attention on the dataset targets (<code class="docutils literal notranslate"><span class="pre">train_y</span></code>).</p>
 </div>
 </div>
 

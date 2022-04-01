@@ -34,6 +34,10 @@ In order to investigate those "site-effects", let's add a column to `train_x` wi
 train_x["site"] = train_y.site
 ```
 
+These sites correspond to the following acquisition parameters:
+
+<img src="https://journals.plos.org/plosone/article/figure/image?size=large&download=&id=10.1371/journal.pone.0184661.t001" />
+
 ## A first look on the dataset
 Lets now have a first quick look over the data:
 
@@ -56,7 +60,7 @@ The plot above is clearly blocky, very well aligned with the different acquisiti
 
 ## Homogenizing across sites
 
-One first though to make these IQMs more homogeneus would be to site-wise standardize them.
+One first thought to make these IQMs more homogeneous would be to site-wise standardize them.
 This means, for each site, calculate mean and standard deviation and apply them to convert IQMs to zero-mean, unit-variance distributions.
 `mriqc-learn` has a filter (derived from, and compatible with `scikit-learn`) to do this:
 
@@ -76,5 +80,5 @@ In other words, our machine-learning model will operate like a human would do: *
 
 
 ## Manual ratings are very correlated with the acquisition site
-Let's go further in exploring this effect, by now focusing our attention on the dataset's targets (`train_y`).
+Let's go further in exploring this effect, by now focusing our attention on the dataset targets (`train_y`).
 
