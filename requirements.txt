@@ -8,3 +8,5 @@ nilearn
 numpy
 pytest
 requests
+pandas
+mriqc-learn

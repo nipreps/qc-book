@@ -28,6 +28,7 @@ jobs:
                              texlive-fonts-recommended \
                              texlive-fonts-extra \
                              texlive-latex-extra \
+                             fonts-freefont-ttf \
                              cm-super
 
     - uses: actions/checkout@v2

@@ -8,4 +8,7 @@ parts:
   chapters:
   - file: tutorial/jetzel
   - file: tutorial/emacnicol
-  - file: tutorial/oesteban
+- caption: Automating QA
+  chapters:
+  - file: auto-qc/intro
+  - file: auto-qc/iqms_first_contact
