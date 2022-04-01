@@ -56,7 +56,7 @@ The plot above is clearly blocky, very well aligned with the different acquisiti
 
 ## Homogenizing across sites
 
-One first though to make these IQMs more homogeneus would be to site-wise standardize them.
+One first thought to make these IQMs more homogeneous would be to site-wise standardize them.
 This means, for each site, calculate mean and standard deviation and apply them to convert IQMs to zero-mean, unit-variance distributions.
 `mriqc-learn` has a filter (derived from, and compatible with `scikit-learn`) to do this:
 
@@ -76,5 +76,5 @@ In other words, our machine-learning model will operate like a human would do: *
 
 
 ## Manual ratings are very correlated with the acquisition site
-Let's go further in exploring this effect, by now focusing our attention on the dataset's targets (`train_y`).
+Let's go further in exploring this effect, by now focusing our attention on the dataset targets (`train_y`).
 
