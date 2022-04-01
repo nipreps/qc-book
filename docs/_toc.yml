@@ -4,6 +4,7 @@ parts:
 - caption: preamble
   chapters:
   - file: preamble/step0
+  - file: preamble/qa-qc-basics.md
 - caption: tutorial
   chapters:
   - file: tutorial/jetzel
