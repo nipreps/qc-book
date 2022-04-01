@@ -34,6 +34,10 @@ In order to investigate those "site-effects", let's add a column to `train_x` wi
 train_x["site"] = train_y.site
 ```
 
+These sites correspond to the following acquisition parameters:
+
+<img src="https://journals.plos.org/plosone/article/figure/image?size=large&download=&id=10.1371/journal.pone.0184661.t001" />
+
 ## A first look on the dataset
 Lets now have a first quick look over the data:
 
