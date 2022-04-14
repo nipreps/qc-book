@@ -13,3 +13,4 @@ parts:
   chapters:
   - file: auto-qc/intro
   - file: auto-qc/iqms_first_contact
+  - file: auto-qc/manual_ratings
