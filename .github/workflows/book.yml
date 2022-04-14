@@ -26,6 +26,7 @@ jobs:
                              unzip \
                              ca-certificates \
                              dvipng \
+                             fontconfig \
                              texlive-fonts-recommended \
                              texlive-fonts-extra \
                              texlive-latex-extra \
