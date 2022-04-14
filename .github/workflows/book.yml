@@ -67,9 +67,10 @@ jobs:
 
     - name: Install R kernel
       run: |
-        R -e "install.packages('IRkernel')"
+        mkdir -p $HOME/.local/R
+        R -e "install.packages('IRkernel', lib='~/.local/R')"
         R -e "IRkernel::installspec()"
-        R -e "install.packages('pwr')"
+        R -e "install.packages('pwr', lib='~/.local/R')"
 
     # Build the page
     - name: Build the book
