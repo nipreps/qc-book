@@ -9,4 +9,4 @@ numpy
 pytest
 requests
 pandas
-mriqc-learn
+git+https://github.com/nipreps/mriqc-learn.git@main
