@@ -33,20 +33,6 @@ jobs:
                              texlive-fonts-recommended \
                              texlive-latex-extra \
                              unzip
-    
-    - uses: actions/cache@v2
-      with:
-        path: /usr/local/lib/R/site-library
-        key: irkernel-v1
-        restore-keys: |
-          irkernel-v1
-    - name: Install IRKernel
-      run: |
-        sudo mkdir -p /usr/local/lib/R/site-library
-        sudo chmod 777 /usr/local/lib/R/site-library
-        R -e "install.packages('IRkernel')"
-        R -e "IRkernel::installspec()"
-        R -e "install.packages('pwr')"
 
     - uses: actions/cache@v2
       with:
@@ -77,6 +63,20 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+
+    - uses: actions/cache@v2
+      with:
+        path: /usr/local/lib/R/site-library
+        key: irkernel-v1
+        restore-keys: |
+          irkernel-v1
+    - name: Install IRKernel
+      run: |
+        sudo mkdir -p /usr/local/lib/R/site-library
+        sudo chmod 777 /usr/local/lib/R/site-library
+        R -e "install.packages('IRkernel')"
+        R -e "IRkernel::installspec()"
+        R -e "install.packages('pwr')"
 
     # Build the page
     - name: Build the book
