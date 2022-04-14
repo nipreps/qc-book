@@ -29,13 +29,17 @@ jobs:
                              fontconfig \
                              fonts-freefont-ttf \
                              r-base \
-                             r-cran-irkernel \
                              texlive-fonts-extra \
                              texlive-fonts-recommended \
                              texlive-latex-extra \
                              unzip
-
-    - uses: actions/checkout@v2
+    - name: Install IRKernel
+      run: |
+        sudo mkdir -p /usr/local/lib/R/site-library
+        sudo chmod 777 /usr/local/lib/R/site-library
+        R -e "install.packages('IRkernel')"
+        R -e "IRkernel::installspec()"
+        R -e "install.packages('pwr', lib='~/.local/R')"
 
     - uses: actions/cache@v2
       with:
@@ -62,14 +66,10 @@ jobs:
       with:
         python-version: 3.9
 
+    - uses: actions/checkout@v2
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
-
-    - name: Install R kernel
-      run: |
-        mkdir -p $HOME/.local/R
-        R -e "install.packages('pwr', lib='~/.local/R')"
 
     # Build the page
     - name: Build the book
