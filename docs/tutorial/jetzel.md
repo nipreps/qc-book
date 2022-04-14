@@ -11,10 +11,7 @@ scripts for efficient
 preprocessing and analysis
 of the data. Sharing her
 experience of working on the
-Dual Mechanisms of
-Cognitive Control (DMCC)
-project (Etzel et al., bioRxiv
-2021), Jo will then present
+Dual Mechanisms of Cognitive Control (DMCC) project ([Etzel et al., Scientific Data 2022](https://doi.org/10.1038/s41597-022-01226-4)), Jo will then present
 certain QC/QA procedures,
 analysis approaches, and
 software practices that she
@@ -43,4 +40,3 @@ reports for analyses which
 ensures that images, results,
 source code and discussions
 are in one place.
-
