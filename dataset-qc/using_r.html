@@ -293,6 +293,23 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
 
 <span class="nf">pwr.anova.test</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">600</span><span class="p">,</span> <span class="n">sig.level</span><span class="o">=</span><span class="m">0.005</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="m">0.8</span><span class="p">)</span>
+
+<span class="c1"># little example of plotting and getting info from niftis:</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span>  <span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
+<span class="c1"># plot S1200_AverageT1w_81x96x81.nii.gz from https://osf.io/6hdxv/</span>
+
+<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">);</span>    <span class="c1"># however to refer to S1200_AverageT1w_81x96x81.nii.gz; url(&quot;https://osf.io/6hdxv/&quot;) maybe?</span>
+
+<span class="c1"># the image values are in a 3d array (single anatomical image, not a timeseries)</span>
+<span class="c1"># can apply many normal functions</span>
+<span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>   <span class="c1"># [1] 81 96 81</span>
+<span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>  <span class="c1"># [1] 1374.128</span>
+<span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">];</span>  <span class="c1"># value of this voxel</span>
+
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
+
+<span class="c1"># then similar for gifti? At least loading and getting parcel-average values out, maybe (show how vector, not 3d)</span>
 </pre></div>
 </div>
 </div>
@@ -306,6 +323,12 @@ const thebe_selector_output = ".output, .cell_output"
           power = 0.8
 
 NOTE: n is number in each group
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>Error in library(RNifti): there is no package called ‘RNifti’
+Traceback:
+
+1. library(RNifti)
 </pre></div>
 </div>
 </div>
