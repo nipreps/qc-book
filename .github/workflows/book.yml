@@ -29,6 +29,7 @@ jobs:
                              fontconfig \
                              fonts-freefont-ttf \
                              r-base \
+                             r-cran-irkernel \
                              texlive-fonts-extra \
                              texlive-fonts-recommended \
                              texlive-latex-extra \
@@ -68,8 +69,6 @@ jobs:
     - name: Install R kernel
       run: |
         mkdir -p $HOME/.local/R
-        R -e "install.packages('IRkernel', lib='~/.local/R')"
-        R -e "IRkernel::installspec()"
         R -e "install.packages('pwr', lib='~/.local/R')"
 
     # Build the page
