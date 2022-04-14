@@ -25,7 +25,12 @@ html:
 
 # Launch button settings
 launch_buttons:
-  notebook_interface: jupyterlab
+  notebook_interface: classic
+  # The URL of the JupyterHub (e.g., https://datahub.berkeley.edu)
+  jupyterhub_url: "https://hub.nipreps.org"
+  # The URL of the BinderHub (e.g., https://mybinder.org)
+  binderhub_url: "https://mybinder.org"
+  colab_url: "https://colab.research.google.com"
 
 repository:
   url: https://github.com/nipreps/qc-book
