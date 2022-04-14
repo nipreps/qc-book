@@ -21,17 +21,18 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends \
-                             curl \
                              bzip2 \
-                             unzip \
                              ca-certificates \
+                             cm-super \
+                             curl \
                              dvipng \
                              fontconfig \
-                             texlive-fonts-recommended \
-                             texlive-fonts-extra \
-                             texlive-latex-extra \
                              fonts-freefont-ttf \
-                             cm-super
+                             r-base \
+                             texlive-fonts-extra \
+                             texlive-fonts-recommended \
+                             texlive-latex-extra \
+                             unzip
 
     - uses: actions/checkout@v2
 
@@ -63,6 +64,12 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements.txt
+
+    - name: Install R kernel
+      run: |
+        R -e "install.packages('IRkernel')"
+        R -e "IRkernel::installspec()"
+        R -e "install.packages('pwr')"
 
     # Build the page
     - name: Build the book

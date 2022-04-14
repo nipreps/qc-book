@@ -4,10 +4,13 @@ parts:
 - caption: preamble
   chapters:
   - file: preamble/step0
-  - file: preamble/qa-qc-basics.md
+  - file: preamble/qa-qc-basics
+- caption: Dataset QC
+  chapters:
+  - file: dataset-qc/intro
+  - file: dataset-qc/using_r
 - caption: tutorial
   chapters:
-  - file: tutorial/jetzel
   - file: tutorial/emacnicol
 - caption: Automating QA
   chapters:
