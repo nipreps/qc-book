@@ -53,6 +53,10 @@ jobs:
         fi
         fc-cache -v
 
+    - name: Configuring R
+      run: |
+        R -e ".libPaths()"
+
     # Install dependencies
     - name: Set up Python 3.9
       uses: actions/setup-python@v1
