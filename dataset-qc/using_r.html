@@ -234,6 +234,29 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=tree/docs/dataset-qc/using_r.Rmd"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://hub.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=tree/qc-book/docs/dataset-qc/using_r.Rmd&branch=main"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -295,9 +318,59 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="trying-to-use-r">
 <h1>Trying to use R<a class="headerlink" href="#trying-to-use-r" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
+<span class="nf">pwr.anova.test</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">600</span><span class="p">,</span> <span class="n">sig.level</span><span class="o">=</span><span class="m">0.005</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="m">0.8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Balanced one-way analysis of variance power calculation 
+
+              k = 2
+              n = 600
+              f = 0.1055314
+      sig.level = 0.005
+          power = 0.8
+
+NOTE: n is number in each group
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="lets-visualize-an-image">
 <h1>Let’s visualize an image<a class="headerlink" href="#lets-visualize-an-image" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span>  <span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
+<span class="c1"># plot S1200_AverageT1w_81x96x81.nii.gz from https://osf.io/6hdxv/</span>
+
+<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">);</span>    <span class="c1"># however to refer to S1200_AverageT1w_81x96x81.nii.gz; url(&quot;https://osf.io/6hdxv/&quot;) maybe?</span>
+
+<span class="c1"># the image values are in a 3d array (single anatomical image, not a timeseries)</span>
+<span class="c1"># can apply many normal functions</span>
+<span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>   <span class="c1"># [1] 81 96 81</span>
+<span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>  <span class="c1"># [1] 1374.128</span>
+<span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">];</span>  <span class="c1"># value of this voxel</span>
+
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
+
+<span class="c1"># then similar for gifti? At least loading and getting parcel-average values out, maybe (show how vector, not 3d)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span> <span class="nb">object</span> <span class="s1">&#39;fname&#39;</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="ne">Traceback</span>:
+
+<span class="mi">1</span><span class="o">.</span> <span class="n">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -309,16 +382,16 @@ const thebe_selector_output = ".output, .cell_output"
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "ir",
             path: "./dataset-qc"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
               </div>
               

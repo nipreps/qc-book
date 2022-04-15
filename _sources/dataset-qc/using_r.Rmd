@@ -1,25 +1,27 @@
 ---
-jupytext:
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  display_name: R
-  language: R
-  name: ir
+jupyter:
+  jupytext:
+    notebook_metadata_filter: all,-language_info
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
 ---
 
 # Trying to use R
 
-```{code-cell} R
+```{r}
 library(pwr)
 pwr.anova.test(k=2, n=600, sig.level=0.005, power=0.8)
 ```
 
 # Let's visualize an image
 
-```{code-cell} R
+```{r}
 library(RNifti);  # package for NIfTI image reading; https://github.com/jonclayden/RNifti
 # plot S1200_AverageT1w_81x96x81.nii.gz from https://osf.io/6hdxv/
 
@@ -35,6 +37,5 @@ image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE
 image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice j=20
 
 # then similar for gifti? At least loading and getting parcel-average values out, maybe (show how vector, not 3d)
-
 
 ```
