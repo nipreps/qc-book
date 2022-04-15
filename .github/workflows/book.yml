@@ -69,10 +69,10 @@ jobs:
 
     - uses: actions/cache@v2
       with:
-        path: /usr/local/lib/R/site-library
-        key: irkernel-v1
+        path: ~/.local/lib/R/site-library
+        key: irkernel-v2
         restore-keys: |
-          irkernel-v1
+          irkernel-v2
     - name: Install IRKernel
       run: |
         R -e "install.packages('IRkernel', lib='~/.local/lib/R/site-library')"
