@@ -1,18 +1,21 @@
 ---
-jupyter:
-  jupytext:
-    notebook_metadata_filter: all,-language_info
-    split_at_heading: true
-    text_representation:
-      extension: .Rmd
-      format_name: rmarkdown
-  kernelspec:
-    display_name: Python 3
-    language: python
-    name: python3
+jupytext:
+  formats: md:myst
+  notebook_metadata_filter: all,-language_info
+  split_at_heading: true
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.8'
+    jupytext_version: 1.11.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
 ---
 
-```{python}
+```{code-cell} python
+:tags: [remove-cell]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
@@ -28,7 +31,7 @@ from mriqc_learn.datasets import load_dataset
 # Target labels: manual ratings by humans
 Let's go further in exploring this effect, by now focusing our attention on the dataset targets (`train_y`).
 
-```{python}
+```{code-cell} python
 from mriqc_learn.viz import ratings
 ratings.raters_variability_plot(train_y);
 ```
