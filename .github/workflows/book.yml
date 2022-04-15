@@ -76,12 +76,13 @@ jobs:
         sudo chmod 777 /usr/local/lib/R/site-library
         R -e "install.packages('IRkernel')"
         R -e "IRkernel::installspec()"
-        R -e "install.packages('pwr')"
+        while read -r line; do
+            R -e "install.packages($line)"
+        done < "R.requirements.txt"
 
     # Build the page
     - name: Build the book
       run: |
-        export PATH=$ANTSPATH:$PATH
         jupyter-book build docs
 
     # Push the book's HTML to github-pages
