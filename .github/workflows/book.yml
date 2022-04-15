@@ -80,9 +80,7 @@ jobs:
 
     - name: Install R dependencies
       run: |
-        while read -r line; do
-            R -e "install.packages('$line', lib='~/.local/lib/R/site-library')"
-        done < "R.requirements.txt"
+        Rscript install.R
 
     # Build the page
     - name: Build the book
