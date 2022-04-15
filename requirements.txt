@@ -1,7 +1,7 @@
 attr
 ghp-import
 jupyter-book
-jupytext
+jupytext>=1.11.2  # Full compat with myst-nb
 matplotlib
 nibabel
 nilearn
