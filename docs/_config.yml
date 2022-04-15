@@ -3,11 +3,22 @@ title: "ISMRM'22 QC Book"
 author: "The tutorial authors"
 copyright: "2022"
 
+# Bibliography settings
+bibtex_bibfiles:
+  - references.bib
+
 # Sphinx customizations
 sphinx:
   config:
-    html_extra_path: ["assets"]
+    nb_custom_formats:
+      .Rmd:
+        - jupytext.reads
+        - fmt: Rmd
+    bibtex_reference_style: author_year
+    # html_extra_path: ["assets"]
     mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+    extensions:
+      - myst_nb
 
 # Execution settings
 execute:
@@ -42,6 +53,13 @@ parse:
     # don't forget to list any other extensions you want enabled,
     # including those that are enabled by default!
     - amsmath
+    - colon_fence
+    - deflist
     - dollarmath
+    - html_admonition
     - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
 

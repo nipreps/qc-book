@@ -10,3 +10,4 @@ pytest
 requests
 pandas
 git+https://github.com/nipreps/mriqc-learn.git@main
+myst-nb
