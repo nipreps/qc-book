@@ -41,10 +41,10 @@ image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE
 
 ------------------
 
-Error in library(RNifti): there is no package called ‘RNifti’
+Error in readNifti(fname): object 'fname' not found
 Traceback:
 
-1. library(RNifti)
-ERROR: Error in library(RNifti): there is no package called ‘RNifti’
+1. readNifti(fname)
+ERROR: Error in readNifti(fname): object 'fname' not found
 
 
