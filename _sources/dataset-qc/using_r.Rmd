@@ -14,10 +14,12 @@ kernelspec:
 
 ```{code-cell} R
 library(pwr)
-
 pwr.anova.test(k=2, n=600, sig.level=0.005, power=0.8)
+```
 
-# little example of plotting and getting info from niftis:
+# Let's visualize an image
+
+```{code-cell} R
 library(RNifti);  # package for NIfTI image reading; https://github.com/jonclayden/RNifti
 # plot S1200_AverageT1w_81x96x81.nii.gz from https://osf.io/6hdxv/
 
