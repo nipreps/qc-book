@@ -1,16 +1,18 @@
 ---
-jupytext:
-  formats: md:myst
-  text_representation:
-    extension: .md
-    format_name: myst
-kernelspec:
-  display_name: Python 3
-  language: python
-  name: python3
+jupyter:
+  jupytext:
+    notebook_metadata_filter: all,-language_info
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+  kernelspec:
+    display_name: Python 3
+    language: python
+    name: python3
 ---
 
-```{code-cell} python
+```{python}
 :tags: [remove-cell]
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -26,7 +28,7 @@ The `mriqc-learn` package comes with some example data for users, derived from t
 First, we will be using a dataset containing IQMs generated on the open-access ABIDE I dataset which contains manual assessments by human raters.
 Let's explore the dataset:
 
-```{code-cell} python
+```{python}
 # 1. mriqc-learn comes with a convenience data loader, you'll need to first import it.
 from mriqc_learn.datasets import load_dataset
 
@@ -40,7 +42,7 @@ Both data tables `train_x` and `train_y` have the structure of Pandas DataFrames
 
 In order to investigate those "site-effects", let's add a column to `train_x` with site information:
 
-```{code-cell} python
+```{python}
 train_x["site"] = train_y.site
 ```
 
@@ -51,14 +53,14 @@ These sites correspond to the following acquisition parameters:
 ## A first look on the dataset
 Lets now have a first quick look over the data:
 
-```{code-cell} python
+```{python}
 train_x
 ```
 
 This first look is not very informative - there's no way we can pick any of the structure in our dataset.
 Let's make use of one plotting utility of `mriqc-learn`, and observe the structure:
 
-```{code-cell} python
+```{python}
 # 1. Let's import a module containing visualization tools for IQMs
 from mriqc_learn.viz import metrics
 
@@ -74,7 +76,7 @@ One first thought to make these IQMs more homogeneous would be to site-wise stan
 This means, for each site, calculate mean and standard deviation and apply them to convert IQMs to zero-mean, unit-variance distributions.
 `mriqc-learn` has a filter (derived from, and compatible with `scikit-learn`) to do this:
 
-```{code-cell} python
+```{python}
 # Load the filter
 from mriqc_learn.models.preprocess import SiteRobustScaler
 
@@ -88,7 +90,7 @@ Now the plot is not so *blocky*.
 A different way of looking at this is plotting histograms of some metrics, with the original and the standardized version represented side-by-side.
 For example, this would be the picture for the coefficient of joint variation (CJV), which is passed in as the `metric` argument:
 
-```{code-cell} python
+```{python}
 metrics.plot_histogram(train_x, standardized_x, metric="cjv");
 ```
 
@@ -96,17 +98,17 @@ It is clear that, on the left, sites tend to cluster in regions of the spread of
 Conversely, on the right-hand histogram, sites overlap much more and form together some sort of gaussian distribution.
 
 The situation is even more clear for the following definition of SNR (`snrd_total`):
-```{code-cell} python
+```{python}
 metrics.plot_histogram(train_x, standardized_x, metric="snrd_total");
 ```
 
 Now, this is how the *entropy-focus criterion* (EFC) looks like:
-```{code-cell} python
+```{python}
 metrics.plot_histogram(train_x, standardized_x, metric="efc");
 ```
 
 Finally, a look on a very commonly used parameter, the *contrast-to-noise ratio* (CNR):
-```{code-cell} python
+```{python}
 metrics.plot_histogram(train_x, standardized_x, metric="cnr");
 ```
 
