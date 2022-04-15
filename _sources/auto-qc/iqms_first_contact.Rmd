@@ -13,7 +13,7 @@ jupyter:
 ---
 
 ```{python}
-:tags: [remove-cell]
+# Some configurations to "beautify" plots
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
