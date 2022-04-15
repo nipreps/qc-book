@@ -9,6 +9,7 @@ parts:
   chapters:
   - file: dataset-qc/intro
   - file: dataset-qc/using_r
+  - file: dataset-qc/second_step
 - caption: tutorial
   chapters:
   - file: tutorial/emacnicol
