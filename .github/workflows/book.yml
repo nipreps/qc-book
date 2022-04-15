@@ -36,20 +36,17 @@ jobs:
 
     - uses: actions/cache@v2
       with:
-        path: /usr/local/share/fonts/LibreFranklin
-        key: fonts-v3
+        path: ~/.fonts
+        key: fonts-v4
         restore-keys: |
-          fonts-v3
+          fonts-v4
     - name: Install Libre Franklin Open Type
       run: |
-        if [[ ! -d /usr/local/share/fonts/LibreFranklin ]]; then
+        if [[ ! -d $HOME/.fonts/LibreFranklin ]]; then
           curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tmp/LibreFranklin.zip
-          sudo mkdir -p /usr/local/share/fonts/LibreFranklin
-          pushd /usr/local/share/fonts/LibreFranklin
-          sudo unzip -e /tmp/LibreFranklin.zip
-          sudo chmod 755 /usr/local/share/fonts/LibreFranklin
-          find /usr/local/share/fonts/LibreFranklin -type d -exec sudo chmod 755 -- {} +
-          find /usr/local/share/fonts/LibreFranklin -type f -exec sudo chmod 744 -- {} +
+          mkdir -p $HOME/.fonts/LibreFranklin
+          pushd $HOME/.fonts/LibreFranklin
+          unzip -e /tmp/LibreFranklin.zip
         fi
         fc-cache -v
 
