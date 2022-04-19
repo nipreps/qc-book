@@ -1,0 +1,71 @@
+---
+jupyter:
+  jupytext:
+    notebook_metadata_filter: all,-language_info
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+# Example 1: Don’t click if you can script
+## Repetitive, boring, and/or error-prone tasks should be scripted if possible.
+- Reduces how many errors occur and how quickly they’re found (and corrected).
+- Easy to update the script and rerun if needed.
+- Combine with automatic file transfer as possible. We store some files in [box](box.com), and use [boxr](https://github.com/r-box/boxr) to retrieve or upload files directly. box integration examples are not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R). 
+
+## Tutorial: converting eprime files to csv. 
+# Background
+- [Eprime](https://pstnet.com/products/e-prime/) saves its files in a proprietary format and non-human-readable plain text. We convert these to usable csv as quickly as possible after data collection.
+- This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).
+- This eprime file is from 
+
+```{r}
+library(eMergeR);   # for as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
+# rm(list=ls());   # clear R's workspace to start fresh (I usually do this; not sure about in a notebook)
+
+
+# interoception eprime
+
+do.eprime.inter <- function(sub.id) {
+  # make the output directory if it doesn't already exist 
+  if (!dir.exists(temp.path)) { dir.create(temp.path); }
+  
+  fname <- paste0("interoception-MARCER-", sub.id);     # input filename without extension or path
+  if (!file.exists(paste0(temp.path, fname, ".txt"))) {     # input file isn't already in temp.path so try to download it from box
+print(paste0("ERROR: missing input file ", fname, ".txt! Looked in")); 
+      stop(temp.path);
+  }
+  
+  # file exists, so read it and convert.
+  e.in <- edatR(paste0(temp.path, fname, ".txt"));
+  e.tbl <- as.data.frame.edat(e.in, simplify=TRUE);   # initial conversion
+  
+  # do a bit of double-checking
+  if (!identical(e.tbl$Procedure, c("baselineProc", "rest", "trigger", "rest", "trigger", "rest", "trigger", "rest"))) { stop("mismatch!"); }
+  if (!is.na(e.tbl$black.OnsetTime[1]) | !is.na(e.tbl$black.OffsetTime[1])) { stop("have baseline onsets or offsets??"); }
+  
+  tmp.vec <- e.in$trial_info$`1`;  # has the baseline5min onset & offset times. put into black.OnsetTime & black.OffsetTime
+  if ((as.numeric(tmp.vec["baseline5min.OffsetTime"]) - as.numeric(tmp.vec["baseline5min.OnsetTime"]))/60000 != 5) { stop("baseline not 5 min?"); }
+  # times in msec, so divide by 1000 for seconds, and 60 for minutes
+  # print(paste("baseline5min duration:", (as.numeric(tmp.vec["baseline5min.OffsetTime"]) - as.numeric(tmp.vec["baseline5min.OnsetTime"]))/60000));
+  
+  e.tbl$black.OnsetTime[1]  <- tmp.vec["baseline5min.OnsetTime"];
+  e.tbl$black.OffsetTime[1] <- tmp.vec["baseline5min.OffsetTime"];
+  
+  # now have the converted info, so write as a csv
+  out.fname <- paste0("interoception-", sub.id, "-eprime-converted")
+  write.csv(e.tbl, paste0(temp.path, out.fname, ".csv"), row.names=FALSE);
+  if (file.exists(paste0(temp.path, out.fname, ".csv"))) {
+    print(paste0("success! wrote ", out.fname, ".csv to disk."));
+  } else { 
+    stop(paste0("ERROR: didn't write ", out.fname, ".csv!!!!")); 
+  }
+  
+ 
+}
+```
