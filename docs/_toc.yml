@@ -8,6 +8,10 @@ parts:
 - caption: Dataset QC
   chapters:
   - file: dataset-qc/intro
+  - file: dataset-qc/Example1
+  - file: dataset-qc/Example2
+  - file: dataset-qc/Example3
+  - file: dataset-qc/Example4
   - file: dataset-qc/using_r
 - caption: tutorial
   chapters:
