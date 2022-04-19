@@ -18,54 +18,85 @@ jupyter:
 - Easy to update the script and rerun if needed.
 - Combine with automatic file transfer as possible. We store some files in [box](box.com), and use [boxr](https://github.com/r-box/boxr) to retrieve or upload files directly. box integration examples are not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R). 
 
-## Tutorial: converting eprime files to csv. 
-# Background
-- [Eprime](https://pstnet.com/products/e-prime/) saves its files in a proprietary format and non-human-readable plain text. We convert these to usable csv as quickly as possible after data collection.
+# Tutorial: converting eprime files to csv. 
+## Background
+- [Eprime](https://pstnet.com/products/e-prime/) saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.)
 - This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).
-- This eprime file is from 
+- The tutorial eprime files are from a heartbeat-counting task similar to Pollatos, Traut-Mattausch, and Schandry ([2009](https://doi.org/10.1002/da.20504)). The task starts with a five-minute baseline period, then there are three trials during which the participant is asked to count their heart beats; each trial is followed by a 30-second rest period. After each trial participants verbally report how many beats they counted and their confidence in the count. The same order is used for all participants: trial 1 is 25 seconds, trial 2 is 35 seconds, and trial 3 is 45 seconds. A one-minute rest period ends the task. 
+- We need to extract the trial onset times to synchronize with the simultaneous EKG recording.
+- For **Dataset QC** we want to verify that the three trials, initial baseline, and final rest periods were all in the expected order and durations.
 
 ```{r}
-library(eMergeR);   # for as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
-# rm(list=ls());   # clear R's workspace to start fresh (I usually do this; not sure about in a notebook)
+
+ test <- readLines("interoception_demoSub1.txt");
+ print(length(test));
+ 
+```
 
 
-# interoception eprime
+This code uses the [eMergeR](https://github.com/AWKruijt/eMergeR) R library's functions for parsing information out of the eprime text recovery file. I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables (such as input paths and subject IDs). This first code block loads eMergeR, clears R's workspace, and sets the input and output paths. 
 
-do.eprime.inter <- function(sub.id) {
+```{r}
+library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
+# rm(list=ls());   # clear R's workspace (I usually do this; not sure about in a notebook)
+# options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches
+
+# temp.path <- "d:/temp/";  # for an example; I don't know how this is used with notebooks
+
+```
+
+Next is a function to carry out the conversion. This type of function could be stored in a separate file which is then `source`d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.
+
+```{r}
+
+do.convert <- function(sub.id) {  # sub.id <- "demoSub1";
   # make the output directory if it doesn't already exist 
-  if (!dir.exists(temp.path)) { dir.create(temp.path); }
+  # if (!dir.exists(temp.path)) { dir.create(temp.path); }
   
-  fname <- paste0("interoception-MARCER-", sub.id);     # input filename without extension or path
-  if (!file.exists(paste0(temp.path, fname, ".txt"))) {     # input file isn't already in temp.path so try to download it from box
-print(paste0("ERROR: missing input file ", fname, ".txt! Looked in")); 
-      stop(temp.path);
-  }
+  fname <- paste0("interoception_", sub.id, ".txt");   # build expected input filename
+  if (!file.exists(paste0(temp.path, fname))) {    # check if it exists and print messages if not.
+    print(paste0("ERROR: missing input file ", fname, "! Looked in")); 
+    stop(temp.path);
+  } 
   
   # file exists, so read it and convert.
-  e.in <- edatR(paste0(temp.path, fname, ".txt"));
+  e.in <- edatR(paste0(temp.path, fname));     # eMergeR function for reading text recovery files
   e.tbl <- as.data.frame.edat(e.in, simplify=TRUE);   # initial conversion
   
-  # do a bit of double-checking
+  # check that some expected fields are present
   if (!identical(e.tbl$Procedure, c("baselineProc", "rest", "trigger", "rest", "trigger", "rest", "trigger", "rest"))) { stop("mismatch!"); }
   if (!is.na(e.tbl$black.OnsetTime[1]) | !is.na(e.tbl$black.OffsetTime[1])) { stop("have baseline onsets or offsets??"); }
   
-  tmp.vec <- e.in$trial_info$`1`;  # has the baseline5min onset & offset times. put into black.OnsetTime & black.OffsetTime
-  if ((as.numeric(tmp.vec["baseline5min.OffsetTime"]) - as.numeric(tmp.vec["baseline5min.OnsetTime"]))/60000 != 5) { stop("baseline not 5 min?"); }
+  # check that the baseline period is present as expected and of the expected duration
+  tmp.vec <- e.in$trial_info$`1`;    # how the baseline5min onset & offset times are in the eprime file
   # times in msec, so divide by 1000 for seconds, and 60 for minutes
-  # print(paste("baseline5min duration:", (as.numeric(tmp.vec["baseline5min.OffsetTime"]) - as.numeric(tmp.vec["baseline5min.OnsetTime"]))/60000));
-  
+  if ((as.numeric(tmp.vec["baseline5min.OffsetTime"]) - as.numeric(tmp.vec["baseline5min.OnsetTime"]))/60000 != 5) { 
+    stop("baseline not 5 min?"); 
+  } 
+  # correct duration, so store values
   e.tbl$black.OnsetTime[1]  <- tmp.vec["baseline5min.OnsetTime"];
   e.tbl$black.OffsetTime[1] <- tmp.vec["baseline5min.OffsetTime"];
   
-  # now have the converted info, so write as a csv
-  out.fname <- paste0("interoception-", sub.id, "-eprime-converted")
+  # now have all the info, so write as a csv
+  out.fname <- paste0("interoception-", sub.id, "-converted.csv");
   write.csv(e.tbl, paste0(temp.path, out.fname, ".csv"), row.names=FALSE);
   if (file.exists(paste0(temp.path, out.fname, ".csv"))) {
     print(paste0("success! wrote ", out.fname, ".csv to disk."));
   } else { 
     stop(paste0("ERROR: didn't write ", out.fname, ".csv!!!!")); 
   }
-  
- 
 }
+
+```
+
+Finally the function is called to convert each participant's data.
+
+```{r}
+
+do.convert("demoSub1");
+
+# or in a loop. Note that the third subject ID is invalid.
+sub.ids <- c("demoSub2", "demoSub3", "demosub3");
+for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
+
 ```
