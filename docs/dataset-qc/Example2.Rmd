@@ -13,9 +13,38 @@ jupyter:
 ---
 
 # Example 2: Highlight important and diagnostic features as efficiently as possible
+## QC reports won't be used if they are too long, ugly, or annoying.
+- Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes "look like brains" and the surfaces have "tiger stripes"). 
+- It often works well to arrange images so can visually survey ("which one of these things is not like the others") and judge typical variability.
+- Collect training examples of what the diagnostic features should (or not) look like.
+- It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.
+
+# Tutorial: fMRI volume (nifti) image plotting
+## Background
+Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial includes basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.
+
 
 ```{r}
+library(RNifti);  # package for NIfTI image reading; https://github.com/jonclayden/RNifti
 
-print("example 2")
+# S1200_AverageT1w_81x96x81.nii.gz (https://osf.io/6hdxv/) is a resampled (via afni 3dresample) 
+# version of S1200_AverageT1w_restore.nii.gz, the HCP 1200 Group Average anatomy, 
+# available from https://balsa.wustl.edu/file/show/7qX8N. 
+img <- readNifti("S1200_AverageT1w_81x96x81.nii.gz");  
+
+# the image values are in a 3d array (since this is a single anatomical image, not a timeseries)
+# can apply many normal functions
+dim(img);   # [1] 81 96 81
+max(img);  # [1] 1374.128
+img[30,20,50];  # value of this voxel
+
+image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice k=50
+image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice j=20
+
 
 ```
+
+# Additional examples and notes
+- The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the [temporal mean, SD, and tSNR](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html) and [motion (realignment parameters)](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html) examples. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
+- Examples of the files created for each [DMCC](https://sites.wustl.edu/dualmechanisms/) participant may also be useful; see <https://osf.io/z62s5/> and other files in the *analyses* subdirectory.
+- I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus markdown-friendly plotting functions.
