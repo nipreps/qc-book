@@ -1,0 +1,45 @@
+---
+jupyter:
+  jupytext:
+    notebook_metadata_filter: all,-language_info
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+
+# Example 3: Establish and continually perform control analyses
+## Control analyses
+Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. **Positive control analyses** check for the existence of effects that **must** be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved.
+
+One of my favorite positive control analyses is **button pressing**: 
+- We know exactly when the person made a motor response, and M1's location, so run a GLM (or whatever) modelling the button press events (only) and check if motor activation was detected.
+
+They should be performed in separate GLMs (or whatever type of analysis is relevant), and are not included in multiple comparison corrections.
+- Negative control analyses
+
+ should I believe a cognitive effect that appears if the (presumably) stronger and more focal motor effect does not?
+"ON-task" analyses (all trials vs. baseline) are also generally useful for dataset QC.
+Relevant areas (such as visual if trials include a visual stimulus) should have response resembling the HRF.
+Control analyses should be carried out in each individual and at the group level.
+Provide a "yardstick" for evaluating signal strength and quality.
+
+# Tutorial: not sure what would be feasible
+## Background
+placeholder.
+
+
+```{r}
+
+# something or other
+
+
+```
+
+# Full examples and additional notes
+The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include [buttons](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) and [ONs](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
