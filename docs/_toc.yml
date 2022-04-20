@@ -9,9 +9,9 @@ parts:
   chapters:
   - file: dataset-qc/intro
   - file: dataset-qc/using_r
-- caption: tutorial
+- caption: Animal QA/QC
   chapters:
-  - file: tutorial/emacnicol
+  - file: animal-qc/intro
 - caption: Automating QA
   chapters:
   - file: auto-qc/intro
