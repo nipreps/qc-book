@@ -1,0 +1,21 @@
+---
+jupyter:
+  jupytext:
+    notebook_metadata_filter: all,-language_info
+    split_at_heading: true
+    text_representation:
+      extension: .Rmd
+      format_name: rmarkdown
+  kernelspec:
+    display_name: R
+    language: R
+    name: ir
+---
+
+# Example 4: Make use of automated dynamic reports
+
+```{r}
+
+print("example 4")
+
+```

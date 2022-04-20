@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trying to use R &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Example 2: Highlight important and diagnostic features as efficiently as possible &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quality Control in preclinical MRI: Where do artifacts come from and how to fix them" href="../animal-qc/intro.html" />
-    <link rel="prev" title="Example 4: Make use of automated dynamic reports" href="Example4.html" />
+    <link rel="next" title="Example 3: Establish and continually perform control analyses" href="Example3.html" />
+    <link rel="prev" title="Example 1: Don’t click if you can script" href="Example1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -126,8 +126,8 @@ const thebe_selector_output = ".output, .cell_output"
    Example 1: Don’t click if you can script
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Example2.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Example 2: Highlight important and diagnostic features as efficiently as possible
   </a>
  </li>
@@ -141,8 +141,8 @@ const thebe_selector_output = ".output, .cell_output"
    Example 4: Make use of automated dynamic reports
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="using_r.html">
    Trying to use R
   </a>
  </li>
@@ -221,7 +221,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/using_r.Rmd"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example2.Rmd"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.Rmd</button></a>
         <!-- Download PDF via print -->
@@ -259,14 +259,14 @@ const thebe_selector_output = ".output, .cell_output"
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/using_r.Rmd"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example2.Rmd"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
-        <a class="jupyterhub-button" href="https://hub.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/using_r.Rmd&branch=main"><button type="button"
+        <a class="jupyterhub-button" href="https://hub.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example2.Rmd&branch=main"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
                 data-placement="left"><img class="jupyterhub-button-logo"
                     src="../_static/images/logo_jupyterhub.svg"
@@ -289,12 +289,31 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Trying to use R
+   Example 2: Highlight important and diagnostic features as efficiently as possible
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qc-reports-wont-be-used-if-they-are-too-long-ugly-or-annoying">
+     QC reports won’t be used if they are too long, ugly, or annoying.
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lets-visualize-an-image">
-   Let’s visualize an image
+  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
+   Tutorial: fMRI volume (nifti) image plotting
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-examples-and-notes">
+   Additional examples and notes
   </a>
  </li>
 </ul>
@@ -307,7 +326,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Trying to use R</h1>
+                <h1>Example 2: Highlight important and diagnostic features as efficiently as possible</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -319,12 +338,31 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   Trying to use R
+   Example 2: Highlight important and diagnostic features as efficiently as possible
   </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qc-reports-wont-be-used-if-they-are-too-long-ugly-or-annoying">
+     QC reports won’t be used if they are too long, ugly, or annoying.
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lets-visualize-an-image">
-   Let’s visualize an image
+  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
+   Tutorial: fMRI volume (nifti) image plotting
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-examples-and-notes">
+   Additional examples and notes
   </a>
  </li>
 </ul>
@@ -336,40 +374,33 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="trying-to-use-r">
-<h1>Trying to use R<a class="headerlink" href="#trying-to-use-r" title="Permalink to this headline">¶</a></h1>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">pwr</span><span class="p">)</span>
-<span class="nf">pwr.anova.test</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">600</span><span class="p">,</span> <span class="n">sig.level</span><span class="o">=</span><span class="m">0.005</span><span class="p">,</span> <span class="n">power</span><span class="o">=</span><span class="m">0.8</span><span class="p">)</span>
-</pre></div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="example-2-highlight-important-and-diagnostic-features-as-efficiently-as-possible">
+<h1>Example 2: Highlight important and diagnostic features as efficiently as possible<a class="headerlink" href="#example-2-highlight-important-and-diagnostic-features-as-efficiently-as-possible" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="qc-reports-wont-be-used-if-they-are-too-long-ugly-or-annoying">
+<h2>QC reports won’t be used if they are too long, ugly, or annoying.<a class="headerlink" href="#qc-reports-wont-be-used-if-they-are-too-long-ugly-or-annoying" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes “look like brains” and the surfaces have “tiger stripes”).</p></li>
+<li><p>It often works well to arrange images so can visually survey (“which one of these things is not like the others”) and judge typical variability.</p></li>
+<li><p>Collect training examples of what the diagnostic features should (or not) look like.</p></li>
+<li><p>It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.</p></li>
+</ul>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Balanced one-way analysis of variance power calculation 
-
-              k = 2
-              n = 600
-              f = 0.1055314
-      sig.level = 0.005
-          power = 0.8
-
-NOTE: n is number in each group
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="lets-visualize-an-image">
-<h1>Let’s visualize an image<a class="headerlink" href="#lets-visualize-an-image" title="Permalink to this headline">¶</a></h1>
+<div class="tex2jax_ignore mathjax_ignore section" id="tutorial-fmri-volume-nifti-image-plotting">
+<h1>Tutorial: fMRI volume (nifti) image plotting<a class="headerlink" href="#tutorial-fmri-volume-nifti-image-plotting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial includes basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span>  <span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
-<span class="c1"># plot S1200_AverageT1w_81x96x81.nii.gz from https://osf.io/6hdxv/</span>
 
-<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">);</span>    <span class="c1"># however to refer to S1200_AverageT1w_81x96x81.nii.gz; url(&quot;https://osf.io/6hdxv/&quot;) maybe?</span>
+<span class="c1"># S1200_AverageT1w_81x96x81.nii.gz (https://osf.io/6hdxv/) is a resampled (via afni 3dresample) </span>
+<span class="c1"># version of S1200_AverageT1w_restore.nii.gz, the HCP 1200 Group Average anatomy, </span>
+<span class="c1"># available from https://balsa.wustl.edu/file/show/7qX8N. </span>
+<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span>  
 
-<span class="c1"># the image values are in a 3d array (single anatomical image, not a timeseries)</span>
+<span class="c1"># the image values are in a 3d array (since this is a single anatomical image, not a timeseries)</span>
 <span class="c1"># can apply many normal functions</span>
 <span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>   <span class="c1"># [1] 81 96 81</span>
 <span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>  <span class="c1"># [1] 1374.128</span>
@@ -377,20 +408,31 @@ NOTE: n is number in each group
 
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
-
-<span class="c1"># then similar for gifti? At least loading and getting parcel-average values out, maybe (show how vector, not 3d)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">):</span> <span class="nb">object</span> <span class="s1">&#39;fname&#39;</span> <span class="ow">not</span> <span class="n">found</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readNifti(&quot;S1200_AverageT1w_81x96x81.nii.gz&quot;):
+“nifti_image_read: failed to find header file for &#39;S1200_AverageT1w_81x96x81.nii.gz&#39;”
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">readNifti</span><span class="p">(</span><span class="s2">&quot;S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">):</span> <span class="n">Failed</span> <span class="n">to</span> <span class="n">read</span> <span class="n">image</span> <span class="kn">from</span> <span class="nn">path</span> <span class="n">S1200_AverageT1w_81x96x81</span><span class="o">.</span><span class="n">nii</span><span class="o">.</span><span class="n">gz</span>
 <span class="ne">Traceback</span>:
 
-<span class="mi">1</span><span class="o">.</span> <span class="n">readNifti</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+<span class="mi">1</span><span class="o">.</span> <span class="n">readNifti</span><span class="p">(</span><span class="s2">&quot;S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="additional-examples-and-notes">
+<h1>Additional examples and notes<a class="headerlink" href="#additional-examples-and-notes" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html">temporal mean, SD, and tSNR</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html">motion (realignment parameters)</a> examples. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p></li>
+<li><p>Examples of the files created for each <a class="reference external" href="https://sites.wustl.edu/dualmechanisms/">DMCC</a> participant may also be useful; see <a class="reference external" href="https://osf.io/z62s5/">https://osf.io/z62s5/</a> and other files in the <em>analyses</em> subdirectory.</p></li>
+<li><p>I suggest using the <a class="reference external" href="https://github.com/jonclayden/RNifti">RNifti</a>, <a class="reference external" href="https://github.com/muschellij2/gifti">gifti</a>, and <a class="reference external" href="https://github.com/mandymejia/ciftiTools">ciftiTools</a> R packages for file i/o. I <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">wrote tutorials</a> for working with nifti and gifti images using these libraries, plus markdown-friendly plotting functions.</p></li>
+</ul>
 </div>
 
     <script type="text/x-thebe-config">
@@ -418,17 +460,17 @@ NOTE: n is number in each group
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="Example4.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Example1.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Example 4: Make use of automated dynamic reports</p>
+            <p class="prev-next-title">Example 1: Don’t click if you can script</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../animal-qc/intro.html" title="next page">
+    <a class='right-next' id="next-link" href="Example3.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Quality Control in preclinical MRI: Where do artifacts come from and how to fix them</p>
+        <p class="prev-next-title">Example 3: Establish and continually perform control analyses</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

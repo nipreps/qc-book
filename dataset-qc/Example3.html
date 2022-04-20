@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC: Taking control of your data &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Example 3: Establish and continually perform control analyses &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example 1: Don’t click if you can script" href="Example1.html" />
-    <link rel="prev" title="Before we dive into QA/QC" href="../preamble/qa-qc-basics.html" />
+    <link rel="next" title="Example 4: Make use of automated dynamic reports" href="Example4.html" />
+    <link rel="prev" title="Example 2: Highlight important and diagnostic features as efficiently as possible" href="Example2.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -116,8 +116,8 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    Dataset QC: Taking control of your data
   </a>
  </li>
@@ -131,8 +131,8 @@ const thebe_selector_output = ".output, .cell_output"
    Example 2: Highlight important and diagnostic features as efficiently as possible
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Example3.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Example 3: Establish and continually perform control analyses
   </a>
  </li>
@@ -221,9 +221,9 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example3.Rmd"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.Rmd</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -254,6 +254,29 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example3.Rmd"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://hub.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example3.Rmd&branch=main"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
@@ -264,9 +287,33 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Example 3: Establish and continually perform control analyses
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#control-analyses">
+     Control analyses
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-not-sure-what-would-be-feasible">
+   Tutorial: not sure what would be feasible
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
+   Full examples and additional notes
   </a>
  </li>
 </ul>
@@ -279,7 +326,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC: Taking control of your data</h1>
+                <h1>Example 3: Establish and continually perform control analyses</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -289,9 +336,33 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   Example 3: Establish and continually perform control analyses
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#control-analyses">
+     Control analyses
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-not-sure-what-would-be-feasible">
+   Tutorial: not sure what would be feasible
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
+   Full examples and additional notes
   </a>
  </li>
 </ul>
@@ -303,49 +374,43 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-taking-control-of-your-data">
-<h1>Dataset QC: Taking control of your data<a class="headerlink" href="#dataset-qc-taking-control-of-your-data" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p>We will begin this session by
-giving an introduction on the
-quality issues in MRI, and
-how these can be addressed
-by the use of pipelines and
-scripts for efficient
-preprocessing and analysis
-of the data. Sharing her
-experience of working on the
-Dual Mechanisms of Cognitive Control (DMCC) project (<a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">Etzel et al., Scientific Data 2022</a>), Jo will then present
-certain QC/QA procedures,
-analysis approaches, and
-software practices that she
-has found most beneficial
-(using tools such as R and
-fMRIprep). Dynamic reports
-(e.g., knitr, markdown)
-should be used for analyses
-whenever possible, so that
-images, results, source code,
-and discussion are together.
-This is especially important to
-share with published papers,
-to enable readers to
-reproduce the results and
-see the parameters. The
-audience will learn to extend
-these best practices to their
-own dataset through the
-interactive tutorials that will
-follow which will use tools
-such as knitr and markdown.
-These tools facilitate the
-generation of dynamic
-reports for analyses which
-ensures that images, results,
-source code and discussions
-are in one place.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="example-3-establish-and-continually-perform-control-analyses">
+<h1>Example 3: Establish and continually perform control analyses<a class="headerlink" href="#example-3-establish-and-continually-perform-control-analyses" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="control-analyses">
+<h2>Control analyses<a class="headerlink" href="#control-analyses" title="Permalink to this headline">¶</a></h2>
+<p>Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. <strong>Positive control analyses</strong> check for the existence of effects that <strong>must</strong> be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved.</p>
+<p>One of my favorite positive control analyses is <strong>button pressing</strong>:</p>
+<ul class="simple">
+<li><p>We know exactly when the person made a motor response, and M1’s location, so run a GLM (or whatever) modelling the button press events (only) and check if motor activation was detected.</p></li>
+</ul>
+<p>They should be performed in separate GLMs (or whatever type of analysis is relevant), and are not included in multiple comparison corrections.</p>
+<ul class="simple">
+<li><p>Negative control analyses</p></li>
+</ul>
+<p>should I believe a cognitive effect that appears if the (presumably) stronger and more focal motor effect does not?
+“ON-task” analyses (all trials vs. baseline) are also generally useful for dataset QC.
+Relevant areas (such as visual if trials include a visual stimulus) should have response resembling the HRF.
+Control analyses should be carried out in each individual and at the group level.
+Provide a “yardstick” for evaluating signal strength and quality.</p>
 </div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="tutorial-not-sure-what-would-be-feasible">
+<h1>Tutorial: not sure what would be feasible<a class="headerlink" href="#tutorial-not-sure-what-would-be-feasible" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>placeholder.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># something or other</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="full-examples-and-additional-notes">
+<h1>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">¶</a></h1>
+<p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html">buttons</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html">ONs</a> positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -357,33 +422,33 @@ are in one place.</p>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "ir",
             path: "./dataset-qc"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
               </div>
               
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../preamble/qa-qc-basics.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Example2.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Before we dive into QA/QC</p>
+            <p class="prev-next-title">Example 2: Highlight important and diagnostic features as efficiently as possible</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Example1.html" title="next page">
+    <a class='right-next' id="next-link" href="Example4.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example 1: Don’t click if you can script</p>
+        <p class="prev-next-title">Example 4: Make use of automated dynamic reports</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

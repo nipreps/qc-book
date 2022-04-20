@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC: Taking control of your data &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Example 4: Make use of automated dynamic reports &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example 1: Don’t click if you can script" href="Example1.html" />
-    <link rel="prev" title="Before we dive into QA/QC" href="../preamble/qa-qc-basics.html" />
+    <link rel="next" title="Trying to use R" href="using_r.html" />
+    <link rel="prev" title="Example 3: Establish and continually perform control analyses" href="Example3.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -116,8 +116,8 @@ const thebe_selector_output = ".output, .cell_output"
  </span>
 </p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    Dataset QC: Taking control of your data
   </a>
  </li>
@@ -136,8 +136,8 @@ const thebe_selector_output = ".output, .cell_output"
    Example 3: Establish and continually perform control analyses
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Example4.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Example 4: Make use of automated dynamic reports
   </a>
  </li>
@@ -221,9 +221,9 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example4.Rmd"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.Rmd</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -254,24 +254,34 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example4.Rmd"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        <a class="jupyterhub-button" href="https://hub.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example4.Rmd&branch=main"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
+                data-placement="left"><img class="jupyterhub-button-logo"
+                    src="../_static/images/logo_jupyterhub.svg"
+                    alt="Interact on JupyterHub">JupyterHub</button></a>
+        
+        
+        
+    </div>
+</div>
+
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -279,72 +289,30 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC: Taking control of your data</h1>
+                <h1>Example 4: Make use of automated dynamic reports</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-taking-control-of-your-data">
-<h1>Dataset QC: Taking control of your data<a class="headerlink" href="#dataset-qc-taking-control-of-your-data" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p>We will begin this session by
-giving an introduction on the
-quality issues in MRI, and
-how these can be addressed
-by the use of pipelines and
-scripts for efficient
-preprocessing and analysis
-of the data. Sharing her
-experience of working on the
-Dual Mechanisms of Cognitive Control (DMCC) project (<a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">Etzel et al., Scientific Data 2022</a>), Jo will then present
-certain QC/QA procedures,
-analysis approaches, and
-software practices that she
-has found most beneficial
-(using tools such as R and
-fMRIprep). Dynamic reports
-(e.g., knitr, markdown)
-should be used for analyses
-whenever possible, so that
-images, results, source code,
-and discussion are together.
-This is especially important to
-share with published papers,
-to enable readers to
-reproduce the results and
-see the parameters. The
-audience will learn to extend
-these best practices to their
-own dataset through the
-interactive tutorials that will
-follow which will use tools
-such as knitr and markdown.
-These tools facilitate the
-generation of dynamic
-reports for analyses which
-ensures that images, results,
-source code and discussions
-are in one place.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="example-4-make-use-of-automated-dynamic-reports">
+<h1>Example 4: Make use of automated dynamic reports<a class="headerlink" href="#example-4-make-use-of-automated-dynamic-reports" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;example 4&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;example 4&quot;
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -357,33 +325,33 @@ are in one place.</p>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "ir",
             path: "./dataset-qc"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
               </div>
               
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../preamble/qa-qc-basics.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Example3.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Before we dive into QA/QC</p>
+            <p class="prev-next-title">Example 3: Establish and continually perform control analyses</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Example1.html" title="next page">
+    <a class='right-next' id="next-link" href="using_r.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example 1: Don’t click if you can script</p>
+        <p class="prev-next-title">Trying to use R</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
