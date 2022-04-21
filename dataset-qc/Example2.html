@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example 3: Establish and continually perform control analyses" href="Example3.html" />
-    <link rel="prev" title="Example 1: Don’t click if you can script" href="Example1.html" />
+    <link rel="prev" title="Dataset QC Example 1" href="Example1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example1.html">
-   Example 1: Don’t click if you can script
+   Dataset QC Example 1
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -398,7 +398,7 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="c1"># S1200_AverageT1w_81x96x81.nii.gz (https://osf.io/6hdxv/) is a resampled (via afni 3dresample) </span>
 <span class="c1"># version of S1200_AverageT1w_restore.nii.gz, the HCP 1200 Group Average anatomy, </span>
 <span class="c1"># available from https://balsa.wustl.edu/file/show/7qX8N. </span>
-<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span>  
+<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span>  
 
 <span class="c1"># the image values are in a 3d array (since this is a single anatomical image, not a timeseries)</span>
 <span class="c1"># can apply many normal functions</span>
@@ -406,8 +406,10 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>  <span class="c1"># [1] 1374.128</span>
 <span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">];</span>  <span class="c1"># value of this voxel</span>
 
-<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)));</span>  <span class="c1"># hopefully have three images in one row</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">15</span><span class="p">,,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice i=15</span>
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
 </pre></div>
 </div>
 </div>
@@ -419,7 +421,6 @@ const thebe_selector_output = ".output, .cell_output"
 </style>
 <ol class=list-inline><li>81</li><li>96</li><li>81</li></ol>
 </div><div class="output text_html">1374.12768554688</div><div class="output text_html">370.333374023438</div><img alt="../_images/Example2_2_3.png" src="../_images/Example2_2_3.png" />
-<img alt="../_images/Example2_2_4.png" src="../_images/Example2_2_4.png" />
 </div>
 </div>
 </div>
@@ -462,7 +463,7 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Example 1: Don’t click if you can script</p>
+            <p class="prev-next-title">Dataset QC Example 1</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="Example3.html" title="next page">

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Example 1: Don’t click if you can script &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Dataset QC Example 1 &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Example 1: Don’t click if you can script
+   Dataset QC Example 1
   </a>
  </li>
  <li class="toctree-l1">
@@ -287,24 +287,12 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Example 1: Don’t click if you can script
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#repetitive-boring-and-or-error-prone-tasks-should-be-scripted-if-possible">
-     Repetitive, boring, and/or error-prone tasks should be scripted if possible.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
    Tutorial: converting eprime files to csv.
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#background">
      Background
     </a>
@@ -321,7 +309,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Example 1: Don’t click if you can script</h1>
+                <h1>Dataset QC Example 1</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -331,24 +319,12 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Example 1: Don’t click if you can script
-  </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#repetitive-boring-and-or-error-prone-tasks-should-be-scripted-if-possible">
-     Repetitive, boring, and/or error-prone tasks should be scripted if possible.
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
    Tutorial: converting eprime files to csv.
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#background">
      Background
     </a>
@@ -364,1314 +340,56 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="example-1-dont-click-if-you-can-script">
-<h1>Example 1: Don’t click if you can script<a class="headerlink" href="#example-1-dont-click-if-you-can-script" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="repetitive-boring-and-or-error-prone-tasks-should-be-scripted-if-possible">
-<h2>Repetitive, boring, and/or error-prone tasks should be scripted if possible.<a class="headerlink" href="#repetitive-boring-and-or-error-prone-tasks-should-be-scripted-if-possible" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Reduces how many errors occur and how quickly they’re found (and corrected).</p></li>
-<li><p>Easy to update the script and rerun if needed.</p></li>
-<li><p>Combine with automatic file transfer as possible. We store some files in <span class="xref myst">box</span>, and use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> to retrieve or upload files directly. box integration examples are not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a>.</p></li>
-</ul>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="tutorial-converting-eprime-files-to-csv">
-<h1>Tutorial: converting eprime files to csv.<a class="headerlink" href="#tutorial-converting-eprime-files-to-csv" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-example-1">
+<h1>Dataset QC Example 1<a class="headerlink" href="#dataset-qc-example-1" title="Permalink to this headline">¶</a></h1>
+<p>Repetitive, boring, and/or error-prone tasks should be scripted if possible; don’t click if you can script!</p>
+<p>Scripting can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
+<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files from box. Box integration examples are not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a>.</p>
+<div class="section" id="tutorial-converting-eprime-files-to-csv">
+<h2>Tutorial: converting eprime files to csv.<a class="headerlink" href="#tutorial-converting-eprime-files-to-csv" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.)</p></li>
 <li><p>This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).</p></li>
-<li><p>The tutorial eprime files are from a heartbeat-counting task similar to Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, then there are three trials during which the participant is asked to count their heart beats; each trial is followed by a 30-second rest period. After each trial participants verbally report how many beats they counted and their confidence in the count. The same order is used for all participants: trial 1 is 25 seconds, trial 2 is 35 seconds, and trial 3 is 45 seconds. A one-minute rest period ends the task.</p></li>
-<li><p>We need to extract the trial onset times to synchronize with the simultaneous EKG recording.</p></li>
-<li><p>For <strong>Dataset QC</strong> we want to verify that the three trials, initial baseline, and final rest periods were all in the expected order and durations.</p></li>
+<li><p>The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p></li>
+<li><p>For <strong>Dataset QC</strong> we will verify that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span> <span class="n">test</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;interoception_demoSub1.txt&quot;</span><span class="p">);</span>
- <span class="nf">print</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># setwd(&quot;d:/maile/svnFiles/plein/conferences/ISMRM2022/onlineExample1&quot;); # for Jo&#39;s local testing</span>
+
+ <span class="n">test</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+ <span class="nf">print</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>  <span class="c1"># should be 315</span>
  
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 1 appears to contain an embedded nul”
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in file(con, &quot;r&quot;):
+“cannot open file &#39;interoception_demoSub1.txt&#39;: No such file or directory”
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 2 appears to contain an embedded nul”
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">):</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">connection</span>
+<span class="ne">Traceback</span>:
+
+<span class="mi">1</span><span class="o">.</span> <span class="n">readLines</span><span class="p">(</span><span class="s2">&quot;interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+<span class="mi">2</span><span class="o">.</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 3 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 4 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 5 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 6 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 7 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 8 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 9 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 10 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 11 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 12 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 13 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 14 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 15 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 16 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 17 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 18 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 19 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 20 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 21 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 22 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 23 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 24 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 25 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 26 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 27 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 28 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 29 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 30 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 31 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 32 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 33 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 34 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 35 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 36 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 37 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 38 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 39 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 40 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 41 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 42 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 43 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 44 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 45 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 46 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 47 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 48 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 49 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 50 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 51 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 52 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 53 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 54 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 55 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 56 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 57 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 58 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 59 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 60 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 61 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 62 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 63 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 64 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 65 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 66 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 67 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 68 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 69 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 70 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 71 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 72 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 73 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 74 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 75 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 76 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 77 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 78 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 79 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 80 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 81 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 82 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 83 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 84 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 85 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 86 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 87 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 88 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 89 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 90 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 91 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 92 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 93 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 94 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 95 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 96 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 97 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 98 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 99 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 100 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 101 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 102 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 103 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 104 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 105 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 106 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 107 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 108 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 109 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 110 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 111 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 112 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 113 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 114 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 115 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 116 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 117 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 118 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 119 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 120 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 121 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 122 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 123 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 124 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 125 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 126 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 127 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 128 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 129 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 130 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 131 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 132 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 133 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 134 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 135 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 136 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 137 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 138 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 139 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 140 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 141 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 142 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 143 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 144 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 145 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 146 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 147 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 148 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 149 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 150 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 151 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 152 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 153 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 154 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 155 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 156 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 157 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 158 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 159 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 160 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 161 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 162 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 163 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 164 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 165 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 166 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 167 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 168 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 169 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 170 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 171 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 172 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 173 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 174 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 175 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 176 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 177 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 178 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 179 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 180 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 181 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 182 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 183 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 184 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 185 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 186 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 187 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 188 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 189 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 190 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 191 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 192 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 193 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 194 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 195 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 196 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 197 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 198 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 199 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 200 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 201 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 202 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 203 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 204 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 205 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 206 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 207 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 208 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 209 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 210 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 211 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 212 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 213 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 214 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 215 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 216 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 217 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 218 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 219 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 220 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 221 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 222 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 223 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 224 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 225 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 226 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 227 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 228 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 229 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 230 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 231 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 232 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 233 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 234 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 235 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 236 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 237 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 238 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 239 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 240 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 241 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 242 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 243 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 244 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 245 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 246 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 247 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 248 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 249 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 250 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 251 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 252 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 253 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 254 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 255 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 256 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 257 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 258 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 259 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 260 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 261 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 262 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 263 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 264 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 265 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 266 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 267 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 268 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 269 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 270 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 271 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 272 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 273 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 274 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 275 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 276 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 277 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 278 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 279 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 280 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 281 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 282 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 283 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 284 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 285 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 286 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 287 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 288 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 289 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 290 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 291 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 292 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 293 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 294 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 295 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 296 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 297 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 298 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 299 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 300 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 301 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 302 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 303 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 304 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 305 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 306 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 307 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 308 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 309 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 310 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 311 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 312 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 313 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 314 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“line 315 appears to contain an embedded nul”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in readLines(&quot;interoception_demoSub1.txt&quot;):
-“incomplete final line found on &#39;interoception_demoSub1.txt&#39;”
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 315
-</pre></div>
-</div>
 </div>
 </div>
-<p>This code uses the <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> R library’s functions for parsing information out of the eprime text recovery file. I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables (such as input paths and subject IDs). This first code block loads eMergeR, clears R’s workspace, and sets the input and output paths.</p>
+<p>This script uses the <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> R library’s functions for parsing information out of the eprime text recovery file. I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. This first code block loads eMergeR, clears R’s workspace, and sets the input and output paths.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
-<span class="c1"># rm(list=ls());   # clear R&#39;s workspace (I usually do this; not sure about in a notebook)</span>
-<span class="c1"># options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches</span>
+<span class="c1">#rm(list=ls());   # clear R&#39;s workspace (I usually do this; not sure about in a notebook)</span>
+<span class="c1">#options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches</span>
 
-<span class="c1"># temp.path &lt;- &quot;d:/temp/&quot;;  # for an example; I don&#39;t know how this is used with notebooks</span>
+<span class="c1"># I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()</span>
+<span class="c1"># or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.</span>
+<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># directory with the input files, usually something like in.path &lt;- &quot;d:/temp/input/&quot;;   </span>
+<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;&quot;</span><span class="p">;</span>   <span class="c1"># directory in which the converted files should be written out.path &lt;- &quot;d:/temp/output/&quot;;   </span>
 </pre></div>
 </div>
 </div>
@@ -1679,56 +397,86 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is then <code class="docutils literal notranslate"><span class="pre">source</span></code>d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">)</span> <span class="p">{</span>  <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;;</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">,</span> <span class="n">do.overwrite</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>  <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;; do.overwrite &lt;- FALSE;</span>
+  <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;starting&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;......&quot;</span><span class="p">);</span>  <span class="c1"># start a message for the function to return</span>
+  <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>  <span class="c1"># error-found flag to avoid stop() or multiple return() statements</span>
+  
   <span class="c1"># make the output directory if it doesn&#39;t already exist </span>
-  <span class="c1"># if (!dir.exists(temp.path)) { dir.create(temp.path); }</span>
+  <span class="c1"># if (!dir.exists(out.path)) { dir.create(out.path); }</span>
   
+  <span class="c1"># check if the input file exists</span>
   <span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception_&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">);</span>   <span class="c1"># build expected input filename</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">temp.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>    <span class="c1"># check if it exists and print messages if not.</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;! Looked in&quot;</span><span class="p">));</span> 
-    <span class="nf">stop</span><span class="p">(</span><span class="n">temp.path</span><span class="p">);</span>
+  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>    <span class="c1"># check if it exists and print error message if not.</span>
+    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span> 
+    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
   <span class="p">}</span> 
   
-  <span class="c1"># file exists, so read it and convert.</span>
-  <span class="n">e.in</span> <span class="o">&lt;-</span> <span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">temp.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">));</span>     <span class="c1"># eMergeR function for reading text recovery files</span>
-  <span class="n">e.tbl</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># initial conversion</span>
-  
-  <span class="c1"># check that some expected fields are present</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">identical</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">Procedure</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;baselineProc&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">)))</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;mismatch!&quot;</span><span class="p">);</span> <span class="p">}</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">|</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;have baseline onsets or offsets??&quot;</span><span class="p">);</span> <span class="p">}</span>
-  
-  <span class="c1"># check that the baseline period is present as expected and of the expected duration</span>
-  <span class="n">tmp.vec</span> <span class="o">&lt;-</span> <span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span>    <span class="c1"># how the baseline5min onset &amp; offset times are in the eprime file</span>
-  <span class="c1"># times in msec, so divide by 1000 for seconds, and 60 for minutes</span>
-  <span class="nf">if </span><span class="p">((</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">]))</span><span class="o">/</span><span class="m">60000</span> <span class="o">!=</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;baseline not 5 min?&quot;</span><span class="p">);</span> 
-  <span class="p">}</span> 
-  <span class="c1"># correct duration, so store values</span>
-  <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>
-  <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
-  
-  <span class="c1"># now have all the info, so write as a csv</span>
-  <span class="n">out.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span>
-  <span class="nf">write.csv</span><span class="p">(</span><span class="n">e.tbl</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">temp.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">),</span> <span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-  <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">temp.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;.csv&quot;</span><span class="p">)))</span> <span class="p">{</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;success! wrote &quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;.csv to disk.&quot;</span><span class="p">));</span>
-  <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> 
-    <span class="nf">stop</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: didn&#39;t write &quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;.csv!!!!&quot;</span><span class="p">));</span> 
+  <span class="c1"># check if output file already exists, and stop if so and do.overwrite is FALSE</span>
+  <span class="n">out.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span>  <span class="c1"># name of the output file to be made</span>
+  <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">do.overwrite</span> <span class="o">==</span> <span class="kc">FALSE</span> <span class="o">&amp;</span> <span class="o">!</span><span class="n">found.error</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;found &quot;</span><span class="p">,</span> <span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">));</span>
+    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;and do.overwrite=FALSE, so conversion stopped! Move file and run do.convert again,&quot;</span><span class="p">);</span>
+    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;or run with do.overwrite=TRUE to replace the file.&quot;</span><span class="p">);</span>
+    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
   <span class="p">}</span>
+  
+  
+  <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># file exists, so read it and convert.</span>
+    <span class="n">e.in</span> <span class="o">&lt;-</span> <span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">));</span>     <span class="c1"># eMergeR function for reading text recovery files</span>
+    <span class="n">e.tbl</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># initial conversion</span>
+    
+    <span class="c1"># check that some fields are present and have the expected values</span>
+    <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">identical</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">Procedure</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;baselineProc&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">)))</span> <span class="p">{</span> 
+      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: mismatch in $Procedure!&quot;</span><span class="p">);</span> 
+      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
+    <span class="p">}</span>
+    <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">|</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span> <span class="p">{</span> 
+      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: have baseline onsets or offsets??&quot;</span><span class="p">);</span> 
+      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># check that the baseline period is present and of the expected duration</span>
+    <span class="n">tmp.vec</span> <span class="o">&lt;-</span> <span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span>    <span class="c1"># how the baseline5min onset &amp; offset times are in the eprime file</span>
+    <span class="c1"># times in msec, so divide by 1000 for seconds, and 60 for minutes</span>
+    <span class="nf">if </span><span class="p">((</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">]))</span><span class="o">/</span><span class="m">60000</span> <span class="o">!=</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span> 
+      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: the baseline was not 5 minutes&quot;</span><span class="p">);</span> 
+      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
+    <span class="p">}</span> 
+  <span class="p">}</span>
+    
+  <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># duration was correct, so store values in correct output table spots and write</span>
+    <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>
+    <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
+    
+    <span class="c1"># now have all the information, so write as a csv</span>
+    <span class="nf">write.csv</span><span class="p">(</span><span class="n">e.tbl</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">),</span> <span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+    
+    <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># confirm file present and print a success message</span>
+      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;success! wrote&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;to disk.&quot;</span><span class="p">));</span>
+    <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> 
+      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;ERROR: didn&#39;t write&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;to disk!!!!&quot;</span><span class="p">));</span> 
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  <span class="nf">print</span><span class="p">(</span><span class="n">return.str</span><span class="p">);</span>
+  <span class="nf">return</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Finally the function is called to convert each participant’s data.</p>
+<p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#do.convert(&quot;demoSub1&quot;);</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#do.convert(&quot;demoSub1&quot;);  # default is do.overwrite=FALSE</span>
+<span class="c1">#do.convert(&quot;demoSub1&quot;, do.overwrite=TRUE);</span>
+<span class="c1">#do.convert(&quot;demoSub2&quot;);   # input filename is incorrect</span>
 
-<span class="c1"># or in a loop. Note that the third subject ID is invalid.</span>
-<span class="c1">#sub.ids &lt;- c(&quot;demoSub2&quot;, &quot;demoSub3&quot;, &quot;demosub3&quot;);</span>
+<span class="c1"># or with a loop. Note that one subject ID has a typo and demoSub4 has a timing error.</span>
+<span class="c1">#sub.ids &lt;- c(&quot;demoSub1&quot;, &quot;demoSub3&quot;, &quot;damoSub3&quot;, &quot;demoSub4&quot;);</span>
 <span class="c1">#for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>
