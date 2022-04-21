@@ -30,7 +30,7 @@ library(RNifti);  # package for NIfTI image reading; https://github.com/jonclayd
 # S1200_AverageT1w_81x96x81.nii.gz (https://osf.io/6hdxv/) is a resampled (via afni 3dresample) 
 # version of S1200_AverageT1w_restore.nii.gz, the HCP 1200 Group Average anatomy, 
 # available from https://balsa.wustl.edu/file/show/7qX8N. 
-img <- readNifti("S1200_AverageT1w_81x96x81.nii.gz");  
+img <- readNifti("example2files/S1200_AverageT1w_81x96x81.nii.gz");  
 
 # the image values are in a 3d array (since this is a single anatomical image, not a timeseries)
 # can apply many normal functions
@@ -38,9 +38,10 @@ dim(img);   # [1] 81 96 81
 max(img);  # [1] 1374.128
 img[30,20,50];  # value of this voxel
 
-image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice k=50
+layout(matrix(1:3, c(1,3)));  # hopefully have three images in one row
+image(img[15,,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice i=15
 image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice j=20
-
+image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice k=50
 
 ```
 
