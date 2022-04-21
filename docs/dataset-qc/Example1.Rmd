@@ -38,9 +38,9 @@ When possible, have scripts read and write files directly from the intended perm
 This script uses the [eMergeR](https://github.com/AWKruijt/eMergeR) R library's functions for parsing information out of the eprime text recovery file. I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. This first code block loads eMergeR, clears R's workspace, and sets the input and output paths. 
 
 ```{r}
-library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
-rm(list=ls());   # clear R's workspace (I usually do this; not sure about in a notebook)
-options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches
+#library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
+#rm(list=ls());   # clear R's workspace (I usually do this; not sure about in a notebook)
+#options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches
 
 # I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()
 # or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.
@@ -125,12 +125,12 @@ Then we can call the function to convert each participant's data. Notice the suc
 
 ```{r}
 
-do.convert("demoSub1");  # default is do.overwrite=FALSE
-do.convert("demoSub1", do.overwrite=TRUE);
-do.convert("demoSub2");   # input filename is incorrect
+#do.convert("demoSub1");  # default is do.overwrite=FALSE
+#do.convert("demoSub1", do.overwrite=TRUE);
+#do.convert("demoSub2");   # input filename is incorrect
 
 # or with a loop. Note that one subject ID has a typo and demoSub4 has a timing error.
-sub.ids <- c("demoSub1", "demoSub3", "damoSub3", "demoSub4");
-for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
+#sub.ids <- c("demoSub1", "demoSub3", "damoSub3", "demoSub4");
+#for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
 
 ```
