@@ -12,9 +12,9 @@ jupyter:
     name: ir
 ---
 
+# Dataset QC Example 3
+Establish and continually perform control analyses.
 
-# Example 3: Establish and continually perform control analyses
-## Control analyses
 Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. **Positive control analyses** check for the existence of effects that **must** be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved.
 
 One of my favorite positive control analyses is **button pressing**: 

@@ -12,15 +12,12 @@ jupyter:
     name: ir
 ---
 
-# Example 2: Highlight important and diagnostic features as efficiently as possible
-## QC reports won't be used if they are too long, ugly, or annoying.
-- Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes "look like brains" and the surfaces have "tiger stripes"). 
-- It often works well to arrange images so can visually survey ("which one of these things is not like the others") and judge typical variability.
-- Collect training examples of what the diagnostic features should (or not) look like.
-- It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.
+# Dataset QC Example 2
+Highlight important and diagnostic features as efficiently as possible. QC reports won't be used if they are too long, ugly, or annoying. Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes "look like brains" and the surfaces have "tiger stripes"). It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.
 
-# Tutorial: fMRI volume (nifti) image plotting
-## Background
+It often works well to arrange images so can visually survey ("which one of these things is not like the others") and judge typical variability. Collect examples of what the diagnostic features should (or not) look like.
+
+## Tutorial: fMRI volume (nifti) image plotting
 Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial includes basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.
 
 
@@ -38,7 +35,8 @@ dim(img);   # [1] 81 96 81
 max(img);  # [1] 1374.128
 img[30,20,50];  # value of this voxel
 
-layout(matrix(1:3, c(1,3)));  # hopefully have three images in one row
+options(repr.plot.width = 8, repr.plot.height = 3);  # specify size in jupyter
+layout(matrix(1:3, c(1,3)));  # have three images in one row
 image(img[15,,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice i=15
 image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice j=20
 image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice k=50

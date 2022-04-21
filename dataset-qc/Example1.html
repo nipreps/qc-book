@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Example 2: Highlight important and diagnostic features as efficiently as possible" href="Example2.html" />
+    <link rel="next" title="Dataset QC Example 2" href="Example2.html" />
     <link rel="prev" title="Dataset QC: Taking control of your data" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -128,17 +128,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example2.html">
-   Example 2: Highlight important and diagnostic features as efficiently as possible
+   Dataset QC Example 2
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example3.html">
-   Example 3: Establish and continually perform control analyses
+   Dataset QC Example 3
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example4.html">
-   Example 4: Make use of automated dynamic reports
+   Dataset QC Example 4
   </a>
  </li>
  <li class="toctree-l1">
@@ -291,13 +291,6 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
    Tutorial: converting eprime files to csv.
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#background">
-     Background
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -323,13 +316,6 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
    Tutorial: converting eprime files to csv.
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#background">
-     Background
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -344,37 +330,26 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>Dataset QC Example 1<a class="headerlink" href="#dataset-qc-example-1" title="Permalink to this headline">¶</a></h1>
 <p>Repetitive, boring, and/or error-prone tasks should be scripted if possible; don’t click if you can script!</p>
 <p>Scripting can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
-<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files from box. Box integration examples are not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a>.</p>
+<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files from box. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a>.</p>
 <div class="section" id="tutorial-converting-eprime-files-to-csv">
 <h2>Tutorial: converting eprime files to csv.<a class="headerlink" href="#tutorial-converting-eprime-files-to-csv" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="background">
-<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.)</p></li>
-<li><p>This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).</p></li>
-<li><p>The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p></li>
-<li><p>For <strong>Dataset QC</strong> we will verify that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.</p></li>
-</ul>
+<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.) This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).</p>
+<p>The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p>
+<p>In this tutorial we will convert the eprime text recovery files to csv. The code also checks that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># setwd(&quot;d:/maile/svnFiles/plein/conferences/ISMRM2022/onlineExample1&quot;); # for Jo&#39;s local testing</span>
 
- <span class="n">test</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+ <span class="n">test</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;example1files/interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
  <span class="nf">print</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>  <span class="c1"># should be 315</span>
+ 
+ <span class="nf">write.table</span><span class="p">(</span><span class="s">&quot;testing&quot;</span><span class="p">,</span> <span class="s">&quot;test.txt&quot;</span><span class="p">)</span>
  
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in file(con, &quot;r&quot;):
-“cannot open file &#39;interoception_demoSub1.txt&#39;: No such file or directory”
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">):</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">connection</span>
-<span class="ne">Traceback</span>:
-
-<span class="mi">1</span><span class="o">.</span> <span class="n">readLines</span><span class="p">(</span><span class="s2">&quot;interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
-<span class="mi">2</span><span class="o">.</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 315
 </pre></div>
 </div>
 </div>
@@ -481,7 +456,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-</div>
 
     <script type="text/x-thebe-config">
     {
@@ -518,7 +492,7 @@ const thebe_selector_output = ".output, .cell_output"
     <a class='right-next' id="next-link" href="Example2.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Example 2: Highlight important and diagnostic features as efficiently as possible</p>
+        <p class="prev-next-title">Dataset QC Example 2</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
