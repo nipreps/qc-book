@@ -44,7 +44,7 @@ options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for parti
 
 # I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()
 # or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.
-in.path <- "";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
+in.path <- "example1files/";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
 out.path <- "";   # directory in which the converted files should be written out.path <- "d:/temp/output/";   
 
 
