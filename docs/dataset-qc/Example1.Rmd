@@ -17,21 +17,23 @@ Repetitive, boring, and/or error-prone tasks should be scripted if possible; don
 
 Scripting can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.
 
-When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in [box](box.com). These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use [boxr](https://github.com/r-box/boxr) functions to retrieve and upload files from box. Box integration examples are not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R). 
+When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in [box](box.com). These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use [boxr](https://github.com/r-box/boxr) functions to retrieve and upload files from box. Box integration is not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R). 
 
 ## Tutorial: converting eprime files to csv. 
-### Background
-- [Eprime](https://pstnet.com/products/e-prime/) saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.)
-- This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).
-- The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry ([2009](https://doi.org/10.1002/da.20504)). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.  
-- For **Dataset QC** we will verify that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.
+[Eprime](https://pstnet.com/products/e-prime/) saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.) This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).
+
+The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry ([2009](https://doi.org/10.1002/da.20504)). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.  
+
+In this tutorial we will convert the eprime text recovery files to csv. The code also checks that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.
 
 ```{r}
 
 # setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/onlineExample1"); # for Jo's local testing
 
- test <- readLines("interoception_demoSub1.txt", warn=FALSE);
+ test <- readLines("example1files/interoception_demoSub1.txt", warn=FALSE);
  print(length(test));  # should be 315
+ 
+ write.table("testing", "test.txt")
  
 ```
 

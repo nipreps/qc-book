@@ -12,7 +12,8 @@ jupyter:
     name: ir
 ---
 
-# Example 4: Make use of automated dynamic reports
+# Dataset QC Example 4
+Make use of automated dynamic reports
 
 ```{r}
 
