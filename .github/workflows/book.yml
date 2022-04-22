@@ -84,6 +84,7 @@ jobs:
 
     - name: Install R dependencies
       run: |
+        unset GITHUB_PAT
         Rscript install.R
 
     # Build the page
