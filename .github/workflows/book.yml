@@ -21,6 +21,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends \
+                             build-essential \
                              bzip2 \
                              ca-certificates \
                              cm-super \
@@ -28,6 +29,9 @@ jobs:
                              dvipng \
                              fontconfig \
                              fonts-freefont-ttf \
+                             libcurl4-gnutls-dev \
+                             libssl-dev \
+                             libxml2-dev \
                              r-base \
                              texlive-fonts-extra \
                              texlive-fonts-recommended \
