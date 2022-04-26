@@ -141,11 +141,6 @@ const thebe_selector_output = ".output, .cell_output"
    Dataset QC Example 4
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="using_r.html">
-   Trying to use R
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -287,34 +282,27 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Dataset QC Example 3
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#establish-and-consistently-perform-control-analyses">
+   Establish and consistently perform control analyses.
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#establish-and-consistently-perform-control-analyses">
-     Establish and consistently perform control analyses.
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-ons-timecourses-for-dmcc55b-stroop">
+   Tutorial: ONs timecourses for DMCC55B Stroop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parcel-mean-timecourses">
+     Parcel mean timecourses.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tutorial-ons-timecourses-for-dmcc55b-stroop">
-     Tutorial: ONs timecourses for DMCC55B Stroop
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
+     Full examples and additional notes
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#parcel-mean-timecourses">
-       Parcel mean timecourses.
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
-   Full examples and additional notes
-  </a>
  </li>
 </ul>
 
@@ -336,34 +324,27 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Dataset QC Example 3
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#establish-and-consistently-perform-control-analyses">
+   Establish and consistently perform control analyses.
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#establish-and-consistently-perform-control-analyses">
-     Establish and consistently perform control analyses.
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-ons-timecourses-for-dmcc55b-stroop">
+   Tutorial: ONs timecourses for DMCC55B Stroop
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parcel-mean-timecourses">
+     Parcel mean timecourses.
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tutorial-ons-timecourses-for-dmcc55b-stroop">
-     Tutorial: ONs timecourses for DMCC55B Stroop
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
+     Full examples and additional notes
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#parcel-mean-timecourses">
-       Parcel mean timecourses.
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#full-examples-and-additional-notes">
-   Full examples and additional notes
-  </a>
  </li>
 </ul>
 
@@ -392,16 +373,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p>The input files for this tutorial were made in two steps. First was the code in the first block of <a class="reference external" href="https://osf.io/f79p6/">controlAnalysis_prep.R</a>, which uses <a class="reference external" href="https://github.com/muschellij2/gifti">readGIfTI</a> to read each gifti file created during <a class="reference external" href="https://openneuro.org/datasets/ds003465/">fmriprep preprocessing</a>, write it into a temporary .1D text matrix file, then calls <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDetrend.html">AFNI’s 3dDetrend</a> function to <a class="reference external" href="http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html">normalize and detrend</a> each vertex’s timecourse. (At the time of writing, 3dDetrend does not accept gifti image inputs, so the “1D” text files are a work-around.) Aside: it’s possible to avoid AFNI, implementing the normalize and detrend steps entirely in R. I prefer the AFNI function, however, to avoid introducing errors, and for clarity; using established functions and programs whenever possible is generally advisable.</p>
 <p>The second step is to make parcel-average timecourses with AFNI’s <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html">3dROIstats</a>. The code and necessary input files for this is in the startup code chunk of <a class="reference external" href="https://osf.io/z8g4u/">controlAnalysis_ONs.rnw</a>. This uses the <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/FreeSurfer5.3">1000-parcel, 17-network Schaefer parcellation</a>.</p>
 <p>The _events.tsv files (also part of the <a class="reference external" href="https://openneuro.org/datasets/ds003465/">released dataset</a>) can then be used to find the onset of each trial for each person, which we can plot to see if they resemble an HRF in the expected brain areas.</p>
-<p>We can use parcel 116 (17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (17Networks_RH_DefaultB_PFCv_2) for comparison. (<a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv">Parcel labels</a>) <img alt="parcel 116" src="../_images/Schaefer1000x17_p116_outer.jpg" /> <img alt="parcel 964" src="../_images/Schaefer1000x17_p964_outer.jpg" /></p>
-<p>more words
-<a class="reference internal" href="../_images/Schaefer1000x17_p116_outer.jpg"><img alt="../_images/Schaefer1000x17_p116_outer.jpg" src="../_images/Schaefer1000x17_p116_outer.jpg" style="width: 150px;" /></a> <a class="reference internal" href="../_images/Schaefer1000x17_p964_outer.jpg"><img alt="../_images/Schaefer1000x17_p964_outer.jpg" src="../_images/Schaefer1000x17_p964_outer.jpg" style="width: 150px;" /></a></p>
+<p>We can use parcel 116 (below left, 17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (below right, 17Networks_RH_DefaultB_PFCv_2) for comparison. (<a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv">Parcel labels</a>)
+<a class="reference internal" href="../_images/Schaefer1000x17_p116_outer.jpg"><img alt="../_images/Schaefer1000x17_p116_outer.jpg" src="../_images/Schaefer1000x17_p116_outer.jpg" style="width: 250px;" /></a> <a class="reference internal" href="../_images/Schaefer1000x17_p964_outer.jpg"><img alt="../_images/Schaefer1000x17_p964_outer.jpg" src="../_images/Schaefer1000x17_p964_outer.jpg" style="width: 250px;" /></a></p>
 <div class="section" id="parcel-mean-timecourses">
 <h3>Parcel mean timecourses.<a class="headerlink" href="#parcel-mean-timecourses" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
 <span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
 <span class="c1"># setwd(&quot;d:/maile/svnFiles/plein/conferences/ISMRM2022/&quot;);   # for Jo&#39;s local testing</span>
@@ -424,8 +404,8 @@ const thebe_selector_output = ".output, .cell_output"
   
   <span class="c1"># start an empty plot</span>
   <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span>
-       <span class="n">xaxs</span><span class="o">=</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">0.8</span><span class="p">);</span>
-  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.7</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
+       <span class="n">xaxs</span><span class="o">=</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">1</span><span class="p">);</span>
+  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
   <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
   
   <span class="n">all.means</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span> 
@@ -483,7 +463,7 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="c1"># start an empty plot</span>
   <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span>
        <span class="n">xaxs</span><span class="o">=</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">0.8</span><span class="p">);</span>
-  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.7</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
+  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.7</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
   <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
   
   <span class="n">all.means</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span> 
@@ -519,25 +499,16 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">paste0</span><span class="p">(</span><span class="s2">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem</span><span class="o">.</span><span class="n">lbl</span><span class="p">,</span> <span class="s2">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">):</span> <span class="nb">object</span> <span class="s1">&#39;rid&#39;</span> <span class="ow">not</span> <span class="n">found</span>
-<span class="ne">Traceback</span>:
-
-<span class="mi">1</span><span class="o">.</span> <span class="n">plot</span><span class="o">.</span><span class="n">means</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="mi">116</span><span class="p">,</span> <span class="s2">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s2">&quot;run1_np2_L.txt&quot;</span><span class="p">)</span>
-<span class="mi">2</span><span class="o">.</span> <span class="n">mtext</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="s2">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem</span><span class="o">.</span><span class="n">lbl</span><span class="p">,</span> <span class="s2">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
- <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">line</span> <span class="o">=</span> <span class="mf">0.15</span><span class="p">)</span>   <span class="c1"># at line 15 of file &lt;text&gt;</span>
-<span class="mi">3</span><span class="o">.</span> <span class="k">as</span><span class="o">.</span><span class="n">graphicsAnnot</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-<span class="mi">4</span><span class="o">.</span> <span class="n">paste0</span><span class="p">(</span><span class="s2">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem</span><span class="o">.</span><span class="n">lbl</span><span class="p">,</span> <span class="s2">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">)</span>   <span class="c1"># at line 15 of file &lt;text&gt;</span>
-</pre></div>
-</div>
+<img alt="../_images/Example3_5_0.png" src="../_images/Example3_5_0.png" />
 </div>
 </div>
 <p>Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.</p>
 </div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="full-examples-and-additional-notes">
-<h1>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="full-examples-and-additional-notes">
+<h3>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">¶</a></h3>
 <p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html">buttons</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html">ONs</a> positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
