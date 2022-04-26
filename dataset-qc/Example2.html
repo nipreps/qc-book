@@ -53,8 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Dataset QC Example 3" href="Example3.html" />
-    <link rel="prev" title="Dataset QC Example 1" href="Example1.html" />
+    <link rel="next" title="Dataset QC 3: Establish and consistently perform control analyses" href="Example3.html" />
+    <link rel="prev" title="Dataset QC 1: don’t click if you can script" href="Example1.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example1.html">
-   Dataset QC Example 1
+   Dataset QC 1: don’t click if you can script
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -133,7 +133,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example3.html">
-   Dataset QC Example 3
+   Dataset QC 3: Establish and consistently perform control analyses
   </a>
  </li>
  <li class="toctree-l1">
@@ -282,19 +282,12 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Dataset QC Example 2
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
+   Tutorial: fMRI volume (nifti) image plotting
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
-     Tutorial: fMRI volume (nifti) image plotting
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-examples-and-notes">
    Additional examples and notes
   </a>
@@ -319,19 +312,12 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Dataset QC Example 2
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
+   Tutorial: fMRI volume (nifti) image plotting
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
-     Tutorial: fMRI volume (nifti) image plotting
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-examples-and-notes">
    Additional examples and notes
   </a>
@@ -386,14 +372,14 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="additional-examples-and-notes">
-<h1>Additional examples and notes<a class="headerlink" href="#additional-examples-and-notes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="additional-examples-and-notes">
+<h2>Additional examples and notes<a class="headerlink" href="#additional-examples-and-notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html">temporal mean, SD, and tSNR</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html">motion (realignment parameters)</a> examples. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p></li>
 <li><p>Examples of the files created for each <a class="reference external" href="https://sites.wustl.edu/dualmechanisms/">DMCC</a> participant may also be useful; see <a class="reference external" href="https://osf.io/z62s5/">https://osf.io/z62s5/</a> and other files in the <em>analyses</em> subdirectory.</p></li>
 <li><p>I suggest using the <a class="reference external" href="https://github.com/jonclayden/RNifti">RNifti</a>, <a class="reference external" href="https://github.com/muschellij2/gifti">gifti</a>, and <a class="reference external" href="https://github.com/mandymejia/ciftiTools">ciftiTools</a> R packages for file i/o. I <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">wrote tutorials</a> for working with nifti and gifti images using these libraries, plus markdown-friendly plotting functions.</p></li>
 </ul>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -425,13 +411,13 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Dataset QC Example 1</p>
+            <p class="prev-next-title">Dataset QC 1: don’t click if you can script</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="Example3.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dataset QC Example 3</p>
+        <p class="prev-next-title">Dataset QC 3: Establish and consistently perform control analyses</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
