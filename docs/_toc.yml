@@ -12,7 +12,6 @@ parts:
   - file: dataset-qc/Example2
   - file: dataset-qc/Example3
   - file: dataset-qc/Example4
-  - file: dataset-qc/using_r
 - caption: Animal QA/QC
   chapters:
   - file: animal-qc/intro

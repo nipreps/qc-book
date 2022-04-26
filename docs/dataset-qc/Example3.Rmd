@@ -39,17 +39,15 @@ The second step is to make parcel-average timecourses with AFNI's [3dROIstats](h
 
 The _events.tsv files (also part of the [released dataset](https://openneuro.org/datasets/ds003465/)) can then be used to find the onset of each trial for each person, which we can plot to see if they resemble an HRF in the expected brain areas. 
 
-We can use parcel 116 (17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (17Networks_RH_DefaultB_PFCv_2) for comparison. ([Parcel labels](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv)) ![parcel 116](example3files/Schaefer1000x17_p116_outer.jpg) ![parcel 964](example3files/Schaefer1000x17_p964_outer.jpg)
-
-more words
-<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="150"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="150"/> 
+We can use parcel 116 (below left, 17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (below right, 17Networks_RH_DefaultB_PFCv_2) for comparison. ([Parcel labels](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv))
+<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="250"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="250"/> 
 
 ### Parcel mean timecourses.
 
 ```{r}
 options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
 layout(matrix(1:4, c(1,4)));  # have four images in one row
-par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
+par(mar=c(2, 2.5, 1.5, 1), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
 # mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.
 
 # setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/");   # for Jo's local testing
@@ -72,8 +70,8 @@ plot.means <- function(rid, pid) {   # rid <- 1; pid <- 116;
   
   # start an empty plot
   plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
-       xaxs='i', cex.axis=0.8, cex.lab=0.8);
-  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+       xaxs='i', cex.axis=1, cex.lab=1);
+  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.8, line=0.15);  # title
   lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
   
   all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
@@ -128,7 +126,7 @@ plot.means.fn <- function(pid, ev.suff, np.suff) {    # pid <- 116; ev.suff <- "
   # start an empty plot
   plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
        xaxs='i', cex.axis=0.8, cex.lab=0.8);
-  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+  mtext(paste0("Surface. p", pid, hem.lbl, " ", np.suff), side=3, cex=0.7, line=0.15);  # title
   lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
   
   all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
@@ -164,5 +162,5 @@ plot.means.fn(116, "acq-mb4PA_run-2_events.tsv", "run2_np2_L.txt");
 ```
 Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.
 
-# Full examples and additional notes
+### Full examples and additional notes
 The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include [buttons](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) and [ONs](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
