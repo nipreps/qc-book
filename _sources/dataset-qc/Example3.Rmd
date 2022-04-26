@@ -13,33 +13,156 @@ jupyter:
 ---
 
 # Dataset QC Example 3
-Establish and continually perform control analyses.
+## Establish and consistently perform control analyses.
 
-Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. **Positive control analyses** check for the existence of effects that **must** be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved.
+Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. **Positive control analyses** check for the existence of effects that *must* be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved. Stated another way, a positive control analysis is one that is not of experimental interest, but has a very predictable outcome; so predictable that we are concerned if it is not found.
 
-One of my favorite positive control analyses is **button pressing**: 
-- We know exactly when the person made a motor response, and M1's location, so run a GLM (or whatever) modelling the button press events (only) and check if motor activation was detected.
+The [DMCC55B supplemental](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) includes two of my favorite positive control analyses, **"buttons"** and **"ONs"**, which can be adapted a wide variety of task paradigms. "buttons" is shorthand for analyzing the activity associated with the task responses (e.g., moving fingers to press buttons). Task responses like button presses are excellent targets for positive controls because the occurrence of movement can be objectively verified (unlike e.g., psychological states, whose existence is necessarily inferred), and motor activity is generally strong, focal, and located in a [low g-factor area](https://doi.org/10.1016/j.neuroimage.2021.117965) (i.e., with better fMRI SNR). Further, it is nearly always possible to design a control analysis of the responses that is not tied to the experimental hypotheses. (To avoid circularity, control analyses must be independent of experimental hypotheses and have high face validity.)
 
-They should be performed in separate GLMs (or whatever type of analysis is relevant), and are not included in multiple comparison corrections.
-- Negative control analyses
+"ONs" is shorthand for "on-task": contrasting BOLD during *all* task trials against baseline. We expect task-relevant areas (such as visual if trials include a visual stimulus) should have response resembling the HRF. 
 
- should I believe a cognitive effect that appears if the (presumably) stronger and more focal motor effect does not?
-"ON-task" analyses (all trials vs. baseline) are also generally useful for dataset QC.
-Relevant areas (such as visual if trials include a visual stimulus) should have response resembling the HRF.
-Control analyses should be carried out in each individual and at the group level.
-Provide a "yardstick" for evaluating signal strength and quality.
+A control analysis can be extremely valuable for identifying dataset errors (see examples below), even if it is quite different than the experimental effects of interest, but when possible, more tailored control analyses can be even more useful. For example, an experiment targeting reward processes likely has regions of interest much more towards the middle of the brain than the M1 activity detected in a "buttons" control analysis; it would be possible for image SNR to be sufficient to detect button-pressing but not reward-related activity. In cases like these I suggest examining whether a more relevant control analysis is possible. For example, suppose the experimental questions are designed around the impact of different trial instructions, with intermixed no-reward catch trials. If the contrast of reward and no-reward trials is not of experimental interest it could serve as a positive control: we could expect that the reward > no-reward effect would be larger than a modulation in reward effect caused by the experimental manipulation. 
 
-# Tutorial: not sure what would be feasible
-## Background
-placeholder.
+In certain cases a negative control analysis may also be relevant, such as that color is not the dominant factor in a visual experiment. Negative control analyses must be designed and used with great caution, however, and in conjunction with positive controls, not instead of them: there are many, many reasons to not find an effect, and a single analysis likely will not be able to distinguish the reasons.
 
+Ideally, positive control analyses can serve as a way of evaluating signal strength and quality, both at the individual and group levels. For example, suppose a participant has unusual looking scans and it is unclear whether the images are usable. If the control analyses fail, you can be confident that excluding those scans is the correct choice. For another example, if you do not find a hoped-for experimental effect but the control analyses are clear and strong, you can be confident that a straightforward dataset QC error was not to blame. Conversely, if a cognitive experimental effect is found but the (presumably) stronger and more focal motor effect in a buttons control analysis is not found, I am unlikely to believe the cognitive effect.
+
+
+## Tutorial: ONs timecourses for DMCC55B Stroop
+This example uses Stroop task fMRI data from five DMCC55B participants, and the surface version of the data. See the DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) and supplementals for more details, explanation, and the [entire dataset](https://openneuro.org/datasets/ds003465/).
+
+The DMCC includes a color-word Stroop, with spoken responses. The task trials are very short (participants are asked to name the color as quickly as possible), and we can expect that both the visual (word stimulus) and motor (spoken answer) activations will be strong and consistent. Stroop experiments usually make predictions about effects of features such as congruency (same ink color as the printed word or not) or ordering (e.g., if a particular color is usually congruent); analyses for these types of effects require comparing responses for different trials. For the positive control analysis we will include all trials, ignoring hypothesis-relevant features such as congruency. I consider this an "ONs" analysis because it includes all trials and I expect trial-related activity in visual, language, and motor (especially speaking) areas; the typical "task positive" and "task negative" areas. A "buttons" analysis would also work well (taking all trials with a response and looking for motor activity); in this particular case the trials are so short (onset immediately followed by response and nearly all trials with a spoken response) that the two control analyses are not especially distinctive.
+
+The input files for this tutorial were made in two steps. First was the code in the first block of [controlAnalysis_prep.R](https://osf.io/f79p6/), which uses [readGIfTI](https://github.com/muschellij2/gifti) to read each gifti file created during [fmriprep preprocessing](https://openneuro.org/datasets/ds003465/), write it into a temporary .1D text matrix file, then calls [AFNI's 3dDetrend](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDetrend.html) function to [normalize and detrend](http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html) each vertex's timecourse. (At the time of writing, 3dDetrend does not accept gifti image inputs, so the "1D" text files are a work-around.) Aside: it's possible to avoid AFNI, implementing the normalize and detrend steps entirely in R. I prefer the AFNI function, however, to avoid introducing errors, and for clarity; using established functions and programs whenever possible is generally advisable.
+
+The second step is to make parcel-average timecourses with AFNI's [3dROIstats](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html). The code and necessary input files for this is in the startup code chunk of [controlAnalysis_ONs.rnw](https://osf.io/z8g4u/). This uses the [1000-parcel, 17-network Schaefer parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/FreeSurfer5.3).
+
+The _events.tsv files (also part of the [released dataset](https://openneuro.org/datasets/ds003465/)) can then be used to find the onset of each trial for each person, which we can plot to see if they resemble an HRF in the expected brain areas. 
+
+We can use parcel 116 (17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (17Networks_RH_DefaultB_PFCv_2) for comparison. ([Parcel labels](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv)) ![parcel 116](example3files/Schaefer1000x17_p116_outer.jpg) ![parcel 964](example3files/Schaefer1000x17_p964_outer.jpg)
+
+more words
+<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="150"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="150"/> 
+
+### Parcel mean timecourses.
 
 ```{r}
+options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
+layout(matrix(1:4, c(1,4)));  # have four images in one row
+par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
+# mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.
 
-# something or other
+# setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/");   # for Jo's local testing
 
+# define some variables to be used later in this script
+# I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()
+# or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.
+in.path <- "example3files/";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
+sub.ids <- c("f1027ao", "f1031ax", "f1342ku", "f1550bc", "f1552xo");  # first 5 DMCC55B people
+sub.clrs <- c("lightblue", "grey", "pink", "lightgreen", "lightsalmon");  # a color for each person
+run.ids <- c("AP", "PA");
+TR <- 1.2;  # in seconds
+do.trim <- 0.1;  # trimming for robust stats
+n.TRs <- 9;  # how many TRs to plot along the x axis
+
+# the plotting code, in a function to allow use with different parcels and runs
+# rid is the run to plot (1 or 2); pid is the parcel to plot (1:1000)
+plot.means <- function(rid, pid) {   # rid <- 1; pid <- 116;  
+  if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  # parcels > 500 are on R
+  
+  # start an empty plot
+  plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
+       xaxs='i', cex.axis=0.8, cex.lab=0.8);
+  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+  lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
+  
+  all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
+  for (sid in 1:length(sub.ids)) {     #   sid <- 1;
+    ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_acq-mb4", run.ids[rid], "_run-", rid, "_events.tsv");
+    np.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_run", rid, "_np2_", hem.lbl, ".txt"); 
+    
+    if (file.exists(ev.fname) & file.exists(np.fname)) {
+      np.tbl <- read.delim(np.fname); 
+      # surface "timecourses" files have parcel names for the columns, so need to use indicies.
+      if (ncol(np.tbl) == 502) { np.tbl <- np.tbl[,3:502]; } else { stop("ncol(np.tbl) != 502"); }
+      
+      ev.tbl <- read.delim(ev.fname, na.strings="n/a", stringsAsFactors=FALSE);
+      if (length(which(is.na(ev.tbl$onset))) > 0) { stop("is.na(ev.tbl$onset)"); }
+      ev.vec <- round(ev.tbl$onset/TR);   # integer onsets in TRs
+      
+      tmp.tbl <- array(NA, c(length(ev.vec), (n.TRs+1)));  # to store all trials for this person, run
+      for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:(ev.vec[i]+n.TRs), pid-hem.dif]; } 
+      all.means[sid,] <- apply(tmp.tbl, 2, mean, trim=do.trim);  # calculate across-trials average for this person, parcel, run
+      lines(x=0:n.TRs, y=all.means[sid,], col=sub.clrs[sid]);   # plot this person's mean
+    }
+  }
+  lines(x=0:n.TRs, y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
+  box();
+}
+
+
+plot.means(1, 116);  # call the function for the 1st run, parcel 116 17Networks_LH_SomMotB_Cent_8
+plot.means(2, 116);  # plot parcel 116 again, with run 2
+
+plot.means(1, 964);   # run 1, parcel 964 17Networks_RH_DefaultB_PFCv_2
+plot.means(2, 964);   # and run 2
 
 ```
+
+Notice the different appearance of the timecourses for the two parcels: the activation is higher around 4 TRs (4.8) seconds after trial onset in both runs in most people in the somatomotor network parcel (116) but not the default network parcel (964). It is also reassuring that the parcel differences are greater than the run differences. A [more complete analysis](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) includes all 55 participants and 1000 parcels. 
+
+Here is another version of the plotting function, in which file names are the parameters instead of parcel and run indices.
+
+```{r}
+options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
+layout(matrix(1:4, c(1,4)));  # have four images in one row
+par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
+# mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.
+
+# the plotting code, in a function taking (part of) the event and parcel filenames
+# ev.suff is the last part of the _events.tsv filename, np.suff the same for the file with parcel-average timecourses.
+# pid is the parcel to plot (1:1000). rid is not needed since each file only has data for one run.
+plot.means.fn <- function(pid, ev.suff, np.suff) {    # pid <- 116; ev.suff <- "acq-mb4AP_run-1_events.tsv"; np.suff <- "run1_np2_L.txt"; 
+  if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  # parcels > 500 are on R
+  
+  # start an empty plot
+  plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
+       xaxs='i', cex.axis=0.8, cex.lab=0.8);
+  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+  lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
+  
+  all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
+  for (sid in 1:length(sub.ids)) {     #   sid <- 1;
+    ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_", ev.suff);
+    np.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_", np.suff); 
+    
+    if (file.exists(ev.fname) & file.exists(np.fname)) {
+      np.tbl <- read.delim(np.fname); 
+      # surface "timecourses" files have parcel names for the columns, so need to use indicies.
+      if (ncol(np.tbl) == 502) { np.tbl <- np.tbl[,3:502]; } else { stop("ncol(np.tbl) != 502"); }
+      
+      ev.tbl <- read.delim(ev.fname, na.strings="n/a", stringsAsFactors=FALSE);
+      if (length(which(is.na(ev.tbl$onset))) > 0) { stop("is.na(ev.tbl$onset)"); }
+      ev.vec <- round(ev.tbl$onset/TR);   # integer onsets in TRs
+      
+      tmp.tbl <- array(NA, c(length(ev.vec), (n.TRs+1)));  # to store all trials for this person, run
+      for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:(ev.vec[i]+n.TRs), pid-hem.dif]; } 
+      all.means[sid,] <- apply(tmp.tbl, 2, mean, trim=do.trim);  # calculate across-trials average for this person, parcel, run
+      lines(x=0:n.TRs, y=all.means[sid,], col=sub.clrs[sid]);   # plot this person's mean
+    }
+  }
+  lines(x=0:n.TRs, y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
+  box();
+}
+
+# parcel 116 is on the left; parcels > 500 need _R.txt
+plot.means.fn(116, "acq-mb4AP_run-1_events.tsv", "run1_np2_L.txt");  # call the function for the 1st run, parcel 116 17Networks_LH_SomMotB_Cent_8
+plot.means.fn(116, "acq-mb4AP_run-1_events.tsv", "run2_np2_L.txt");  # and again
+plot.means.fn(116, "acq-mb4PA_run-2_events.tsv", "run1_np2_L.txt");
+plot.means.fn(116, "acq-mb4PA_run-2_events.tsv", "run2_np2_L.txt");
+
+```
+Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.
 
 # Full examples and additional notes
 The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include [buttons](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) and [ONs](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
