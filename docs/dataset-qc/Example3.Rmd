@@ -39,7 +39,7 @@ The second step is to make parcel-average timecourses with AFNI's [3dROIstats](h
 
 The _events.tsv files (also part of the [released dataset](https://openneuro.org/datasets/ds003465/)) can then be used to find the onset of each trial for each person, which we can plot to see if they resemble an HRF in the expected brain areas. 
 
-We can use parcel 116 as a motor control: ![parcel 116](Schaefer1000x17_p116_outer.jpg)
+We can use parcel 116 as a motor control: ![parcel 116](example3/Schaefer1000x17_p116_outer.jpg)
 
 ### Parcel 116 timecourses with the correct event timing for each person.
 
@@ -55,8 +55,7 @@ par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);
 # define some variables to be used later in this script
 # I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()
 # or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.
-in.path <- "";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
-out.path <- "";   # directory in which the converted files should be written out.path <- "d:/temp/output/";   
+in.path <- "example3/";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
 
 sub.ids <- c("f1027ao", "f1031ax", "f1342ku", "f1550bc", "f1552xo");  # first 5 DMCC55B people
 sub.clrs <- c("lightblue", "grey", "pink", "lightgreen", "lightsalmon");  # a color for each person
