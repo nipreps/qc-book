@@ -31,9 +31,8 @@ In this tutorial we will convert the eprime text recovery files to csv. The code
 # setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/onlineExample1"); # for Jo's local testing
 
  test <- readLines("example1files/interoception_demoSub1.txt", warn=FALSE);
- print(length(test));  # should be 315
- 
- write.table("testing", "test.txt")
+ print(length(test));  # should be 315 
+
  
 ```
 

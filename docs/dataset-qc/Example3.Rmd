@@ -39,47 +39,46 @@ The second step is to make parcel-average timecourses with AFNI's [3dROIstats](h
 
 The _events.tsv files (also part of the [released dataset](https://openneuro.org/datasets/ds003465/)) can then be used to find the onset of each trial for each person, which we can plot to see if they resemble an HRF in the expected brain areas. 
 
-We can use parcel 116 as a motor control: ![parcel 116](example3/Schaefer1000x17_p116_outer.jpg)
+We can use parcel 116 (17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (17Networks_RH_DefaultB_PFCv_2) for comparison. ([Parcel labels](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv)) ![parcel 116](example3files/Schaefer1000x17_p116_outer.jpg) ![parcel 964](example3files/Schaefer1000x17_p964_outer.jpg)
 
-### Parcel 116 timecourses with the correct event timing for each person.
+more words
+<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="150"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="150"/> 
+
+### Parcel mean timecourses.
 
 ```{r}
-
-options(repr.plot.width=7, repr.plot.height = 3);  # specify size
-layout(matrix(1:3, c(1,3)));  # have three images in one row
-par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);
+options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
+layout(matrix(1:4, c(1,4)));  # have four images in one row
+par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
 # mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.
 
-# setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/example3"); # for Jo's local testing
+# setwd("d:/maile/svnFiles/plein/conferences/ISMRM2022/");   # for Jo's local testing
 
 # define some variables to be used later in this script
 # I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()
 # or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.
-in.path <- "example3/";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
-
+in.path <- "example3files/";    # directory with the input files, usually something like in.path <- "d:/temp/input/";   
 sub.ids <- c("f1027ao", "f1031ax", "f1342ku", "f1550bc", "f1552xo");  # first 5 DMCC55B people
 sub.clrs <- c("lightblue", "grey", "pink", "lightgreen", "lightsalmon");  # a color for each person
 run.ids <- c("AP", "PA");
 TR <- 1.2;  # in seconds
 do.trim <- 0.1;  # trimming for robust stats
-
 n.TRs <- 9;  # how many TRs to plot along the x axis
 
 # the plotting code, in a function to allow use with different parcels and runs
-
 # rid is the run to plot (1 or 2); pid is the parcel to plot (1:1000)
 plot.means <- function(rid, pid) {   # rid <- 1; pid <- 116;  
   if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  # parcels > 500 are on R
   
   # start an empty plot
-  plot(x=1, y=1, type='n', xlim=c(1,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
+  plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
        xaxs='i', cex.axis=0.8, cex.lab=0.8);
-  mtext(paste0("Surface. p", pid, hem.lbl, " run", rid), side=3, cex=0.6, line=0.15);  # title
-  lines(x=c(-10,1000), y=c(0,0), col='black');    #  horizontal line at zero
+  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+  lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
   
-  all.means <- array(NA, c(length(sub.ids), n.TRs)); 
+  all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
   for (sid in 1:length(sub.ids)) {     #   sid <- 1;
-    ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas", "_task-Stroop_acq-mb4", run.ids[rid], "_run-", rid, "_events.tsv");
+    ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_acq-mb4", run.ids[rid], "_run-", rid, "_events.tsv");
     np.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_run", rid, "_np2_", hem.lbl, ".txt"); 
     
     if (file.exists(ev.fname) & file.exists(np.fname)) {
@@ -91,64 +90,79 @@ plot.means <- function(rid, pid) {   # rid <- 1; pid <- 116;
       if (length(which(is.na(ev.tbl$onset))) > 0) { stop("is.na(ev.tbl$onset)"); }
       ev.vec <- round(ev.tbl$onset/TR);   # integer onsets in TRs
       
-      tmp.tbl <- array(NA, c(length(ev.vec), n.TRs));  # to store all trials for this person, run
-      for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:((ev.vec[i])+(n.TRs-1)), pid-hem.dif]; } 
+      tmp.tbl <- array(NA, c(length(ev.vec), (n.TRs+1)));  # to store all trials for this person, run
+      for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:(ev.vec[i]+n.TRs), pid-hem.dif]; } 
       all.means[sid,] <- apply(tmp.tbl, 2, mean, trim=do.trim);  # calculate across-trials average for this person, parcel, run
-      lines(x=1:n.TRs, y=all.means[sid,], col=sub.clrs[sid]);   # plot this person's mean
+      lines(x=0:n.TRs, y=all.means[sid,], col=sub.clrs[sid]);   # plot this person's mean
     }
   }
-  lines(x=1:n.TRs, y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
+  lines(x=0:n.TRs, y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
   box();
 }
 
-plot.means(1, 116);  # call the function for the 1st run, parcel 116
 
-# same parcel, second run
-plot.means(2, 116); 
+plot.means(1, 116);  # call the function for the 1st run, parcel 116 17Networks_LH_SomMotB_Cent_8
+plot.means(2, 116);  # plot parcel 116 again, with run 2
 
-plot.means(2, 50);   # same run, a different parcel   ... show where this one is
-
-# could get fancy and show the individual trials for each person w/shading ...
+plot.means(1, 964);   # run 1, parcel 964 17Networks_RH_DefaultB_PFCv_2
+plot.means(2, 964);   # and run 2
 
 ```
 
-more text; this has mismatched runs and events; could also do random event "onsets"
+Notice the different appearance of the timecourses for the two parcels: the activation is higher around 4 TRs (4.8) seconds after trial onset in both runs in most people in the somatomotor network parcel (116) but not the default network parcel (964). It is also reassuring that the parcel differences are greater than the run differences. A [more complete analysis](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) includes all 55 participants and 1000 parcels. 
+
+Here is another version of the plotting function, in which file names are the parameters instead of parcel and run indices.
 
 ```{r}
+options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
+layout(matrix(1:4, c(1,4)));  # have four images in one row
+par(mar=c(2, 1, 1.5, 0.5), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
+# mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.
 
-plot(x=1, y=1, type='n', xlim=c(1,8), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
-     xaxs='i', cex.axis=0.8, cex.lab=0.8);
-mtext(paste0("Surface. p", pid, hem.lbl, " run", rid), side=3, cex=0.6, line=0.15); 
-#rect(xleft=start.TR, xright=stop.TR, ybottom=-1, ytop=1, col='cornsilk', border=NA);
-lines(x=c(-10,1000), y=c(0,0), col='black');    #  horizontal line at zero
-
-n.TRs <- 9;  # how many TRs to plot along the x axis
-all.means <- array(NA, c(length(sub.ids), n.TRs)); 
-for (sid in 1:length(sub.ids)) {     #   sid <- 1;
-  ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas", "_task-Stroop_acq-mb4", run.ids[2], "_run-", 2, "_events.tsv");
-  np.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_run", 1, "_np2_", hem.lbl, ".txt"); 
+# the plotting code, in a function taking (part of) the event and parcel filenames
+# ev.suff is the last part of the _events.tsv filename, np.suff the same for the file with parcel-average timecourses.
+# pid is the parcel to plot (1:1000). rid is not needed since each file only has data for one run.
+plot.means.fn <- function(pid, ev.suff, np.suff) {    # pid <- 116; ev.suff <- "acq-mb4AP_run-1_events.tsv"; np.suff <- "run1_np2_L.txt"; 
+  if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  # parcels > 500 are on R
   
-  if (file.exists(ev.fname) & file.exists(np.fname)) {
-    np.tbl <- read.delim(np.fname); 
-    # surface "timecourses" files have parcel names for the columns, so need to use indicies.
-    if (ncol(np.tbl) == 502) { np.tbl <- np.tbl[,3:502]; } else { stop("ncol(np.tbl) != 502"); }
+  # start an empty plot
+  plot(x=1, y=1, type='n', xlim=c(0,n.TRs), ylim=c(-0.015, 0.027), xlab="Frame (after trial onset)", ylab="BOLD (arbitrary units)",
+       xaxs='i', cex.axis=0.8, cex.lab=0.8);
+  mtext(paste0("Surface. p", pid, hem.lbl, " run ", rid), side=3, cex=0.7, line=0.15);  # title
+  lines(x=c(-10,1000), y=c(0,0), col='black');    # draw horizontal line at zero
+  
+  all.means <- array(NA, c(length(sub.ids), (n.TRs+1))); 
+  for (sid in 1:length(sub.ids)) {     #   sid <- 1;
+    ev.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_", ev.suff);
+    np.fname <- paste0(in.path, "sub-", sub.ids[sid], "_ses-wave1bas_task-Stroop_", np.suff); 
     
-    ev.tbl <- read.delim(ev.fname, na.strings="n/a", stringsAsFactors=FALSE);
-    if (length(which(is.na(ev.tbl$onset))) > 0) { stop("is.na(ev.tbl$onset)"); }
-    ev.vec <- round(ev.tbl$onset/TR);   # integer onsets in TRs
-    
-    tmp.tbl <- array(NA, c(length(ev.vec), n.TRs));
-    for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:((ev.vec[i])+(n.TRs-1)), pid-hem.dif]; }  # parcels > 500 are on R
-    all.means[sid,] <- apply(tmp.tbl, 2, mean, trim=do.trim)
-    lines(x=0:(n.TRs-1), y=all.means[sid,], col='darkgrey');
+    if (file.exists(ev.fname) & file.exists(np.fname)) {
+      np.tbl <- read.delim(np.fname); 
+      # surface "timecourses" files have parcel names for the columns, so need to use indicies.
+      if (ncol(np.tbl) == 502) { np.tbl <- np.tbl[,3:502]; } else { stop("ncol(np.tbl) != 502"); }
+      
+      ev.tbl <- read.delim(ev.fname, na.strings="n/a", stringsAsFactors=FALSE);
+      if (length(which(is.na(ev.tbl$onset))) > 0) { stop("is.na(ev.tbl$onset)"); }
+      ev.vec <- round(ev.tbl$onset/TR);   # integer onsets in TRs
+      
+      tmp.tbl <- array(NA, c(length(ev.vec), (n.TRs+1)));  # to store all trials for this person, run
+      for (i in 1:length(ev.vec)) { tmp.tbl[i,] <- np.tbl[ev.vec[i]:(ev.vec[i]+n.TRs), pid-hem.dif]; } 
+      all.means[sid,] <- apply(tmp.tbl, 2, mean, trim=do.trim);  # calculate across-trials average for this person, parcel, run
+      lines(x=0:n.TRs, y=all.means[sid,], col=sub.clrs[sid]);   # plot this person's mean
+    }
   }
+  lines(x=0:n.TRs, y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
+  box();
 }
-lines(x=0:(n.TRs-1), y=apply(all.means, 2, mean, trim=do.trim), col='darkblue', lwd=2);  # across-subjects means
-box();
 
-
+# parcel 116 is on the left; parcels > 500 need _R.txt
+plot.means.fn(116, "acq-mb4AP_run-1_events.tsv", "run1_np2_L.txt");  # call the function for the 1st run, parcel 116 17Networks_LH_SomMotB_Cent_8
+plot.means.fn(116, "acq-mb4AP_run-1_events.tsv", "run2_np2_L.txt");  # and again
+plot.means.fn(116, "acq-mb4PA_run-2_events.tsv", "run1_np2_L.txt");
+plot.means.fn(116, "acq-mb4PA_run-2_events.tsv", "run2_np2_L.txt");
 
 ```
+Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.
 
 # Full examples and additional notes
 The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include [buttons](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) and [ONs](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
