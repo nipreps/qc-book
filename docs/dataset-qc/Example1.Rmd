@@ -12,10 +12,8 @@ jupyter:
     name: ir
 ---
 
-# Dataset QC Example 1
-Repetitive, boring, and/or error-prone tasks should be scripted if possible; don't click if you can script!
-
-Scripting can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.
+# Dataset QC 1: don't click if you can script
+Repetitive, boring, and/or error-prone tasks should be scripted if possible! Scripting can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.
 
 When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in [box](box.com). These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use [boxr](https://github.com/r-box/boxr) functions to retrieve and upload files from box. Box integration is not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R). 
 

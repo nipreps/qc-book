@@ -43,7 +43,7 @@ image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE
 
 ```
 
-# Additional examples and notes
+## Additional examples and notes
 - The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the [temporal mean, SD, and tSNR](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html) and [motion (realignment parameters)](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html) examples. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
 - Examples of the files created for each [DMCC](https://sites.wustl.edu/dualmechanisms/) participant may also be useful; see <https://osf.io/z62s5/> and other files in the *analyses* subdirectory.
 - I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus markdown-friendly plotting functions.
