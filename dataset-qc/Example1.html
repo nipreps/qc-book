@@ -403,10 +403,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>Error in library(eMergeR): there is no package called ‘eMergeR’
-Traceback:
-
-1. library(eMergeR)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: plyr
 </pre></div>
 </div>
 </div>
@@ -476,6 +473,52 @@ Traceback:
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub1&quot;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
+“input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
+“input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
+“input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
+“input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
+“input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Procedure   time       type black.OnsetTime black.Duration
+1 baselineProc 300000   baseline           10617           &lt;NA&gt;
+2         rest  60000    60 rest          436909          60000
+3      trigger  25000 25 seconds            &lt;NA&gt;           &lt;NA&gt;
+4         rest  30000    30 rest          523490          30000
+5      trigger  35000 35 seconds            &lt;NA&gt;           &lt;NA&gt;
+6         rest  30000    30 rest          590051          30000
+7      trigger  45000 45 seconds            &lt;NA&gt;           &lt;NA&gt;
+8         rest  60000    60 rest          666609          60000
+  black.OffsetTime
+1           310617
+2           496909
+3             &lt;NA&gt;
+4           553490
+5             &lt;NA&gt;
+6           620051
+7             &lt;NA&gt;
+8           726609
+[1] 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -483,10 +526,39 @@ Traceback:
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;ERROR: missing input file example1files/interoception_demoSub2.txt!&quot;
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub3&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub3&quot;
+     Procedure   time       type black.OnsetTime black.Duration
+1 baselineProc 300000   baseline           17769           &lt;NA&gt;
+2         rest  60000    60 rest          507197          60000
+3      trigger  25000 25 seconds            &lt;NA&gt;           &lt;NA&gt;
+4         rest  30000    30 rest          593778          30000
+5      trigger  35000 35 seconds            &lt;NA&gt;           &lt;NA&gt;
+6         rest  30000    30 rest          660340          30000
+7      trigger  45000 45 seconds            &lt;NA&gt;           &lt;NA&gt;
+8         rest  60000    60 rest          736897          60000
+  black.OffsetTime
+1           317769
+2           567197
+3             &lt;NA&gt;
+4           623778
+5             &lt;NA&gt;
+6           690340
+7             &lt;NA&gt;
+8           796897
+[1] 
 </pre></div>
 </div>
 </div>
@@ -499,6 +571,12 @@ Traceback:
 <span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
 
 <span class="c1"># list.files(in.path);  # print the names of the files in the input directory</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub4&quot;
+[1] &quot;ERROR: the baseline was not 5 minutes&quot;
 </pre></div>
 </div>
 </div>
