@@ -38,11 +38,13 @@ We will use the [Schaefer2018_LocalGlobal](https://github.com/ThomasYeoLab/CBIG/
 
 To keep things as simple as possible, we can plot the BOLD in each parcel (averaged over its vertices) at each timepoint during the trials (the "parcel-average timeseries"). The time each trial started can be read from the BIDS [_events.tsv files](https://openneuro.org/datasets/ds003465/). The parcel-average timeseries files used as input for this tutorial were made from the gifti files created during fmriprep preprocessing (e.g., [_space-fsaverage5_hemi-L.func.gii](https://openneuro.org/datasets/ds003465/)), using AFNI to [normalize and detrend](http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html) each vertex's timecourse, and then make parcel-average timecourse text files with AFNI's [3dROIstats](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html). See end of this page for script links and more details.
 
+#### Startup and a look at the input data
 Here is an example part of the parcel-average timeseries files made by 3dROIstats. The timecourse is centered around zero due to the detrending and normalizing.
 ```{r}
+options(repr.plot.width=9, repr.plot.height=2);  # specify notebook plot size
 
 # define some variables to be used later in this script
-# I strongly recommend explicitly setting complete paths (e.g., in.path <- 'd:/projects/demo/"
+# I strongly recommend explicitly setting complete paths (e.g., in.path <- 'd:/projects/demo/";)
 # at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.
 in.path <- "example3files/";    # path to input file directory
 sub.ids <- c("f1027ao", "f1031ax", "f1342ku", "f1550bc", "f1552xo");  # first 5 DMCC55B people
@@ -130,7 +132,7 @@ Now we call the function to plot each run for the two parcels:
 
 ```{r}
 # set a few display parameters
-options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
+options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size in notebook
 layout(matrix(1:4, c(1,4)));  # have four images in one row
 par(mar=c(2, 2.5, 1.5, 1), mgp=c(1.1, 0.2, 0), tcl=-0.3);   # specify plot margins, spacing
 # mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.

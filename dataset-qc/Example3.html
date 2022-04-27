@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example1.html">
-   Dataset QC 1: don’t click if you can script
+   Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
@@ -311,6 +311,13 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#implementing-the-control-test">
      Implementing the control test
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#startup-and-a-look-at-the-input-data">
+       Startup and a look at the input data
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#no-stroop-congruency">
@@ -368,6 +375,13 @@ const thebe_selector_output = ".output, .cell_output"
     <a class="reference internal nav-link" href="#implementing-the-control-test">
      Implementing the control test
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#startup-and-a-look-at-the-input-data">
+       Startup and a look at the input data
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#no-stroop-congruency">
@@ -418,11 +432,15 @@ const thebe_selector_output = ".output, .cell_output"
 <p>We will use the <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal">Schaefer2018_LocalGlobal</a> 1000 parcels x 17 networks parcellation for this analysis. This parcellation is independent from the task data, in the same space as the preprocessed images, and has parcels <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv">labeled by network</a>. The example uses parcel 116 (below left, 17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (below right, 17Networks_RH_DefaultB_PFCv_2) for comparison.
 <a class="reference internal" href="../_images/Schaefer1000x17_p116_outer.jpg"><img alt="../_images/Schaefer1000x17_p116_outer.jpg" src="../_images/Schaefer1000x17_p116_outer.jpg" style="width: 250px;" /></a> <a class="reference internal" href="../_images/Schaefer1000x17_p964_outer.jpg"><img alt="../_images/Schaefer1000x17_p964_outer.jpg" src="../_images/Schaefer1000x17_p964_outer.jpg" style="width: 250px;" /></a></p>
 <p>To keep things as simple as possible, we can plot the BOLD in each parcel (averaged over its vertices) at each timepoint during the trials (the “parcel-average timeseries”). The time each trial started can be read from the BIDS <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_events.tsv files</a>. The parcel-average timeseries files used as input for this tutorial were made from the gifti files created during fmriprep preprocessing (e.g., <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_space-fsaverage5_hemi-L.func.gii</a>), using AFNI to <a class="reference external" href="http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html">normalize and detrend</a> each vertex’s timecourse, and then make parcel-average timecourse text files with AFNI’s <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html">3dROIstats</a>. See end of this page for script links and more details.</p>
+<div class="section" id="startup-and-a-look-at-the-input-data">
+<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
 <p>Here is an example part of the parcel-average timeseries files made by 3dROIstats. The timecourse is centered around zero due to the detrending and normalizing.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># define some variables to be used later in this script</span>
-<span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify notebook plot size</span>
+
+<span class="c1"># define some variables to be used later in this script</span>
+<span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;;)</span>
 <span class="c1"># at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</span>
 <span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example3files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
 <span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;f1027ao&quot;</span><span class="p">,</span> <span class="s">&quot;f1031ax&quot;</span><span class="p">,</span> <span class="s">&quot;f1342ku&quot;</span><span class="p">,</span> <span class="s">&quot;f1550bc&quot;</span><span class="p">,</span> <span class="s">&quot;f1552xo&quot;</span><span class="p">);</span>  <span class="c1"># first 5 DMCC55B people</span>
@@ -474,7 +492,7 @@ const thebe_selector_output = ".output, .cell_output"
 10                             0.013102
 </pre></div>
 </div>
-<img alt="../_images/Example3_3_1.png" src="../_images/Example3_3_1.png" />
+<img alt="../_images/Example3_4_1.png" src="../_images/Example3_4_1.png" />
 </div>
 </div>
 <p>And the _events.tsv. The onsets are stored as seconds, which we can convert to TRs for ease of selecting image frames. The plot shows that there are many trials in each run, temporally arranged into three groups.</p>
@@ -501,7 +519,8 @@ const thebe_selector_output = ".output, .cell_output"
 6 53.513        2        Con         MC        1.2050                 1
 </pre></div>
 </div>
-<img alt="../_images/Example3_5_1.png" src="../_images/Example3_5_1.png" />
+<img alt="../_images/Example3_6_1.png" src="../_images/Example3_6_1.png" />
+</div>
 </div>
 </div>
 </div>
@@ -556,7 +575,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># set a few display parameters</span>
-<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size in notebook</span>
 <span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
 <span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
@@ -570,7 +589,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Example3_10_0.png" src="../_images/Example3_10_0.png" />
+<img alt="../_images/Example3_11_0.png" src="../_images/Example3_11_0.png" />
 </div>
 </div>
 <p>Notice the different appearance of the timecourses for the two parcels: the activation is higher around 4 TRs (4.8) seconds after trial onset in both runs in most people in the somatomotor network parcel (116) but not the default network parcel (964). It is also reassuring that the parcel differences are greater than the run differences. A <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html">more complete analysis</a> includes all 55 participants and 1000 parcels.</p>
@@ -627,7 +646,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Example3_12_0.png" src="../_images/Example3_12_0.png" />
+<img alt="../_images/Example3_13_0.png" src="../_images/Example3_13_0.png" />
 </div>
 </div>
 <p>Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.</p>

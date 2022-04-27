@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC 1: don’t click if you can script &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Dataset QC 1: don’t click if you can script
+   Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
@@ -293,9 +293,28 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
-   Tutorial: converting eprime files to csv.
+  <a class="reference internal nav-link" href="#example-eprime-to-csv-conversion">
+   Example: Eprime to csv conversion
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background-and-motivation">
+     Background and motivation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#implementation-of-the-conversion-script">
+     Implementation of the conversion script
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#startup-and-a-look-at-the-input-data">
+       Startup and a look at the input data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -307,7 +326,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC 1: don’t click if you can script</h1>
+                <h1>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -318,9 +337,28 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tutorial-converting-eprime-files-to-csv">
-   Tutorial: converting eprime files to csv.
+  <a class="reference internal nav-link" href="#example-eprime-to-csv-conversion">
+   Example: Eprime to csv conversion
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background-and-motivation">
+     Background and motivation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#implementation-of-the-conversion-script">
+     Implementation of the conversion script
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#startup-and-a-look-at-the-input-data">
+       Startup and a look at the input data
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -331,113 +369,101 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-1-dont-click-if-you-can-script">
-<h1>Dataset QC 1: don’t click if you can script<a class="headerlink" href="#dataset-qc-1-dont-click-if-you-can-script" title="Permalink to this headline">¶</a></h1>
-<p>Repetitive, boring, and/or error-prone tasks should be scripted if possible! Scripting can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in the name a script will fail to find it while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
-<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, we use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files from box. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a>.</p>
-<div class="section" id="tutorial-converting-eprime-files-to-csv">
-<h2>Tutorial: converting eprime files to csv.<a class="headerlink" href="#tutorial-converting-eprime-files-to-csv" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> saves its files in a proprietary format and non-human-readable plain text. We convert these to csv as quickly as possible after data collection. (Something I suggest doing for all non-standard file formats, not just eprime; store data in formats like nifti and text whenever possible for long-term accessibility.) This task is a prime target for scripting: the conversion must be done often and exactly, and accuracy can be tested algorithmically (e.g., by counting trial types).</p>
-<p>The tutorial eprime files are from a heartbeat-counting task like Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p>
-<p>In this tutorial we will convert the eprime text recovery files to csv. The code also checks that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="tip-1-is-a-task-repetitive-boring-and-or-error-prone-script-it">
+<h1>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#tip-1-is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
+<p>Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.</p>
+<p>In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
+<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, the standard preprocessing scripts use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for inspiration.</p>
+<div class="section" id="example-eprime-to-csv-conversion">
+<h2>Example: Eprime to csv conversion<a class="headerlink" href="#example-eprime-to-csv-conversion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="background-and-motivation">
+<h3>Background and motivation<a class="headerlink" href="#background-and-motivation" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> is a commercial program for presenting stimuli and experiments. Eprime saves each participant’s data files in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant’s data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.)This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do “manually” (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).</p>
+<p>The example uses eprime files from a heart beat counting task like that described in Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three timed trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p>
+</div>
+<div class="section" id="implementation-of-the-conversion-script">
+<h3>Implementation of the conversion script<a class="headerlink" href="#implementation-of-the-conversion-script" title="Permalink to this headline">¶</a></h3>
+<p>Our goal is to convert the eprime data file for a participant to a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. For the purpose of the tutorial the file writing parts are commented and replaced by printing to screen, but are included for completeness.</p>
+<p>Since this example is Eprime and R, we will use the <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> library’s functions for parsing information out of the eprime “text recovery” file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)</p>
+<div class="section" id="startup-and-a-look-at-the-input-data">
+<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
+<p>I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. There are files for four participants, demoSub1, demoSub2, demoSub3, and demoSub4.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># setwd(&quot;d:/maile/svnFiles/plein/conferences/ISMRM2022/onlineExample1&quot;); # for Jo&#39;s local testing</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
 
- <span class="n">test</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="s">&quot;example1files/interoception_demoSub1.txt&quot;</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
- <span class="nf">print</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">test</span><span class="p">));</span>  <span class="c1"># should be 315 </span>
+<span class="c1"># define some variables to be used later in this script</span>
+<span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;)</span>
+<span class="c1"># at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</span>
+<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
+<span class="c1"># out.path &lt;- &quot;example1files/output/&quot;;   # directory in which the converted files would be written</span>
 
- 
+<span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;demoSub&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">);</span>  <span class="c1"># vector of subject IDs</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 315
-</pre></div>
-</div>
-</div>
-</div>
-<p>This script uses the <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> R library’s functions for parsing information out of the eprime text recovery file. I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. This first code block loads eMergeR, clears R’s workspace, and sets the input and output paths.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
-<span class="c1">#rm(list=ls());   # clear R&#39;s workspace (I usually do this; not sure about in a notebook)</span>
-<span class="c1">#options(warnPartialMatchDollar=TRUE);   # safety option; adds warnings for partial matches</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>Error in library(eMergeR): there is no package called ‘eMergeR’
+Traceback:
 
-<span class="c1"># I strongly recommend explicitly setting complete paths at the top of a script rather than using setwd()</span>
-<span class="c1"># or similar, but this notebook operation requires relative paths, so the variables are empty placeholders.</span>
-<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># directory with the input files, usually something like in.path &lt;- &quot;d:/temp/input/&quot;;   </span>
-<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;&quot;</span><span class="p">;</span>   <span class="c1"># directory in which the converted files should be written out.path &lt;- &quot;d:/temp/output/&quot;;   </span>
+1. library(eMergeR)
 </pre></div>
 </div>
 </div>
 </div>
-<p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is then <code class="docutils literal notranslate"><span class="pre">source</span></code>d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.</p>
+<p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">,</span> <span class="n">do.overwrite</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>  <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;; do.overwrite &lt;- FALSE;</span>
-  <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;starting&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;......&quot;</span><span class="p">);</span>  <span class="c1"># start a message for the function to return</span>
-  <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>  <span class="c1"># error-found flag to avoid stop() or multiple return() statements</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;;</span>
   
-  <span class="c1"># make the output directory if it doesn&#39;t already exist </span>
-  <span class="c1"># if (!dir.exists(out.path)) { dir.create(out.path); }</span>
-  
-  <span class="c1"># check if the input file exists</span>
   <span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception_&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">);</span>   <span class="c1"># build expected input filename</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>    <span class="c1"># check if it exists and print error message if not.</span>
-    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span> 
-    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
-  <span class="p">}</span> 
-  
-  <span class="c1"># check if output file already exists, and stop if so and do.overwrite is FALSE</span>
-  <span class="n">out.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span>  <span class="c1"># name of the output file to be made</span>
-  <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">do.overwrite</span> <span class="o">==</span> <span class="kc">FALSE</span> <span class="o">&amp;</span> <span class="o">!</span><span class="n">found.error</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;found &quot;</span><span class="p">,</span> <span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">));</span>
-    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;and do.overwrite=FALSE, so conversion stopped! Move file and run do.convert again,&quot;</span><span class="p">);</span>
-    <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;or run with do.overwrite=TRUE to replace the file.&quot;</span><span class="p">);</span>
-    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
-  <span class="p">}</span>
-  
-  
-  <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># file exists, so read it and convert.</span>
+  <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># file exists, so read it and convert.</span>
+    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;loading file for&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">));</span> 
     <span class="n">e.in</span> <span class="o">&lt;-</span> <span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">));</span>     <span class="c1"># eMergeR function for reading text recovery files</span>
     <span class="n">e.tbl</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># initial conversion</span>
     
-    <span class="c1"># check that some fields are present and have the expected values</span>
+    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>   <span class="c1"># error-found flag to avoid using stop() or nested ifs</span>
+    <span class="c1"># check that some key fields are present and have the expected values</span>
     <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">identical</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">Procedure</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;baselineProc&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">)))</span> <span class="p">{</span> 
-      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: mismatch in $Procedure!&quot;</span><span class="p">);</span> 
+      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: mismatch in $Procedure!&quot;</span><span class="p">);</span> 
       <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
     <span class="p">}</span>
+
+    <span class="c1"># the eMergerR functions included the initial baseline session, but not all its timing info</span>
+    <span class="c1"># so this code confirms that the fields are missing from e.tbl as expected, retrieves them </span>
+    <span class="c1"># from the trial_info part of the eMergerR object, checks their length, then adds them to e.tbl.</span>
     <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">|</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span> <span class="p">{</span> 
-      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: have baseline onsets or offsets??&quot;</span><span class="p">);</span> 
+      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: have baseline onsets or offsets??&quot;</span><span class="p">);</span> 
       <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
     <span class="p">}</span>
     
-    <span class="c1"># check that the baseline period is present and of the expected duration</span>
-    <span class="n">tmp.vec</span> <span class="o">&lt;-</span> <span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span>    <span class="c1"># how the baseline5min onset &amp; offset times are in the eprime file</span>
+    <span class="c1"># check that the baseline period is of the expected duration</span>
+    <span class="n">tmp.vec</span> <span class="o">&lt;-</span> <span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span> 
     <span class="c1"># times in msec, so divide by 1000 for seconds, and 60 for minutes</span>
     <span class="nf">if </span><span class="p">((</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">]))</span><span class="o">/</span><span class="m">60000</span> <span class="o">!=</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span> 
-      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="s">&quot;ERROR: the baseline was not 5 minutes&quot;</span><span class="p">);</span> 
+      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: the baseline was not 5 minutes&quot;</span><span class="p">);</span> 
       <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
     <span class="p">}</span> 
-  <span class="p">}</span>
-    
-  <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># duration was correct, so store values in correct output table spots and write</span>
-    <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>
-    <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
-    
-    <span class="c1"># now have all the information, so write as a csv</span>
-    <span class="nf">write.csv</span><span class="p">(</span><span class="n">e.tbl</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">),</span> <span class="n">row.names</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-    
-    <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># confirm file present and print a success message</span>
-      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;success! wrote&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;to disk.&quot;</span><span class="p">));</span>
-    <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> 
-      <span class="n">return.str</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="n">return.str</span><span class="p">,</span> <span class="nf">paste</span><span class="p">(</span><span class="s">&quot;ERROR: didn&#39;t write&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;to disk!!!!&quot;</span><span class="p">));</span> 
+      
+    <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># all correct, so store values and write</span>
+      <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>    <span class="c1"># add missing values to e.tbl</span>
+      <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
+      
+      <span class="c1"># now have all the information, so write as a csv</span>
+      <span class="c1"># out.fname &lt;- paste0(&quot;interoception-&quot;, sub.id, &quot;-converted.csv&quot;);  # name of the output file to be made</span>
+      <span class="c1"># write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);</span>
+      
+      <span class="c1"># if (file.exists(paste0(out.path, out.fname))) {   # confirm file present and print a success message</span>
+      <span class="c1">#   print(paste(&quot;success! wrote&quot;, out.fname, &quot;to disk.&quot;));</span>
+      <span class="c1"># } else { </span>
+      <span class="c1">#   print(paste(&quot;ERROR: didn&#39;t write&quot;, out.fname, &quot;to disk!!!!&quot;)); </span>
+      <span class="c1"># }</span>
+
+      <span class="c1"># show a bit of the output csv</span>
+      <span class="nf">print</span><span class="p">(</span><span class="n">e.tbl</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="o">:</span><span class="m">8</span><span class="p">)]);</span>
+      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>  <span class="c1"># for spacing</span>
     <span class="p">}</span>
-  <span class="p">}</span>
-  
-  <span class="nf">print</span><span class="p">(</span><span class="n">return.str</span><span class="p">);</span>
-  <span class="nf">return</span><span class="p">();</span>
+  <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -446,14 +472,36 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#do.convert(&quot;demoSub1&quot;);  # default is do.overwrite=FALSE</span>
-<span class="c1">#do.convert(&quot;demoSub1&quot;, do.overwrite=TRUE);</span>
-<span class="c1">#do.convert(&quot;demoSub2&quot;);   # input filename is incorrect</span>
-
-<span class="c1"># or with a loop. Note that one subject ID has a typo and demoSub4 has a timing error.</span>
-<span class="c1">#sub.ids &lt;- c(&quot;demoSub1&quot;, &quot;demoSub3&quot;, &quot;damoSub3&quot;, &quot;demoSub4&quot;);</span>
-<span class="c1">#for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub1&quot;</span><span class="p">);</span> 
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub2&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub3&quot;</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub4&quot;</span><span class="p">);</span> 
+
+<span class="c1"># easier to run a group of subjects with a loop:</span>
+<span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
+
+<span class="c1"># list.files(in.path);  # print the names of the files in the input directory</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
