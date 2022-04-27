@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC 3: Establish and consistently perform control analyses &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Principle 3: Establish and consistently perform control analyses &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Dataset QC Example 4" href="Example4.html" />
+    <link rel="next" title="Principle 4: Use automated dynamic reports" href="Example4.html" />
     <link rel="prev" title="Dataset QC Example 2" href="Example2.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example1.html">
-   Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
+   Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
@@ -133,12 +133,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Dataset QC 3: Establish and consistently perform control analyses
+   Principle 3: Establish and consistently perform control analyses
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example4.html">
-   Dataset QC Example 4
+   Principle 4: Use automated dynamic reports
   </a>
  </li>
 </ul>
@@ -346,7 +346,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC 3: Establish and consistently perform control analyses</h1>
+                <h1>Principle 3: Establish and consistently perform control analyses</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -409,8 +409,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-3-establish-and-consistently-perform-control-analyses">
-<h1>Dataset QC 3: Establish and consistently perform control analyses<a class="headerlink" href="#dataset-qc-3-establish-and-consistently-perform-control-analyses" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="principle-3-establish-and-consistently-perform-control-analyses">
+<h1>Principle 3: Establish and consistently perform control analyses<a class="headerlink" href="#principle-3-establish-and-consistently-perform-control-analyses" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-are-control-analyses">
 <h2>What are control analyses?<a class="headerlink" href="#what-are-control-analyses" title="Permalink to this headline">¶</a></h2>
 <p>Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. <strong>Positive control analyses</strong> check for the existence of effects that <em>must</em> be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved. Stated another way, a positive control analysis is one that is not of experimental interest, but has a very predictable outcome; so predictable that we are concerned if it is not found.</p>
@@ -434,71 +434,78 @@ const thebe_selector_output = ".output, .cell_output"
 <p>To keep things as simple as possible, we can plot the BOLD in each parcel (averaged over its vertices) at each timepoint during the trials (the “parcel-average timeseries”). The time each trial started can be read from the BIDS <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_events.tsv files</a>. The parcel-average timeseries files used as input for this tutorial were made from the gifti files created during fmriprep preprocessing (e.g., <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_space-fsaverage5_hemi-L.func.gii</a>), using AFNI to <a class="reference external" href="http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html">normalize and detrend</a> each vertex’s timecourse, and then make parcel-average timecourse text files with AFNI’s <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html">3dROIstats</a>. See end of this page for script links and more details.</p>
 <div class="section" id="startup-and-a-look-at-the-input-data">
 <h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
-<p>Here is an example part of the parcel-average timeseries files made by 3dROIstats. The timecourse is centered around zero due to the detrending and normalizing.</p>
+<p>First, define some variables to be used later in this script. In R scripts such as these I recommend explicitly setting complete paths (e.g., in.path &lt;- ‘d:/projects/demo/”) at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify notebook plot size</span>
-
-<span class="c1"># define some variables to be used later in this script</span>
-<span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;;)</span>
-<span class="c1"># at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</span>
-<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example3files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example3files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
 <span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;f1027ao&quot;</span><span class="p">,</span> <span class="s">&quot;f1031ax&quot;</span><span class="p">,</span> <span class="s">&quot;f1342ku&quot;</span><span class="p">,</span> <span class="s">&quot;f1550bc&quot;</span><span class="p">,</span> <span class="s">&quot;f1552xo&quot;</span><span class="p">);</span>  <span class="c1"># first 5 DMCC55B people</span>
 <span class="n">sub.clrs</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;darkslateblue&quot;</span><span class="p">,</span> <span class="s">&quot;firebrick&quot;</span><span class="p">,</span> <span class="s">&quot;darkgreen&quot;</span><span class="p">,</span> <span class="s">&quot;darkturquoise&quot;</span><span class="p">,</span> <span class="s">&quot;dodgerblue&quot;</span><span class="p">);</span>  <span class="c1"># a color for each sub.ids</span>
 <span class="n">do.trim</span> <span class="o">&lt;-</span> <span class="m">0.1</span><span class="p">;</span>  <span class="c1"># trimming for robust stats</span>
 <span class="n">n.TRs</span> <span class="o">&lt;-</span> <span class="m">9</span><span class="p">;</span>  <span class="c1"># how many TRs to plot along the x axis</span>
 <span class="n">run.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;AP&quot;</span><span class="p">,</span> <span class="s">&quot;PA&quot;</span><span class="p">);</span>  <span class="c1"># run labels in the BIDS input files, 1 is AP, 2 PA</span>
 <span class="n">TR</span> <span class="o">&lt;-</span> <span class="m">1.2</span><span class="p">;</span>  <span class="c1"># in seconds</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Read and look at one of the parcel-average timeseries files made by 3dROIstats.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_run1_np2_L.txt&quot;</span><span class="p">));</span>    
 
-<span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_run1_np2_L.txt&quot;</span><span class="p">);</span> 
-<span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span> <span class="p">{</span>
-  <span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">fname</span><span class="p">);</span>    
-
-  <span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">));</span>  <span class="c1"># 540 TRs in the run, 500 parcels in the hemisphere + 2 label columns</span>
-  <span class="nf">print</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">10</span><span class="p">,</span><span class="m">3</span><span class="o">:</span><span class="m">5</span><span class="p">]);</span>  <span class="c1"># columns with parcel names, average BOLD at each TR in each row</span>
-
-  <span class="c1"># we can view or calculate statistics about a parcel&#39;s timecourse:</span>
-  <span class="nf">summary</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">);</span>  <span class="c1"># parcel 116, column 118</span>
-
-  <span class="c1"># or plot it</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;seagreen&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">[,</span><span class="m">2</span><span class="o">:</span><span class="m">10</span><span class="p">]));</span>  <span class="c1"># show some information about np.tbl</span>
+<span class="c1"># 540 TRs in the run, 500 parcels in the hemisphere + 2 label columns</span>
+<span class="c1"># columns have parcel names; average BOLD at each TR in each row</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 540 502
-   Mean_17Networks_LH_VisCent_Striate_1 Mean_17Networks_LH_VisCent_Striate_2
-1                              0.037652                             0.046409
-2                             -0.017199                             0.002696
-3                             -0.007224                             0.001991
-4                              0.028863                            -0.003042
-5                             -0.009041                            -0.040696
-6                              0.021712                            -0.013182
-7                              0.020783                            -0.014297
-8                              0.014809                             0.011852
-9                              0.011940                            -0.042564
-10                            -0.010671                            -0.034082
-   Mean_17Networks_LH_VisCent_Striate_3
-1                              0.038659
-2                              0.000822
-3                              0.009420
-4                              0.010172
-5                             -0.019854
-6                              0.023023
-7                              0.002293
-8                              0.002821
-9                              0.001316
-10                             0.013102
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;data.frame&#39;:	540 obs. of  9 variables:
+ $ Sub.brick                           : chr  &quot;0[?]&quot; &quot;1[?]&quot; &quot;2[?]&quot; &quot;3[?]&quot; ...
+ $ Mean_17Networks_LH_VisCent_Striate_1: num  0.0714 0.03055 -0.00952 -0.0157 -0.02106 ...
+ $ Mean_17Networks_LH_VisCent_Striate_2: num  0.06017 0.03159 -0.0048 -0.00426 0.00425 ...
+ $ Mean_17Networks_LH_VisCent_Striate_3: num  0.0799 0.0309 0.0207 0.0245 0.0125 ...
+ $ Mean_17Networks_LH_VisCent_Striate_4: num  0.1163 0.052 0.0288 0.0378 0.0351 ...
+ $ Mean_17Networks_LH_VisCent_ExStr_1  : num  0.026532 0.027954 0.030016 0.033496 -0.000763 ...
+ $ Mean_17Networks_LH_VisCent_ExStr_2  : num  0.00542 -0.00746 0.01137 0.01469 -0.00879 ...
+ $ Mean_17Networks_LH_VisCent_ExStr_3  : num  0.00831 0.005 -0.01033 -0.00739 -0.02288 ...
+ $ Mean_17Networks_LH_VisCent_ExStr_4  : num  0.034841 0.031578 0.000378 0.003353 -0.010008 ...
+NULL
 </pre></div>
 </div>
-<img alt="../_images/Example3_4_1.png" src="../_images/Example3_4_1.png" />
+</div>
+</div>
+<p>We can also calculate statistics or plot the timecourses. Note that the timecourse is centered around zero due to the detrending and normalizing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify plot size in this notebook</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
+
+<span class="c1"># we can view or calculate statistics about a parcel&#39;s timecourse:</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">);</span>  <span class="c1"># parcel 116, column 118</span>
+
+<span class="c1"># or plot it</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;seagreen&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">ann</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+-7.800e-02 -2.308e-02  4.215e-04  2.000e-08  2.130e-02  1.259e-01 
+</pre></div>
+</div>
+<img alt="../_images/Example3_8_1.png" src="../_images/Example3_8_1.png" />
 </div>
 </div>
 <p>And the _events.tsv. The onsets are stored as seconds, which we can convert to TRs for ease of selecting image frames. The plot shows that there are many trials in each run, temporally arranged into three groups.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="m">2</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify plot size in this notebook</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
+
+<span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">)</span>
 <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span> <span class="p">{</span>
   <span class="n">ev.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
   <span class="nf">print</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">ev.tbl</span><span class="p">));</span>  <span class="c1"># show first rows of the table</span>
@@ -511,15 +518,15 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   onset duration trial_type trial_lwpc response_time response_accuracy
-1 30.717        2        Con         MC        1.1085                 1
-2 35.516        2        Con       PC50        1.0070                 1
-3 39.115        2      InCon         MC        2.0570                 1
-4 42.715        2      InCon       PC50        2.2320                 1
-5 48.714        2      InCon         MC        1.5970                 1
-6 53.513        2        Con         MC        1.2050                 1
+1 30.717        2        Con         MC        0.7325                 1
+2 34.317        2        Con         MC        0.6765                 1
+3 40.317        2      InCon         MC        1.0170                 1
+4 45.117        2      InCon         MC        0.9530                 1
+5 48.717        2      InCon         MC        0.8660                 1
+6 52.317        2        Con       PC50        0.7755                 1
 </pre></div>
 </div>
-<img alt="../_images/Example3_6_1.png" src="../_images/Example3_6_1.png" />
+<img alt="../_images/Example3_10_1.png" src="../_images/Example3_10_1.png" />
 </div>
 </div>
 </div>
@@ -535,12 +542,13 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># the plotting code, in a function to allow use with different parcels and runs</span>
 <span class="c1"># rid is the run to plot (1 or 2); pid is the parcel to plot (1:1000)</span>
-<span class="n">plot.means</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># rid &lt;- 1; pid &lt;- 116;  </span>
-  <span class="nf">if </span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="m">500</span><span class="p">)</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;R&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">500</span><span class="p">;</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;L&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>  <span class="c1"># parcels &gt; 500 are on R</span>
+<span class="n">plot.means</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">show.legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># rid &lt;- 1; pid &lt;- 116;  </span>
+  <span class="c1"># surface data; parcels 1:500 are in the left hemisphere file and 501:1000 on R </span>
+  <span class="nf">if </span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="m">500</span><span class="p">)</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;R&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">500</span><span class="p">;</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;L&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>  
   
   <span class="c1"># start an empty plot</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span>
-       <span class="n">xaxs</span><span class="o">=</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">1</span><span class="p">);</span>
+  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> 
+  <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">);</span>
   <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
   <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
   
@@ -561,10 +569,15 @@ const thebe_selector_output = ".output, .cell_output"
       <span class="n">tmp.tbl</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span>  <span class="c1"># to store all trials for this person, run</span>
       <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span> <span class="p">{</span> <span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span> <span class="p">}</span> 
       <span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>  <span class="c1"># calculate across-trials average for this person, parcel, run</span>
-      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">]);</span>   <span class="c1"># plot this person&#39;s mean</span>
+      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>   <span class="c1"># plot this person&#39;s mean</span>
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># across-subjects means</span>
+  <span class="n">vals</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>   <span class="c1"># calculate the across-subjects (trimmed) mean</span>
+  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>    <span class="c1"># and plot it</span>
+
+  <span class="nf">if </span><span class="p">(</span><span class="n">show.legend</span> <span class="o">==</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>  <span class="c1"># add a legend, if requested</span>
+    <span class="nf">legend</span><span class="p">(</span><span class="s">&#39;topleft&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">sub.ids</span><span class="p">,</span> <span class="n">bty</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">);</span>
+  <span class="p">}</span>
   <span class="nf">box</span><span class="p">();</span>
 <span class="p">}</span>
 </pre></div>
@@ -584,32 +597,25 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">116</span><span class="p">);</span>  <span class="c1"># plot parcel 116 again, with run 2</span>
 
 <span class="nf">plot.means</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">964</span><span class="p">);</span>   <span class="c1"># run 1, parcel 964 17Networks_RH_DefaultB_PFCv_2</span>
-<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">964</span><span class="p">);</span>   <span class="c1"># and run 2</span>
+<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">964</span><span class="p">,</span> <span class="n">show.legend</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># and run 2, with a legend</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Example3_11_0.png" src="../_images/Example3_11_0.png" />
+<img alt="../_images/Example3_15_0.png" src="../_images/Example3_15_0.png" />
 </div>
 </div>
 <p>Notice the different appearance of the timecourses for the two parcels: the activation is higher around 4 TRs (4.8) seconds after trial onset in both runs in most people in the somatomotor network parcel (116) but not the default network parcel (964). It is also reassuring that the parcel differences are greater than the run differences. A <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html">more complete analysis</a> includes all 55 participants and 1000 parcels.</p>
-<p>Here is another version of the plotting function, in which file names are the parameters instead of parcel and run indices.</p>
+<p>Here is another version of the plotting function, one which takes file names instead of parcel and run indices.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
-<span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
-
-<span class="c1"># the plotting code, in a function taking (part of) the event and parcel filenames</span>
-<span class="c1"># ev.suff is the last part of the _events.tsv filename, np.suff the same for the file with parcel-average timecourses.</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># ev.suff is the last part of the _events.tsv filename, np.suff the same for the file with parcel-average timecourses.</span>
 <span class="c1"># pid is the parcel to plot (1:1000). rid is not needed since each file only has data for one run.</span>
-<span class="n">plot.means.fn</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">ev.suff</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># pid &lt;- 116; ev.suff &lt;- &quot;acq-mb4AP_run-1_events.tsv&quot;; np.suff &lt;- &quot;run1_np2_L.txt&quot;; </span>
+<span class="n">plot.means.fn</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">ev.suff</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">,</span> <span class="n">show.legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># pid &lt;- 116; ev.suff &lt;- &quot;acq-mb4AP_run-1_events.tsv&quot;; np.suff &lt;- &quot;run1_np2_L.txt&quot;; </span>
   <span class="nf">if </span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="m">500</span><span class="p">)</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;R&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">500</span><span class="p">;</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;L&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>  <span class="c1"># parcels &gt; 500 are on R</span>
   
   <span class="c1"># start an empty plot</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span>
-       <span class="n">xaxs</span><span class="o">=</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">0.8</span><span class="p">);</span>
+  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">);</span>
   <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.7</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
   <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
   
@@ -630,26 +636,62 @@ const thebe_selector_output = ".output, .cell_output"
       <span class="n">tmp.tbl</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span>  <span class="c1"># to store all trials for this person, run</span>
       <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span> <span class="p">{</span> <span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span> <span class="p">}</span> 
       <span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>  <span class="c1"># calculate across-trials average for this person, parcel, run</span>
-      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">]);</span>   <span class="c1"># plot this person&#39;s mean</span>
+      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>   <span class="c1"># plot this person&#39;s mean</span>
     <span class="p">}</span>
   <span class="p">}</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># across-subjects means</span>
+  <span class="n">vals</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>   <span class="c1"># calculate the across-subjects (trimmed) mean</span>
+  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>    <span class="c1"># and plot it</span>
+  <span class="nf">if </span><span class="p">(</span><span class="n">show.legend</span> <span class="o">==</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>  <span class="c1"># add a legend, if requested</span>
+    <span class="nf">legend</span><span class="p">(</span><span class="s">&#39;topleft&#39;</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">sub.ids</span><span class="p">,</span> <span class="n">bty</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">);</span>
+  <span class="p">}</span>
   <span class="nf">box</span><span class="p">();</span>
 <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we call the function to plot runs for the motor parcel (116):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
-<span class="c1"># parcel 116 is on the left; parcels &gt; 500 need _R.txt</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span>  <span class="c1"># call the function for the 1st run, parcel 116 17Networks_LH_SomMotB_Cent_8</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>  <span class="c1"># and again</span>
+<span class="c1"># parcel 116 is on the left</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span> 
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>  
 <span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span>
 <span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Example3_13_0.png" src="../_images/Example3_13_0.png" />
+<img alt="../_images/Example3_19_0.png" src="../_images/Example3_19_0.png" />
 </div>
 </div>
 <p>Notice how the timecourses are much flatter for the middle two plots than the first and fourth: why? This example is somewhat contrived, but is intended to make it clear how different ways of writing the plotting function can change the likelihood of spotting (or introducing) an error. The first version took the run index (rid) as a parameter, then used the variable to load the correct events and parcel-average file, thus ensuring that the run used for both files always matches.</p>
+<p>We can do the same for the default mode parcel (964):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
+
+<span class="c1"># parcel 964 is on the right; parcels &gt; 500 need _R.txt</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Example3_21_0.png" src="../_images/Example3_21_0.png" />
+</div>
+</div>
+<p>There isn’t an obvious difference between using the correct and incorrect event files with parcel 964 because it doesn’t have a clear effect to note the absence of: control analyses work best with an unambiguous signal.</p>
 </div>
 <div class="section" id="full-examples-and-additional-notes">
 <h3>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">¶</a></h3>
@@ -696,7 +738,7 @@ const thebe_selector_output = ".output, .cell_output"
     <a class='right-next' id="next-link" href="Example4.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dataset QC Example 4</p>
+        <p class="prev-next-title">Principle 4: Use automated dynamic reports</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC Example 4 &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Principle 4: Use automated dynamic reports &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Quality Control in preclinical MRI: Where do artifacts come from and how to fix them" href="../animal-qc/intro.html" />
-    <link rel="prev" title="Dataset QC 3: Establish and consistently perform control analyses" href="Example3.html" />
+    <link rel="prev" title="Principle 3: Establish and consistently perform control analyses" href="Example3.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example1.html">
-   Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
+   Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
@@ -133,12 +133,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example3.html">
-   Dataset QC 3: Establish and consistently perform control analyses
+   Principle 3: Establish and consistently perform control analyses
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Dataset QC Example 4
+   Principle 4: Use automated dynamic reports
   </a>
  </li>
 </ul>
@@ -287,6 +287,19 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-automated-dynamic-reports">
+   What are automated dynamic reports?
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -294,20 +307,47 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC Example 4</h1>
+                <h1>Principle 4: Use automated dynamic reports</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-are-automated-dynamic-reports">
+   What are automated dynamic reports?
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-example-4">
-<h1>Dataset QC Example 4<a class="headerlink" href="#dataset-qc-example-4" title="Permalink to this headline">¶</a></h1>
-<p>Make use of automated dynamic reports</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="principle-4-use-automated-dynamic-reports">
+<h1>Principle 4: Use automated dynamic reports<a class="headerlink" href="#principle-4-use-automated-dynamic-reports" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-are-automated-dynamic-reports">
+<h2>What are automated dynamic reports?<a class="headerlink" href="#what-are-automated-dynamic-reports" title="Permalink to this headline">¶</a></h2>
+<p>A generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and  schemes (markdown, latex, knitr, etc.).</p>
+<p>Perhaps the most familiar use of dynamic reports is for specific, one-off analyses. In the past I usually summarized results for my collaborators in word documents, copy-pasting images and tables in as needed. This works, but quickly becomes inconvenient, such as if you decide to change the color scheme, all the plots need to be copy-pasted in again. Tracking down the source of each image later (e.g., to change a threshold) is often a nightmare. Dynamic documents can serve the same purpose (combining text and results), but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether for I expect they will be seen by others or not.</p>
+<p>I use dynamic reports in two somewhat different ways: for dataset QC and other automated analyses, and for describing particular/one-off analyses.</p>
+<p>point out that the tutorial is in a dynamic document, as is the mriqc output html. Pdf can be better for archiving; static docs can be good. have to be careful about caching, scoping. Batch mode good. Don’t get carried away with formatting; personal working document may not need to be as fancy as something for publication. pdf good for supplemental, not necessarily demos.</p>
+<p>Most of the previous examples (and my recent publications) use knitr; R and LaTeX, compiled to pdfs.
+Example: DMCC55B QC_SD_volume  <a class="reference external" href="https://osf.io/xchwm/">https://osf.io/xchwm/</a> and <a class="reference external" href="https://osf.io/3872s/">https://osf.io/3872s/</a>
+Key bits:
+not that much code; looping through and plotting a lot of images
+afni called to calculate the temporal SD
+easy to add more participants, change the views
+compiled file is long, but can be browsed to spot exceptions/patterns/etc.
+MUCH easier than copy-pasting from separate files!
+base R; works on multiple os</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;example 4&quot;</span><span class="p">)</span>
@@ -317,6 +357,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;example 4&quot;
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -351,7 +392,7 @@ const thebe_selector_output = ".output, .cell_output"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Dataset QC 3: Establish and consistently perform control analyses</p>
+            <p class="prev-next-title">Principle 3: Establish and consistently perform control analyses</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../animal-qc/intro.html" title="next page">

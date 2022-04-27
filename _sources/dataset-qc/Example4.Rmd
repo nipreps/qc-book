@@ -12,8 +12,28 @@ jupyter:
     name: ir
 ---
 
-# Dataset QC Example 4
-Make use of automated dynamic reports
+# Principle 4: Use automated dynamic reports
+### What are automated dynamic reports?
+A generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and  schemes (markdown, latex, knitr, etc.). 
+
+Perhaps the most familiar use of dynamic reports is for specific, one-off analyses. In the past I usually summarized results for my collaborators in word documents, copy-pasting images and tables in as needed. This works, but quickly becomes inconvenient, such as if you decide to change the color scheme, all the plots need to be copy-pasted in again. Tracking down the source of each image later (e.g., to change a threshold) is often a nightmare. Dynamic documents can serve the same purpose (combining text and results), but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether for I expect they will be seen by others or not.
+
+
+I use dynamic reports in two somewhat different ways: for dataset QC and other automated analyses, and for describing particular/one-off analyses. 
+
+
+point out that the tutorial is in a dynamic document, as is the mriqc output html. Pdf can be better for archiving; static docs can be good. have to be careful about caching, scoping. Batch mode good. Don't get carried away with formatting; personal working document may not need to be as fancy as something for publication. pdf good for supplemental, not necessarily demos.
+
+Most of the previous examples (and my recent publications) use knitr; R and LaTeX, compiled to pdfs. 
+Example: DMCC55B QC_SD_volume  https://osf.io/xchwm/ and https://osf.io/3872s/
+Key bits:
+not that much code; looping through and plotting a lot of images
+afni called to calculate the temporal SD
+easy to add more participants, change the views
+compiled file is long, but can be browsed to spot exceptions/patterns/etc.
+MUCH easier than copy-pasting from separate files!
+base R; works on multiple os
+
 
 ```{r}
 

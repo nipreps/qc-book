@@ -12,7 +12,7 @@ jupyter:
     name: ir
 ---
 
-# Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
+# Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
 Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.
 
  In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.

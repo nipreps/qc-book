@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -123,7 +123,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!
+   Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
@@ -133,12 +133,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example3.html">
-   Dataset QC 3: Establish and consistently perform control analyses
+   Principle 3: Establish and consistently perform control analyses
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example4.html">
-   Dataset QC Example 4
+   Principle 4: Use automated dynamic reports
   </a>
  </li>
 </ul>
@@ -326,7 +326,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!</h1>
+                <h1>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -369,8 +369,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="tip-1-is-a-task-repetitive-boring-and-or-error-prone-script-it">
-<h1>Tip 1: Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#tip-1-is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="principle-1-is-a-task-repetitive-boring-and-or-error-prone-script-it">
+<h1>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#principle-1-is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
 <p>Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.</p>
 <p>In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
 <p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, the standard preprocessing scripts use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for inspiration.</p>
