@@ -1,0 +1,9 @@
+"timing","Procedure","time","type","timing.Sample","black.OnsetTime","black.Duration","black.OffsetTime","startChime.OnsetTime","startChime.OffsetTime","endChime.OnsetTime","endChime.OffsetTime"
+"1","baselineProc","300000","baseline","1","17769",NA,"317769",NA,NA,NA,NA
+"2","rest","60000","60 rest","2","507197","60000","567197",NA,NA,NA,NA
+"3","trigger","25000","25 seconds","3",NA,NA,NA,"567236","592236","592254","593754"
+"4","rest","30000","30 rest","4","593778","30000","623778",NA,NA,NA,NA
+"5","trigger","35000","35 seconds","5",NA,NA,NA,"623796","658796","658813","660313"
+"6","rest","30000","30 rest","6","660340","30000","690340",NA,NA,NA,NA
+"7","trigger","45000","45 seconds","7",NA,NA,NA,"690358","735358","735374","736874"
+"8","rest","60000","60 rest","8","736897","60000","796897",NA,NA,NA,NA
