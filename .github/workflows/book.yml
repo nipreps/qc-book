@@ -83,8 +83,9 @@ jobs:
         R -e "IRkernel::installspec()"
 
     - name: Install R dependencies
+      env:
+        GIHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        unset GITHUB_PAT
         Rscript install.R
 
     # Build the page
