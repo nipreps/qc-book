@@ -1,3 +1,3 @@
 install.packages("RNifti")
-#install.packages("devtools")
-#devtools::install_github("AWKruijt/eMergeR")
+install.packages("devtools")
+devtools::install_github("AWKruijt/eMergeR")
