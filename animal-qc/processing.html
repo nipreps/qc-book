@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Quality Control in preclinical MRI: Where do artifacts come from and how to fix them &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Idiosyncrasies of processing MRI data from small animals &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,8 +53,6 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Introduction" href="../auto-qc/intro.html" />
-    <link rel="prev" title="Dataset QC Example 4" href="../dataset-qc/Example4.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -147,9 +145,9 @@ const thebe_selector_output = ".output, .cell_output"
   Animal QA/QC
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    Quality Control in preclinical MRI: Where do artifacts come from and how to fix them
   </a>
  </li>
@@ -216,7 +214,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/animal-qc/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/animal-qc/processing.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -260,18 +258,23 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+  <a class="reference internal nav-link" href="#rationale">
+   Rationale
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-is-preclinical-imaging">
-   What is preclinical imaging?
+  <a class="reference internal nav-link" href="#image-scale">
+   Image scale
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-   Why is preclinical imaging useful for converstaions about quality?
+  <a class="reference internal nav-link" href="#prior-information">
+   Prior information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orientation-and-visualisation">
+   Orientation and visualisation
   </a>
  </li>
 </ul>
@@ -284,7 +287,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Quality Control in preclinical MRI: Where do artifacts come from and how to fix them</h1>
+                <h1>Idiosyncrasies of processing MRI data from small animals</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -295,18 +298,23 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+  <a class="reference internal nav-link" href="#rationale">
+   Rationale
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-is-preclinical-imaging">
-   What is preclinical imaging?
+  <a class="reference internal nav-link" href="#image-scale">
+   Image scale
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-   Why is preclinical imaging useful for converstaions about quality?
+  <a class="reference internal nav-link" href="#prior-information">
+   Prior information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orientation-and-visualisation">
+   Orientation and visualisation
   </a>
  </li>
 </ul>
@@ -318,74 +326,63 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="quality-control-in-preclinical-mri-where-do-artifacts-come-from-and-how-to-fix-them">
-<h1>Quality Control in preclinical MRI: Where do artifacts come from and how to fix them<a class="headerlink" href="#quality-control-in-preclinical-mri-where-do-artifacts-come-from-and-how-to-fix-them" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p>This talk will introduce
-additional considerations for
-quality assurance in small
-animal MRI. For instance, we
-have anecdotally found that
-equipment for stabilising
-physiology under anaesthetic
-protocols can impact image
-quality, particularly air
-heaters. There are further
-considerations to make after
-the completion of each image
-processing step, as many
-software tools are designed
-for humans and have implicit
-voxel size/shape/contrast
-assumptions that are not
-valid for rodents. The tutorial
-will highlight where in the
-processing pipeline these are
-most likely to arise, examples
-of these degraded results,
-and suggestions to mitigate
-them. Finally, we will frame
-these problems in the context
-of our experience extending
-MRIQC and fMRIPrep for
-rodents, to conclude with an
-interactive session where the
-participants will be
-challenged with identifying
-quality issues on a set of
-images that conform a
-“gallery of horrors,” which we
-will build by gathering
-examples showing artifacts
-and quality issues from in-house databases, open
-datasets, and examples
-provided by the community.
-The tutorial will demonstrate
-the utility of the visual reports
-MRIQC generates to identify
-quality issues on preclinical
-MRI data.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="idiosyncrasies-of-processing-mri-data-from-small-animals">
+<h1>Idiosyncrasies of processing MRI data from small animals<a class="headerlink" href="#idiosyncrasies-of-processing-mri-data-from-small-animals" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rationale">
+<h2>Rationale<a class="headerlink" href="#rationale" title="Permalink to this headline">¶</a></h2>
+<p>Once the data are acquired, many of the same assumptions are true for human and
+small animal imaging.
+However, MRI processing frequently relies on prior information, and the default
+assumption for many of the popular software tools is that the data are from healthy human adults.
+This means that the most popular software tools are either adapted as needed to suit
+a particular group, or lots of time and energy is used to create species-specific
+emulations of these tools.</p>
+<p>Instead, by including more flexibility at certain bottlenecks, image processing
+software can be species agnostic, allowing all researchers to use the same tools
+regardless of which species they were imaging.
+These are many of the underlying changes made recently to MRIQC that faciliate its adaption to rats.</p>
 </div>
-<div class="section" id="what-is-preclinical-imaging">
-<h2>What is preclinical imaging?<a class="headerlink" href="#what-is-preclinical-imaging" title="Permalink to this headline">¶</a></h2>
-<p>Preclinical imaging (i.e., imaging of experimental animal models) bridges the
-gap between basic science and medical science by applying techiniques from both
-fields in the same individual.
-For example, MRI can be combined with invasive procedures, such as optogenetic
-techniques, in a single rodent subject but not in human participants.</p>
+<div class="section" id="image-scale">
+<h2>Image scale<a class="headerlink" href="#image-scale" title="Permalink to this headline">¶</a></h2>
+<p>Due to the difference in brain size, preclinical imaging requires greater
+resolution which is accounted for in part by the larger magnetic field strength
+in preclinical scanners.
+However, the scale of the resolution is not proportional to the voxel size, with
+human voxel sizes often about ten times the size of rodent voxel sizes.</p>
+<p>One hack that is used within preclinical imaging is to manipulate the image header
+by multiplying the voxel images by ten to get “human” sized voxels.
+This has serious implications for transparency and fidelity of the image header
+and is not recommended.</p>
+<p>Instead, software can take into account the voxel sizes when determining
+distance-based parameters.
+For example, a default gaussian kernel may have a full-width half-maximum (FWHM) of
+6 mm, based on the assumption that the average voxel size is 2 mm isotropic.
+Instead, the voxel size can be read from the image header, and define the FWHM as
+three times the in-plane resolution.</p>
 </div>
-<div class="section" id="why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-<h2>Why is preclinical imaging useful for converstaions about quality?<a class="headerlink" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality" title="Permalink to this headline">¶</a></h2>
-<p>Preclinical MRI has historically trailed its human equivalent in some respects.
-This likely reflects its novelty relative to human imaging, but there are a
-number of factors including acquistion idiosyncracies for a given study’s design,
-and the availability of software resources.</p>
-<p>We will discuss how both of these factors can contribute to data quality,
-regardless of the target species.
-Following this, we will work through the stages of acquisitional and processing
-standard operating procedures to visualise what happens when things go wrong and
-how automated tools can objectively identify problematic images.</p>
+<div class="section" id="prior-information">
+<h2>Prior information<a class="headerlink" href="#prior-information" title="Permalink to this headline">¶</a></h2>
+<p>Group-level analysis often requires the data to be transformed to a shared space.
+Often, such a space is defined by a template image, which can be an average of many
+images or a single reference image.
+Templates are usually packaged with other resources, such as atlases, masks, and
+probability maps, which delineate key regions of interest.</p>
+<p>Most software packages ship their default resources, and some are “hard-coded” into
+the algorithms so cannot be changed.
+Thus, researchers working with small animals are more limited in their software
+choices, or they must invest extra time into learning how to optimise the settings to account for a tangent from the defaults.</p>
+<p>In MRIQC, prior information is provided by
+<a class="reference external" href="https://www.templateflow.org">TemplateFlow</a>, a cloud-based template repository.
+Templates are programmatically selected as part of the workflow based on the
+<code class="docutils literal notranslate"><span class="pre">--species</span></code> flag in the MRIQC command line call.</p>
+</div>
+<div class="section" id="orientation-and-visualisation">
+<h2>Orientation and visualisation<a class="headerlink" href="#orientation-and-visualisation" title="Permalink to this headline">¶</a></h2>
+<p>Due to the traditional representation of rodent brain atlases, the coronal view is
+generally the plane of choice for visualisating small animal data.
+Additionally, the elongated rostrocaudal axis can be squashed when viewing the
+sagittal plane if the visualisation software explains a less anisotropic field of
+view.</p>
 </div>
 </div>
 
@@ -413,21 +410,7 @@ how automated tools can objectively identify problematic images.</p>
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="../dataset-qc/Example4.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Dataset QC Example 4</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../auto-qc/intro.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
+<div class='prev-next-area'>
 </div>
             
         </div>

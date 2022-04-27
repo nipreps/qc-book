@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Idiosyncrasies of acquiring data from small animals &#8212; ISMRM&#39;22 QC Book</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">ISMRM'22 QC Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../welcome.html">
+   Welcome!
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  preamble
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/step0.html">
+   Before we start: How to follow this tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/qa-qc-basics.html">
+   Before we dive into QA/QC
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Dataset QC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/intro.html">
+   Dataset QC: Taking control of your data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example1.html">
+   Dataset QC 1: don’t click if you can script
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example2.html">
+   Dataset QC Example 2
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example3.html">
+   Dataset QC 3: Establish and consistently perform control analyses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example4.html">
+   Dataset QC Example 4
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Animal QA/QC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Quality Control in preclinical MRI: Where do artifacts come from and how to fix them
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Automating QA
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../auto-qc/intro.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../auto-qc/iqms_first_contact.html">
+   Understanding IQMs generated by MRIQC
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../auto-qc/manual_ratings.html">
+   Target labels: manual ratings by humans
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/animal-qc/acquisition.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/nipreps/qc-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rationale">
+   Rationale
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hardware">
+   Hardware
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#magnet-field-strength">
+     Magnet field strength
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scanner-manufacture">
+     Scanner manufacture
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coils">
+     Coils
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#physiological-monitoring">
+     Physiological monitoring
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-hardware">
+     Other hardware_
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#software">
+   Software
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scanner-software">
+     Scanner software
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-software">
+     Other software
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#anatomy">
+   Anatomy
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scale">
+     Scale
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tissue-differences">
+     Tissue differences
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orientation">
+     Orientation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#strain">
+     Strain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#physiology">
+   Physiology
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#anaesthesia-and-sedation">
+     Anaesthesia and sedation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#respiration">
+     Respiration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thermal-homeostasis">
+     Thermal homeostasis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#movement">
+     Movement
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on">
+   Hands-on
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Idiosyncrasies of acquiring data from small animals</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rationale">
+   Rationale
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hardware">
+   Hardware
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#magnet-field-strength">
+     Magnet field strength
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scanner-manufacture">
+     Scanner manufacture
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coils">
+     Coils
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#physiological-monitoring">
+     Physiological monitoring
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-hardware">
+     Other hardware_
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#software">
+   Software
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scanner-software">
+     Scanner software
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-software">
+     Other software
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#anatomy">
+   Anatomy
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scale">
+     Scale
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tissue-differences">
+     Tissue differences
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orientation">
+     Orientation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#strain">
+     Strain
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#physiology">
+   Physiology
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#anaesthesia-and-sedation">
+     Anaesthesia and sedation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#respiration">
+     Respiration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#thermal-homeostasis">
+     Thermal homeostasis
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#movement">
+     Movement
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on">
+   Hands-on
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="idiosyncrasies-of-acquiring-data-from-small-animals">
+<h1>Idiosyncrasies of acquiring data from small animals<a class="headerlink" href="#idiosyncrasies-of-acquiring-data-from-small-animals" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rationale">
+<h2>Rationale<a class="headerlink" href="#rationale" title="Permalink to this headline">¶</a></h2>
+<p>Many parts of the acquisition procedure differ between human and small animal
+scanning.
+Moreover, while human scans are almost always driven by a specialist radiographer,
+small animal scans are often controlled by researchers themselves.
+The “Do-It-Yourself” experience provides preclinical researchers a grassroots
+understanding of data quality that researchers working with humans may find
+difficult to obtain.</p>
+</div>
+<div class="section" id="hardware">
+<h2>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="magnet-field-strength">
+<h3>Magnet field strength<a class="headerlink" href="#magnet-field-strength" title="Permalink to this headline">¶</a></h3>
+<p>The scanner’s field strength, which range from 4.7 to 16.4 Tesla, can itself
+have many impacts on the data quality: higher field strength
+provides higher signal-to-noise ratios in shorter acquisition times, but it also
+exacerbates many types of artifacts.</p>
+</div>
+<div class="section" id="scanner-manufacture">
+<h3>Scanner manufacture<a class="headerlink" href="#scanner-manufacture" title="Permalink to this headline">¶</a></h3>
+<p>Bruker currently has a monopoly in preclinical imaging, but many sites have older scanners from other manufacturers.
+Those with Bruker scanners may also have a maintenance package which includes tests
+for quality assurance.</p>
+</div>
+<div class="section" id="coils">
+<h3>Coils<a class="headerlink" href="#coils" title="Permalink to this headline">¶</a></h3>
+<p>Volume coils require manual tuning (at least) daily.
+For scanners from out-of-business manufacturers, “homemade” coils are more common
+and less standardised.
+Cryocoils are increasingly available but not yet ubiquitous.</p>
+</div>
+<div class="section" id="physiological-monitoring">
+<h3>Physiological monitoring<a class="headerlink" href="#physiological-monitoring" title="Permalink to this headline">¶</a></h3>
+<p>While the requirements for accurate physiological monitoring is explained in more
+detail below, there are many pieces of hardware that can be discussed.
+This minimally includes rectal thermometers and respiration balloons, but can also
+include pulse oximeters and/or invasive blood pressure monitoring.</p>
+</div>
+<div class="section" id="other-hardware">
+<h3>Other hardware_<a class="headerlink" href="#other-hardware" title="Permalink to this headline">¶</a></h3>
+<p>Cradles, bite bars, ear bars, pillows can be provided by the scanner manufacturer or
+“homemade”.
+These facilitate support of the animal in the scanner and reduce movement.</p>
+</div>
+</div>
+<div class="section" id="software">
+<h2>Software<a class="headerlink" href="#software" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scanner-software">
+<h3>Scanner software<a class="headerlink" href="#scanner-software" title="Permalink to this headline">¶</a></h3>
+<p>Related to scanner manufacture, is the software used to acquire and reconstruct
+the images.
+Bruker’s software, Paravision, has several versions available.
+Paravision generates <code class="docutils literal notranslate"><span class="pre">2dseq</span></code> files rather than the <code class="docutils literal notranslate"><span class="pre">DICOM</span></code> images commonly
+generated by human scanners.
+Consequently, conversion to standardised naming formats requires specialised
+software that can work with these proprietary files.</p>
+</div>
+<div class="section" id="other-software">
+<h3>Other software<a class="headerlink" href="#other-software" title="Permalink to this headline">¶</a></h3>
+<p>Similarly, various software is available for monitoring physiology which is
+discussed at length <a class="reference external" href="#physiology">below</a>.
+As the animals are often anaesthetised task-based fMRI is less common.
+Instead, experiments may generate evoked-responses to some stimulus (e.g.
+stimulating a paw with electricity) in the scanner.
+Thus, software is also required to synchronise the stimulus onset to the scanning
+acquisition.
+Such software can also be used for the inverse task: by <em>gating acquisitions</em> the
+scanner will only acquire data at certain times (e.g., during a certain section of
+the respiratory cycle).</p>
+</div>
+</div>
+<div class="section" id="anatomy">
+<h2>Anatomy<a class="headerlink" href="#anatomy" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="scale">
+<h3>Scale<a class="headerlink" href="#scale" title="Permalink to this headline">¶</a></h3>
+<p>An obvious difference between small animals and humans is the scale of their brains.
+Adult human brain volumes are approximately 1200 cm<sup>3</sup>, while adult rat
+brains are approximately 2.5 cm<sup>3</sup> and mice brain volumes are smaller
+still.
+This difference in scale necessitates the increased magnet field strength but the change in field strength is not proportional to the change in size.</p>
+</div>
+<div class="section" id="tissue-differences">
+<h3>Tissue differences<a class="headerlink" href="#tissue-differences" title="Permalink to this headline">¶</a></h3>
+<p>The proportion of white matter in rodents is smaller than that in humans.
+Since white matter bundles are much less distinct in rats and mice, the MR
+signal contrast between the two tissue types is often less well-defined.</p>
+<p>Additionally, the olfactory bulb is much larger in rodents than in humans and there
+is no cortical folding.</p>
+</div>
+<div class="section" id="orientation">
+<h3>Orientation<a class="headerlink" href="#orientation" title="Permalink to this headline">¶</a></h3>
+<p>As bipeds, the human brain sits on top of the spinal cord and consequently the
+rostrocaudal plane is curved along the anterioposterior and superoinferior planes.
+In quadripeds, like rodents, the anterioposterior and rostrocaudal planes are
+equivalent.</p>
+<p>Additionally, I have noticed confusion in the convention for naming the scanner
+orientations.
+Humans most often enter the scanner supine along the axis that aligns
+with that of B0 so the B1 field aligns with the anterior-posterior plane, and the
+B0 field axis aligns with the superior-inferior axis.
+Rodents are likely to be prone (although not always) and because of the difference
+in anatomical orientation described above, the posterior-anterior plane in
+quadripeds aligns with the B0 field axis.</p>
+<p>Thus orientation may be “scanner-oriented” (where the axes aligns with the magnetic
+field directions) or “subject-oriented” (where the axes align with the anatomy of
+the subject).</p>
+</div>
+<div class="section" id="strain">
+<h3>Strain<a class="headerlink" href="#strain" title="Permalink to this headline">¶</a></h3>
+<p>There may be differences in anatomy or physiology that come from differences in
+species strain.
+In particular, genetically modified animals may be more susceptible to larger
+ventricular compartments.
+Another example may be an increase in bodyweight which can have downstream effects
+on anaesthesia.</p>
+</div>
+</div>
+<div class="section" id="physiology">
+<h2>Physiology<a class="headerlink" href="#physiology" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="anaesthesia-and-sedation">
+<h3>Anaesthesia and sedation<a class="headerlink" href="#anaesthesia-and-sedation" title="Permalink to this headline">¶</a></h3>
+<p>It is common for animals to be anaesthetised or sedated for MRI to reduce motion.
+Different anaesthetics and sedatives act through different pathways, and each come
+with benefits and costs.</p>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Compound</p></th>
+<th class="head"><p>Administration</p></th>
+<th class="head"><p>Benefits</p></th>
+<th class="head"><p>Costs</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Isoflurane</p></td>
+<td><p>inhalation</p></td>
+<td><p><li> non-invasive administration</li><li>Short recovery</li></p></td>
+<td><p><li>Uncouples BOLD response</li><li>Dangerous cumulative effects</li></p></td>
+</tr>
+<tr class="row-odd"><td><p>(Dex)meditomidine</p></td>
+<td><p>infusion</p></td>
+<td><p><li> preserves BOLD response </li></p></td>
+<td><p><li> requires cannulation</li><li>requires Atipamezole for speedy recovery</li></p></td>
+</tr>
+<tr class="row-even"><td><p>Alpha-Chloralose</p></td>
+<td><p>infusion</p></td>
+<td><p><li> preserves BOLD response </li></p></td>
+<td><p><li>Difficult recovery</li></p></td>
+</tr>
+<tr class="row-odd"><td><p>Ketamine</p></td>
+<td><p>infusion</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="respiration">
+<h3>Respiration<a class="headerlink" href="#respiration" title="Permalink to this headline">¶</a></h3>
+<p>Respiration rate and the pattern of inhalation is impacted by the choice of
+anaesthesia or sedative.
+Often anaesthetic procedures prescribe a respiration rate to standardise across
+animals, rather than a rate of anaesthetic delivery.</p>
+</div>
+<div class="section" id="thermal-homeostasis">
+<h3>Thermal homeostasis<a class="headerlink" href="#thermal-homeostasis" title="Permalink to this headline">¶</a></h3>
+<p>Small animals, particularly mice, find it difficult to regulate their body
+temperature in the scanner, especially when unconscious.
+Consequently, internal body temperature is recorded with a thermometer.
+It is possible to use the thermometer reading as part of a feedback loop
+controlling either a water heating system (built in to the bed or applied as a
+heated blanket) or an air heating system (which is blown through the scanner bore
+with a fan).</p>
+<p>Since temperature is critical for the rate of oxygen consumption, temperature should be maintained within a small normative range.</p>
+</div>
+<div class="section" id="movement">
+<h3>Movement<a class="headerlink" href="#movement" title="Permalink to this headline">¶</a></h3>
+<p>Movement is often reduced in scanning animal imaging due to the use of bite bars,
+ear bars, and anaesthesitics and sedatives.
+However, movement should still be carefully scrutinized as it may point to:</p>
+<ul class="simple">
+<li><p>less anaesthetised/sedated state</p></li>
+<li><p>movement associated with the onset of a task (e.g. jumping at stimulus)</p></li>
+<li><p>scanner drift</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="hands-on">
+<h2>Hands-on<a class="headerlink" href="#hands-on" title="Permalink to this headline">¶</a></h2>
+<p>Let’s see some of these factors in action.
+The acquisition notebook has examples of data that have poor acquisition.
+Can you guess where they have deviated from the standard operating procedure?</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./animal-qc"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By The tutorial authors<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
