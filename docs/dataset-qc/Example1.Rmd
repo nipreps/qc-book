@@ -50,6 +50,7 @@ sub.ids <- paste0("demoSub", 1:4);  # vector of subject IDs
 Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.
 
 ```{r}
+options(warn=FALSE);
 
 do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
   
@@ -105,6 +106,7 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
+options(warn=FALSE);
 do.convert("demoSub1"); 
 ```
 
@@ -125,7 +127,7 @@ The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why?
 
 Looking at the names on the input files gives one answer:
 ```{r}
-list.files(in.path);  # print the names of the files in the input directory
+print(list.files(in.path));  # print the names of the files in the input directory
 ```
 For demoSub4, I edited the timing values in the raw eprime text recovery to have a too-long baseline period. What happens if you edit the conversion code to remove the test of baseline period duration? If particular experimental values are important for determining if the session went properly (and the participant's data can be analyzed), test for these values as early and often (and easily for the experimenter) as possible.
 
