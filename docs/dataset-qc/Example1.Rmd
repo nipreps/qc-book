@@ -12,7 +12,7 @@ jupyter:
     name: ir
 ---
 
-# Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
+# Is a task repetitive, boring, and/or error-prone? Script it!
 Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.
 
  In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.
@@ -34,18 +34,19 @@ Since this example is Eprime and R, we will use the [eMergeR](https://github.com
 I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. There are files for four participants, demoSub1, demoSub2, demoSub3, and demoSub4.
 
 ```{r}
+options(warn=FALSE, message=FALSE);
 library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
 
 # define some variables to be used later in this script
 # I strongly recommend explicitly setting complete paths (e.g., in.path <- 'd:/projects/demo/")
 # at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.
 in.path <- "example1files/";    # path to input file directory
-# out.path <- "example1files/output/";   # directory in which the converted files would be written
+out.path <- "example1files/output/";   # directory in which the converted files would be written
 
 sub.ids <- paste0("demoSub", 1:4);  # vector of subject IDs
 
 ```
-
+#### A conversion function
 Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.
 
 ```{r}
@@ -54,7 +55,8 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
   
   fname <- paste0("interoception_", sub.id, ".txt");   # build expected input filename
   if (file.exists(paste0(in.path, fname))) {   # file exists, so read it and convert.
-    print(paste("loading file for", sub.id)); 
+    print(paste("loading file for", sub.id, "...."));  # a getting-started message
+
     e.in <- edatR(paste0(in.path, fname));     # eMergeR function for reading text recovery files
     e.tbl <- as.data.frame.edat(e.in, simplify=TRUE);   # initial conversion
     
@@ -85,25 +87,21 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
       e.tbl$black.OnsetTime[1]  <- tmp.vec["baseline5min.OnsetTime"];    # add missing values to e.tbl
       e.tbl$black.OffsetTime[1] <- tmp.vec["baseline5min.OffsetTime"];
       
-      # now have all the information, so write as a csv
-      # out.fname <- paste0("interoception-", sub.id, "-converted.csv");  # name of the output file to be made
+      # now have all the information, so write as a csv (commented for demo)
+      out.fname <- paste0("interoception-", sub.id, "-converted.csv");  # name of the output file to be made
       # write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);
       
-      # if (file.exists(paste0(out.path, out.fname))) {   # confirm file present and print a success message
-      #   print(paste("success! wrote", out.fname, "to disk."));
-      # } else { 
-      #   print(paste("ERROR: didn't write", out.fname, "to disk!!!!")); 
-      # }
-
-      # show a bit of the output csv
-      print(e.tbl[,c(2:4,6:8)]);
-      print("", quote=FALSE);  # for spacing
+      if (file.exists(paste0(out.path, out.fname))) {   # confirm file present and print a success message
+        print(paste("success! have", out.fname, "on disk."));
+      } else { 
+        print(paste("ERROR: couldn't write", out.fname, "to disk!!!!")); 
+      }
     }
   } else { print(paste0("ERROR: missing input file ", in.path, fname, "!")); }
 }
 
 ```
-
+#### Using the conversion function
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
@@ -120,10 +118,23 @@ do.convert("demoSub3");
 
 ```{r}
 do.convert("demoSub4"); 
+```
 
-# easier to run a group of subjects with a loop:
+#### Examining the output
+The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why? 
+
+Looking at the names on the input files gives one answer:
+```{r}
+list.files(in.path);  # print the names of the files in the input directory
+```
+For demoSub4, I edited the timing values in the raw eprime text recovery to have a too-long baseline period. What happens if you edit the conversion code to remove the test of baseline period duration? If particular experimental values are important for determining if the session went properly (and the participant's data can be analyzed), test for these values as early and often (and easily for the experimenter) as possible.
+
+
+```{r}
+# to see the created csvs, uncomment and these line:
+# read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
+# read.csv(paste0(out.path, "interoception-demoSub3-converted.csv"));
+
+# coding tip: it can be easier to run a group of subjects with a loop:
 # for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
-
-# list.files(in.path);  # print the names of the files in the input directory
-
 ```
