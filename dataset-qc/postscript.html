@@ -285,6 +285,19 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#r-programming-opinions">
+   R programming opinions
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -297,6 +310,19 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#r-programming-opinions">
+   R programming opinions
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -305,7 +331,13 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="postscript">
 <h1>Postscript<a class="headerlink" href="#postscript" title="Permalink to this headline">¶</a></h1>
-<p>R programmers may have a few questions about my R coding style: not at all “tidy”, includes ;, and has a somewhat unsusual (for R, at least) way of declaring and naming variables.</p>
+<div class="section" id="r-programming-opinions">
+<h2>R programming opinions<a class="headerlink" href="#r-programming-opinions" title="Permalink to this headline">¶</a></h2>
+<p>R programmers may have a few questions about my R coding style: I usually put semicolons at the ends of statements and am not at all “<a class="reference external" href="https://www.tidyverse.org/">tidy</a>”.</p>
+<p>The semicolons sometimes confuse people: <a class="reference external" href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Control-structures">R allows but does not require</a> statements to end with a semicolon in most cases; a line return (or sometimes just a space) is usually sufficient. Part of why I prefer ending lines with semicolons is habit: I started with languagues in which it is required (and habitually use a lot of semicolons in my writing as you may have noticed!). But I’ve retained them in R code because I think it can help with code readability, and reduces any uncertainty about where a statement ends: semicolons are <strong>always</strong> the end of a statement while line returns may or may not be.</p>
+<p>I love the hexagonal tidyverse stickers, but not the “tidy” coding style. I use base R and as few packages as possible; I use many for loops but no pipes. There are a lot of opinions on the relative merits of tidy and base R (<a class="reference external" href="https://github.com/matloff/TidyverseSkeptic">Norm Matloff’s</a> is pretty comprehensive). To my mind, one big reason to stick with base R is <strong>stability</strong>: base R <em>just works</em> across platforms (running the same code on windows, apple, linux) and is robust to updates. I often write code that needs to be usable by many people on many different computers and for years, and I don’t want to be concerned about versioning. (In the last fifteen years I’ve had an update break old code once.) Another reason I prefer base R, especially for newcomers, is its use of “standard” programming logic (if, for, etc.). Translating from or to matlab, java, etc. reduces to learning the difference in syntax, rather than different concepts (meaning things like mutate and pipes, which don’t always have an equivalent).</p>
+<p>I see the goal of scientific programming as clarity and long-term stability, not efficiency. By “scientific programming” I mean things like in the demos and linked code from this notebook: scripts to carry out a particular conversion or analysis, not something like writing an operating system for new hardware or weather forecasting. If you find yourself thinking that code could be written in a “clever” way, consider how much time it would take to explain what that bit of code is doing to someone else, or debug it if there is trouble later. If the “clever” implementation would be harder to explain or debug, use the “boring” way, even if it might take a few msec more to run.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
