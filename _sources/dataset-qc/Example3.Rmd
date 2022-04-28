@@ -12,7 +12,7 @@ jupyter:
     name: ir
 ---
 
-# Principle 3: Establish and consistently perform control analyses
+# Create and consistently perform control analyses
 ### What are control analyses?
 Control analyses are for dataset QC; they must be separate from the experimental questions and target analyses. **Positive control analyses** check for the existence of effects that *must* be present if the dataset is valid. If the effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved. Stated another way, a positive control analysis is one that is not of experimental interest, but has a very predictable outcome; so predictable that we are concerned if it is not found.
 

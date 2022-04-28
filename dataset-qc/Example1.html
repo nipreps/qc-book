@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Dataset QC Example 2" href="Example2.html" />
+    <link rel="next" title="Highlight important and diagnostic features as efficiently as possible" href="Example2.html" />
     <link rel="prev" title="Dataset QC: Taking control of your data" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -123,22 +123,22 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!
+   Is a task repetitive, boring, and/or error-prone? Script it!
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example2.html">
-   Dataset QC Example 2
+   Highlight important and diagnostic features as efficiently as possible
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example3.html">
-   Principle 3: Establish and consistently perform control analyses
+   Create and consistently perform control analyses
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="Example4.html">
-   Principle 4: Use automated dynamic reports
+   Use automated dynamic reports
   </a>
  </li>
 </ul>
@@ -312,6 +312,21 @@ const thebe_selector_output = ".output, .cell_output"
        Startup and a look at the input data
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-conversion-function">
+       A conversion function
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-the-conversion-function">
+       Using the conversion function
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#examining-the-output">
+       Examining the output
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -326,7 +341,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!</h1>
+                <h1>Is a task repetitive, boring, and/or error-prone? Script it!</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -356,6 +371,21 @@ const thebe_selector_output = ".output, .cell_output"
        Startup and a look at the input data
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-conversion-function">
+       A conversion function
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#using-the-conversion-function">
+       Using the conversion function
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#examining-the-output">
+       Examining the output
+      </a>
+     </li>
     </ul>
    </li>
   </ul>
@@ -369,8 +399,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="principle-1-is-a-task-repetitive-boring-and-or-error-prone-script-it">
-<h1>Principle 1: Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#principle-1-is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="is-a-task-repetitive-boring-and-or-error-prone-script-it">
+<h1>Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
 <p>Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.</p>
 <p>In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
 <p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, the standard preprocessing scripts use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for inspiration.</p>
@@ -390,13 +420,14 @@ const thebe_selector_output = ".output, .cell_output"
 <p>I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. There are files for four participants, demoSub1, demoSub2, demoSub3, and demoSub4.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
 
 <span class="c1"># define some variables to be used later in this script</span>
 <span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;)</span>
 <span class="c1"># at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</span>
 <span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
-<span class="c1"># out.path &lt;- &quot;example1files/output/&quot;;   # directory in which the converted files would be written</span>
+<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/output/&quot;</span><span class="p">;</span>   <span class="c1"># directory in which the converted files would be written</span>
 
 <span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;demoSub&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">);</span>  <span class="c1"># vector of subject IDs</span>
 </pre></div>
@@ -408,6 +439,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="a-conversion-function">
+<h4>A conversion function<a class="headerlink" href="#a-conversion-function" title="Permalink to this headline">¶</a></h4>
 <p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -415,7 +449,8 @@ const thebe_selector_output = ".output, .cell_output"
   
   <span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception_&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">);</span>   <span class="c1"># build expected input filename</span>
   <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># file exists, so read it and convert.</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;loading file for&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">));</span> 
+    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;loading file for&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;....&quot;</span><span class="p">));</span>  <span class="c1"># a getting-started message</span>
+
     <span class="n">e.in</span> <span class="o">&lt;-</span> <span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">));</span>     <span class="c1"># eMergeR function for reading text recovery files</span>
     <span class="n">e.tbl</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># initial conversion</span>
     
@@ -446,19 +481,15 @@ const thebe_selector_output = ".output, .cell_output"
       <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>    <span class="c1"># add missing values to e.tbl</span>
       <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
       
-      <span class="c1"># now have all the information, so write as a csv</span>
-      <span class="c1"># out.fname &lt;- paste0(&quot;interoception-&quot;, sub.id, &quot;-converted.csv&quot;);  # name of the output file to be made</span>
+      <span class="c1"># now have all the information, so write as a csv (commented for demo)</span>
+      <span class="n">out.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span>  <span class="c1"># name of the output file to be made</span>
       <span class="c1"># write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);</span>
       
-      <span class="c1"># if (file.exists(paste0(out.path, out.fname))) {   # confirm file present and print a success message</span>
-      <span class="c1">#   print(paste(&quot;success! wrote&quot;, out.fname, &quot;to disk.&quot;));</span>
-      <span class="c1"># } else { </span>
-      <span class="c1">#   print(paste(&quot;ERROR: didn&#39;t write&quot;, out.fname, &quot;to disk!!!!&quot;)); </span>
-      <span class="c1"># }</span>
-
-      <span class="c1"># show a bit of the output csv</span>
-      <span class="nf">print</span><span class="p">(</span><span class="n">e.tbl</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="o">:</span><span class="m">8</span><span class="p">)]);</span>
-      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">quote</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>  <span class="c1"># for spacing</span>
+      <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># confirm file present and print a success message</span>
+        <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;success! have&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;on disk.&quot;</span><span class="p">));</span>
+      <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;ERROR: couldn&#39;t write&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;to disk!!!!&quot;</span><span class="p">));</span> 
+      <span class="p">}</span>
     <span class="p">}</span>
   <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span> <span class="p">}</span>
 <span class="p">}</span>
@@ -466,6 +497,9 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="using-the-conversion-function">
+<h4>Using the conversion function<a class="headerlink" href="#using-the-conversion-function" title="Permalink to this headline">¶</a></h4>
 <p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -474,7 +508,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub1&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub1 ....&quot;
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in .parse_file(txt_filename):
@@ -497,25 +531,7 @@ const thebe_selector_output = ".output, .cell_output"
 “input string &#39;&lt;ff&gt;&lt;fe&gt;&#39; cannot be translated to UTF-8, is it valid in &#39;ANSI_X3.4-1968&#39;?”
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Procedure   time       type black.OnsetTime black.Duration
-1 baselineProc 300000   baseline           10617           &lt;NA&gt;
-2         rest  60000    60 rest          436909          60000
-3      trigger  25000 25 seconds            &lt;NA&gt;           &lt;NA&gt;
-4         rest  30000    30 rest          523490          30000
-5      trigger  35000 35 seconds            &lt;NA&gt;           &lt;NA&gt;
-6         rest  30000    30 rest          590051          30000
-7      trigger  45000 45 seconds            &lt;NA&gt;           &lt;NA&gt;
-8         rest  60000    60 rest          666609          60000
-  black.OffsetTime
-1           310617
-2           496909
-3             &lt;NA&gt;
-4           553490
-5             &lt;NA&gt;
-6           620051
-7             &lt;NA&gt;
-8           726609
-[1] 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;success! have interoception-demoSub1-converted.csv on disk.&quot;
 </pre></div>
 </div>
 </div>
@@ -539,26 +555,8 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub3&quot;
-     Procedure   time       type black.OnsetTime black.Duration
-1 baselineProc 300000   baseline           17769           &lt;NA&gt;
-2         rest  60000    60 rest          507197          60000
-3      trigger  25000 25 seconds            &lt;NA&gt;           &lt;NA&gt;
-4         rest  30000    30 rest          593778          30000
-5      trigger  35000 35 seconds            &lt;NA&gt;           &lt;NA&gt;
-6         rest  30000    30 rest          660340          30000
-7      trigger  45000 45 seconds            &lt;NA&gt;           &lt;NA&gt;
-8         rest  60000    60 rest          736897          60000
-  black.OffsetTime
-1           317769
-2           567197
-3             &lt;NA&gt;
-4           623778
-5             &lt;NA&gt;
-6           690340
-7             &lt;NA&gt;
-8           796897
-[1] 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub3 ....&quot;
+[1] &quot;success! have interoception-demoSub3-converted.csv on disk.&quot;
 </pre></div>
 </div>
 </div>
@@ -566,17 +564,45 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub4&quot;</span><span class="p">);</span> 
-
-<span class="c1"># easier to run a group of subjects with a loop:</span>
-<span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
-
-<span class="c1"># list.files(in.path);  # print the names of the files in the input directory</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub4&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] &quot;loading file for demoSub4 ....&quot;
 [1] &quot;ERROR: the baseline was not 5 minutes&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="examining-the-output">
+<h4>Examining the output<a class="headerlink" href="#examining-the-output" title="Permalink to this headline">¶</a></h4>
+<p>The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why?</p>
+<p>Looking at the names on the input files gives one answer:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">list.files</span><span class="p">(</span><span class="n">in.path</span><span class="p">);</span>  <span class="c1"># print the names of the files in the input directory</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'interoception_demoSub1.txt'</li><li>'interoception_demoSub3.txt'</li><li>'interoception_demoSub4.txt'</li><li>'interoception_demoSvb2.txt'</li><li>'output'</li></ol>
+</div></div>
+</div>
+<p>For demoSub4, I edited the timing values in the raw eprime text recovery to have a too-long baseline period. What happens if you edit the conversion code to remove the test of baseline period duration? If particular experimental values are important for determining if the session went properly (and the participant’s data can be analyzed), test for these values as early and often (and easily for the experimenter) as possible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># to see the created csvs, uncomment and these line:</span>
+<span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub1-converted.csv&quot;));</span>
+<span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub3-converted.csv&quot;));</span>
+
+<span class="c1"># coding tip: it can be easier to run a group of subjects with a loop:</span>
+<span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
 </pre></div>
 </div>
 </div>
@@ -621,7 +647,7 @@ const thebe_selector_output = ".output, .cell_output"
     <a class='right-next' id="next-link" href="Example2.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Dataset QC Example 2</p>
+        <p class="prev-next-title">Highlight important and diagnostic features as efficiently as possible</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

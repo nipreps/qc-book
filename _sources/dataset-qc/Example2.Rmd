@@ -12,7 +12,7 @@ jupyter:
     name: ir
 ---
 
-# Dataset QC Example 2
+# Highlight important and diagnostic features as efficiently as possible
 Highlight important and diagnostic features as efficiently as possible. QC reports won't be used if they are too long, ugly, or annoying. Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes "look like brains" and the surfaces have "tiger stripes"). It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.
 
 It often works well to arrange images so can visually survey ("which one of these things is not like the others") and judge typical variability. Collect examples of what the diagnostic features should (or not) look like.
