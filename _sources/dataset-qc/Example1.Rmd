@@ -26,12 +26,12 @@ When possible, have scripts read and write files directly from the intended perm
 The example uses eprime files from a heart beat counting task like that described in Pollatos, Traut-Mattausch, and Schandry ([2009](https://doi.org/10.1002/da.20504)). The task starts with a five-minute baseline period, followed by three timed trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds. 
 
 ### Implementation of the conversion script
-Our goal is to convert the eprime data file for a participant to a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. For the purpose of the tutorial the file writing parts are commented and replaced by printing to screen, but are included for completeness.
+The goal is to convert the eprime data file for a participant to a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. For the purpose of the tutorial the file writing parts are commented and replaced by printing to screen, but are included for completeness.
 
 Since this example is Eprime and R, we will use the [eMergeR](https://github.com/AWKruijt/eMergeR) library's functions for parsing information out of the eprime "text recovery" file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)
 
 #### Startup and a look at the input data
-I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. There are files for four participants, demoSub1, demoSub2, demoSub3, and demoSub4.
+I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. For the demo we will convert files for four "participants": demoSub1, demoSub2, demoSub3, and demoSub4.
 
 ```{r}
 options(warn=FALSE, message=FALSE);
@@ -43,17 +43,17 @@ library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKr
 in.path <- "example1files/";    # path to input file directory
 out.path <- "example1files/output/";   # directory in which the converted files would be written
 
-sub.ids <- paste0("demoSub", 1:4);  # vector of subject IDs
+sub.ids <- paste0("demoSub", 1:4);  # declare vector of subject IDs
 
 ```
 #### A conversion function
-Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally edited partway through the study.
+Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.
 
 ```{r}
-options(warn=FALSE);
-
 do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
-  
+  out.fname <- paste0("interoception-", sub.id, "-converted.csv");  # name of the output file to be made
+  # in a full script this would be a good place to check if the out.fname file already exists
+
   fname <- paste0("interoception_", sub.id, ".txt");   # build expected input filename
   if (file.exists(paste0(in.path, fname))) {   # file exists, so read it and convert.
     print(paste("loading file for", sub.id, "...."));  # a getting-started message
@@ -68,9 +68,10 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
       found.error <- TRUE;  # change flag
     }
 
-    # the eMergerR functions included the initial baseline session, but not all its timing info
-    # so this code confirms that the fields are missing from e.tbl as expected, retrieves them 
-    # from the trial_info part of the eMergerR object, checks their length, then adds them to e.tbl.
+    # the eMergerR functions put the initial baseline session into e.tbl, but not all 
+    # of its timing info. This next bit of code confirms that the fields are indeed missing 
+    # from e.tbl, retrieves them from the trial_info part of the eMergerR object, checks them
+    # and finally adds them to the correct places in e.tbl.
     if (!is.na(e.tbl$black.OnsetTime[1]) | !is.na(e.tbl$black.OffsetTime[1])) { 
       print("ERROR: have baseline onsets or offsets??"); 
       found.error <- TRUE;  # change flag
@@ -89,13 +90,12 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
       e.tbl$black.OffsetTime[1] <- tmp.vec["baseline5min.OffsetTime"];
       
       # now have all the information, so write as a csv (commented for demo)
-      out.fname <- paste0("interoception-", sub.id, "-converted.csv");  # name of the output file to be made
       # write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);
       
       if (file.exists(paste0(out.path, out.fname))) {   # confirm file present and print a success message
         print(paste("success! have", out.fname, "on disk."));
       } else { 
-        print(paste("ERROR: couldn't write", out.fname, "to disk!!!!")); 
+        print(paste("ERROR:", out.fname, "not made!")); 
       }
     }
   } else { print(paste0("ERROR: missing input file ", in.path, fname, "!")); }
@@ -106,7 +106,6 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
-options(warn=FALSE);
 do.convert("demoSub1"); 
 ```
 
@@ -129,14 +128,13 @@ Looking at the names on the input files gives one answer:
 ```{r}
 print(list.files(in.path));  # print the names of the files in the input directory
 ```
-For demoSub4, I edited the timing values in the raw eprime text recovery to have a too-long baseline period. What happens if you edit the conversion code to remove the test of baseline period duration? If particular experimental values are important for determining if the session went properly (and the participant's data can be analyzed), test for these values as early and often (and easily for the experimenter) as possible.
-
+For demoSub4, I edited the timing values in the raw eprime text recovery to have a too-long baseline period. What happens if you edit the conversion code to remove the test of baseline period duration? If particular experimental values are important for determining if the session went properly, test for these values as early and  often as possible.
 
 ```{r}
-# to see the created csvs, uncomment and these line:
-# read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
+# to see the created csvs:
+read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
 # read.csv(paste0(out.path, "interoception-demoSub3-converted.csv"));
 
-# coding tip: it can be easier to run a group of subjects with a loop:
+# it can be easier to run a group of subjects with a loop:
 # for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
 ```

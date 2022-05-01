@@ -293,8 +293,13 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
-   Tutorial: fMRI volume (nifti) image plotting
+  <a class="reference internal nav-link" href="#visual-displays-can-help-with-more-than-image-quality">
+   Visual displays can help with more than image quality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-fmri-volume-nifti-image-plotting">
+   Example: fMRI volume (nifti) image plotting
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -323,8 +328,13 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tutorial-fmri-volume-nifti-image-plotting">
-   Tutorial: fMRI volume (nifti) image plotting
+  <a class="reference internal nav-link" href="#visual-displays-can-help-with-more-than-image-quality">
+   Visual displays can help with more than image quality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-fmri-volume-nifti-image-plotting">
+   Example: fMRI volume (nifti) image plotting
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -343,11 +353,21 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="highlight-important-and-diagnostic-features-as-efficiently-as-possible">
 <h1>Highlight important and diagnostic features as efficiently as possible<a class="headerlink" href="#highlight-important-and-diagnostic-features-as-efficiently-as-possible" title="Permalink to this headline">¶</a></h1>
-<p>Highlight important and diagnostic features as efficiently as possible. QC reports won’t be used if they are too long, ugly, or annoying. Aim for short, aesthetically pleasing files that emphasize easy-to-check diagnostic features (e.g., that the volumes “look like brains” and the surfaces have “tiger stripes”). It is often more effective to investigate oddities with separate, more detailed files and reports when needed, rather than trying to fit all possibly-useful images and statistics into one document.</p>
-<p>It often works well to arrange images so can visually survey (“which one of these things is not like the others”) and judge typical variability. Collect examples of what the diagnostic features should (or not) look like.</p>
-<div class="section" id="tutorial-fmri-volume-nifti-image-plotting">
-<h2>Tutorial: fMRI volume (nifti) image plotting<a class="headerlink" href="#tutorial-fmri-volume-nifti-image-plotting" title="Permalink to this headline">¶</a></h2>
-<p>Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial includes basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.</p>
+<p>Given human nature, even the best QC reports won’t be consistently used if they are too long, ugly, or annoying. It is often more effective to quickly create short, aesthetically pleasing QC files which emphasize easy-to-check diagnostic features. If these summary files suggest something may be amiss, it can be investigated in detail; trying to fit all possibly-useful images and statistics into one document is often counterproductive.</p>
+<p>For checking the preprocessing of human fMRI data, we have found that it works well to plot temporal mean images and confirm that the volumes <strong>look like brains</strong>. This is especially valuable if all of the participants’ runs are plotted side-by-side, like below (10 runs can fit on a single page, e.g., pages 12-14 of <a class="reference external" href="https://osf.io/z62s5/">132017_fMRI_movementSummary_fmriprep.pdf</a>), enabling many runs to be examined at a glance, and differences between the runs to be spotted.
+<img alt="../_images/volumes.jpg" src="../_images/volumes.jpg" /></p>
+<p>Surface temporal mean images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But gross errors can still be spotted (below, right); my suggestion is to check for <strong>tiger stripes</strong> along the top of the hemispheres due to the central sulcus (below, left). Pages 15-17 of <a class="reference external" href="https://osf.io/z62s5/">132017_fMRI_movementSummary_fmriprep.pdf</a> show an array of surface temporal mean images.
+<a class="reference internal" href="../_images/good.jpg"><img alt="../_images/good.jpg" src="../_images/good.jpg" style="width: 250px;" /></a> <a class="reference internal" href="../_images/failure.jpg"><img alt="../_images/failure.jpg" src="../_images/failure.jpg" style="width: 250px;" /></a></p>
+<div class="section" id="visual-displays-can-help-with-more-than-image-quality">
+<h2>Visual displays can help with more than image quality<a class="headerlink" href="#visual-displays-can-help-with-more-than-image-quality" title="Permalink to this headline">¶</a></h2>
+<p>These examples are of visual displays for checking image quality, but plots can be used to efficiently examine other things, too, such as task performance. This plot shows what a participant did during the <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">DMCC Sternberg task</a>. Time is along the x-axis, and each grey-ish plotting symbol indicates a trial onset (NN, NP, RN, 5:8 refer to trial types). The pink and red lines show each button press, with the black tick marks indicating if the response was correct. With a bit of practice a lot of task and performance information can be quickly seen in these types of plots, including trial jitter, randomization, and strange participant responses. For example, this participant gave the incorrect response for several trials in each run and block, but got the great majority correct, suggesting that they were attending to the task and trying to do it properly.
+<img alt="../_images/goodSternberg.jpg" src="../_images/goodSternberg.jpg" /></p>
+<p>By contrast, this participant responded to a few trials, sometimes correctly, but mostly did not, and the RAs noted that the person was sleepy: we do not want to include this person’s data in the analyses. It is important to be able to check for this (and other) strange response patterns. For example, if an analysis shows only the percent of responded-to trials with the correct response, this person’s performance seems quite good (most trials with a response are correct); the high proportion of trials without a response needs to be considered as well.
+<img alt="../_images/sleepySternberg.jpg" src="../_images/sleepySternberg.jpg" /></p>
+</div>
+<div class="section" id="example-fmri-volume-nifti-image-plotting">
+<h2>Example: fMRI volume (nifti) image plotting<a class="headerlink" href="#example-fmri-volume-nifti-image-plotting" title="Permalink to this headline">¶</a></h2>
+<p>Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial demonstrates basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span>  <span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
@@ -358,13 +378,40 @@ const thebe_selector_output = ".output, .cell_output"
 <span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span>  
 
 <span class="c1"># the image values are in a 3d array (since this is a single anatomical image, not a timeseries)</span>
-<span class="c1"># can apply many normal functions</span>
-<span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>   <span class="c1"># [1] 81 96 81</span>
-<span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>  <span class="c1"># [1] 1374.128</span>
-<span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">];</span>  <span class="c1"># value of this voxel</span>
-
-<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span> <span class="o">=</span> <span class="m">8</span><span class="p">,</span> <span class="n">repr.plot.height</span> <span class="o">=</span> <span class="m">3</span><span class="p">);</span>  <span class="c1"># specify size in jupyter</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">));</span>   <span class="c1"># [1] 81 96 81</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 81 96 81
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that the image is read in, many of the normal R commands and operations can be used with it, such as getting the value of individual voxels.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">));</span>  <span class="c1"># [1] 1374.128</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">]);</span>  <span class="c1"># value of the voxel at 30,20,50</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 1374.128
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 370.3334
+</pre></div>
+</div>
+</div>
+</div>
+<p>Slices through the image can be plotted with the same functions as any other image.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>  <span class="c1"># specify size in jupyter</span>
 <span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)));</span>  <span class="c1"># have three images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">));</span>   <span class="c1"># specify plot margins</span>
+
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">15</span><span class="p">,,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice i=15</span>
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
 <span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
@@ -372,22 +419,17 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>81</li><li>96</li><li>81</li></ol>
-</div><div class="output text_html">1374.12768554688</div><div class="output text_html">370.333374023438</div><img alt="../_images/Example2_2_3.png" src="../_images/Example2_2_3.png" />
+<img alt="../_images/Example2_7_0.png" src="../_images/Example2_7_0.png" />
 </div>
 </div>
+<p>Many more neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the <a class="reference external" href="https://github.com/jonclayden/RNifti">RNifti</a>, <a class="reference external" href="https://github.com/muschellij2/gifti">gifti</a>, and <a class="reference external" href="https://github.com/mandymejia/ciftiTools">ciftiTools</a> R packages for file i/o; each includes plotting functions as well. I <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">wrote tutorials</a> for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions.</p>
 </div>
 <div class="section" id="additional-examples-and-notes">
 <h2>Additional examples and notes<a class="headerlink" href="#additional-examples-and-notes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><p><a class="reference external" href="https://mvpa.blogspot.com/2020/02/when-making-qc-or-most-any-images-dont.html">when making QC (or most any) images, don’t mask the brain …</a></p></li>
 <li><p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html">temporal mean, SD, and tSNR</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html">motion (realignment parameters)</a> examples. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p></li>
-<li><p>Examples of the files created for each <a class="reference external" href="https://sites.wustl.edu/dualmechanisms/">DMCC</a> participant may also be useful; see <a class="reference external" href="https://osf.io/z62s5/">https://osf.io/z62s5/</a> and other files in the <em>analyses</em> subdirectory.</p></li>
-<li><p>I suggest using the <a class="reference external" href="https://github.com/jonclayden/RNifti">RNifti</a>, <a class="reference external" href="https://github.com/muschellij2/gifti">gifti</a>, and <a class="reference external" href="https://github.com/mandymejia/ciftiTools">ciftiTools</a> R packages for file i/o. I <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">wrote tutorials</a> for working with nifti and gifti images using these libraries, plus markdown-friendly plotting functions.</p></li>
+<li><p>Examples of the files created for each <a class="reference external" href="https://sites.wustl.edu/dualmechanisms/">DMCC</a> participant may also be useful; see <a class="reference external" href="https://osf.io/z62s5/">https://osf.io/z62s5/</a> and other files in the <em>analyses</em> subdirectory. More task behavior summary images and the source code are at <a class="reference external" href="https://osf.io/7xkq9/">https://osf.io/7xkq9/</a>.</p></li>
 </ul>
 </div>
 </div>
