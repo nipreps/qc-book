@@ -224,3 +224,4 @@ It may be possible to change the units of the header to microns and the voxel si
 This approach still requires further testing.
 ```
 
+% TODO: add bounding box issue in SPM?
