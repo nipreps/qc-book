@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
+    executenb(
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/client.py", line 1204, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/util.py", line 84, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/util.py", line 62, in just_run
+    return loop.run_until_complete(coro)
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/asyncio/base_events.py", line 647, in run_until_complete
+    return future.result()
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/client.py", line 663, in async_execute
+    await self.async_execute_cell(
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/client.py", line 965, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/opt/hostedtoolcache/Python/3.9.12/x64/lib/python3.9/site-packages/nbclient/client.py", line 862, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+#**** change the lines of code below here ****#
+
+# wustl.box <- TRUE;   # if a DMCC team member is running this code (includes automatic download and upload from box)
+# reupload <- FALSE;   # whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.
+# files not already on box will always be uploaded if wustl.box == TRUE; this is whether to replace ones already present.
+
+s# ub.id <- "102008";  #  subject id. (in quotes, even if the subject id is all numbers.)
+# which.DMCC <- 2;    # which.DMCC <- 3;  # DMCC phase number (e.g. which.DMCC <- 3 for the second wave of scans, DMCC_Phase3)
+# temp.path <-  "d:/temp/";     # path to a local directory where files will be written as the code runs.
+
+#**** should not need to change the lines of code below here ****#
+
+------------------
+
+Error in eval(expr, envir, enclos): object 's' not found
+Traceback:
+
+ERROR: Error in eval(expr, envir, enclos): object 's' not found
+
+

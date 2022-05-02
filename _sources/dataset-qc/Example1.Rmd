@@ -105,8 +105,7 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
-do.convert("demoSub1");
-
+do.convert("demoSub1");  
 ```
 
 ```{r}
@@ -132,8 +131,8 @@ For demoSub4, I edited the timing values in the raw eprime text recovery to have
 
 ```{r}
 # to see the created csvs:
-print(read.csv(paste0(out.path, "interoception-demoSub1-converted.csv")));
-# print(read.csv(paste0(out.path, "interoception-demoSub3-converted.csv")));
+read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
+# read.csv(paste0(out.path, "interoception-demoSub3-converted.csv"));
 
 # it can be easier to run a group of subjects with a loop:
 # for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
