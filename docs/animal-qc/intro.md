@@ -18,7 +18,9 @@ software tools are designed
 for humans and have implicit
 voxel size/shape/contrast
 assumptions that are not
-valid for rodents. The tutorial
+valid for rodents.
+
+The tutorial
 will highlight where in the
 processing pipeline these are
 most likely to arise, examples
