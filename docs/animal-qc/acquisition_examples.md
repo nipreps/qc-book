@@ -1,0 +1,175 @@
+---
+jupytext:
+  formats: md:myst
+  notebook_metadata_filter: all,-language_info
+  split_at_heading: true
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.8'
+    jupytext_version: 1.11.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+```{code-cell} python
+:tags: [remove-cell]
+# Some configurations to "beautify" plots
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+mpl.rcParams["font.family"] = "Libre Franklin"
+plt.rcParams["axes.facecolor"] = "white"
+plt.rcParams["savefig.facecolor"] = "white"
+```
+
+# "What went wrong?" data acquisition edition
+## Example 1
+Let's start off with an easy one: below is a T2-weighted structural image.
+```{code-cell} python
+from niwidgets import NiftiWidget
+
+fname = './assets/example-1_desc-orig_acq.nii.gz'
+NiftiWidget(fname)
+```
+
+What do you think the problem was?
+```{code-cell} python
+:tags: [remove-input]
+answer = input('What was the problem?')
+print(answer)
+```
+
+````{admonition} Click the button to reveal!
+:class: dropdown
+A badly positioned coil!
+
+*To correct for this*, make sure that the brain is located in the isocentre of the scanner, and that the head coil is positioned equally over the brain.
+
+```{code-cell} python
+fname = './assets/example-1_desc-corr_acq.nii.gz'
+NiftiWidget(fname)
+```
+````
+
+## Example 2
+Here is a 4D BOLD image:
+```{code-cell} python
+fname = './assets/example-2_desc-orig_acq.nii.gz'
+NiftiWidget(fname)
+```
+
+Can you spot the problem?
+````{hint}
+Try plotting as a *carpet plot* to facilitate viewing patterns across all voxels over time:
+```{code-cell} python
+from nilearn.plotting import plot_carpet
+
+img = nb.load(fname)
+carpet_plot = plot_carpet(fname, detrend=False)
+carpet_plot
+```
+````
+
+```{code-cell} python
+:tags: [remove-input]
+answer = input('What was the problem?')
+print(answer)
+```
+````{admonition} Click the button to reveal!
+:class: dropdown
+The animal moved in the last part of the scan, removing their head entirely from the cradle and head coil.
+
+Interestingly, this is not well reflected in the mean image, which is justification to check the whole timecourse and not just some volumes!
+
+```{code-cell} python
+fname_mean = './assets/example-1_desc-mean_acq.nii.gz'
+NiftiWidget(fname_mean)
+```
+````
+
+## Example 3
+Below is the first attempt at a structural image of a subject
+```{code-cell} python
+fname = './assets/example-3_desc-orig_acq.nii.gz'
+NiftiWidget(fname)
+```
+
+Next, let's look at the structural image, *with the same scan parameters*, that was used for processing:
+```{code-cell} python
+fname = './assets/example-3_desc-orig_acq.nii.gz'
+NiftiWidget(fname)
+```
+
+What is the difference between the two images?
+```{code-cell} python
+:tags: [remove-input]
+answer = input('What is the difference between the two images?')
+print(answer)
+```
+
+```{admonition} Click the button to reveal!
+:class: dropdown
+**Wrong coil configuration!**
+The first image did not use the head coil as a receiver coil.
+```
+
+## Example 4
+Here are three multiparametric mapping images from a single subject acquired with the same protocol in three separate scanning sessions.
+
+Session 1:
+```{code-cell} python
+fname1 = './assets/example-4_ses-1_acq.nii.gz'
+NiftiWidget(fname1)
+```
+Session 2:
+```{code-cell} python
+fname2 = './assets/example-4_ses-2_acq.nii.gz'
+NiftiWidget(fname2)
+```
+Session 3:
+```{code-cell} python
+fname3 = './assets/example-4_ses-3_acq.nii.gz'
+NiftiWidget(fname3)
+```
+
+Which image has the worst quality?
+```{code-cell} python
+:tags: [remove-input]
+answer = input('Which image was the problematic image?')
+print(answer)
+```
+What do you think the problem was?
+```{code-cell} python
+:tags: [remove-input]
+answer = input('What was the problem?')
+print(answer)
+```
+
+```{admonition} Click the button to reveal!
+:class: dropdown
+Changing air temperature!
+
+The set up to maintain the mouse's body temperature in the first session used a fan blowing thermostatically-controlled air into the scanner bore. In the second and third sessions, this was corrected by using a water-heater set up.
+```
+
+% TODO: add example 5
+## Example 5
+```{code-cell} python
+fname = './assets/example-5_ses-1_acq.nii.gz'
+NiftiWidget(fname)
+```
+
+What do you think the problem was?
+```{code-cell} python
+:tags: [remove-input]
+answer = input('What was the problem?')
+print(answer)
+```
+
+```{admonition} Click the button to reveal!
+:class: dropdown
+Ghosting artifact?
+```
+
