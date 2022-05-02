@@ -5,6 +5,7 @@ jupytext>=1.11.2  # Full compat with myst-nb
 matplotlib
 nibabel
 nilearn
+niwidgets
 numpy
 pytest
 requests
