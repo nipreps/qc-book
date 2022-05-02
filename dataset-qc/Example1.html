@@ -420,8 +420,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. For the demo we will convert files for four “participants”: demoSub1, demoSub2, demoSub3, and demoSub4.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">warn</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
 
 <span class="c1"># define some variables to be used later in this script</span>
 <span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;)</span>
@@ -505,7 +504,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub1&quot;</span><span class="p">);</span> 
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub1&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -599,8 +598,8 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># to see the created csvs:</span>
-<span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="s">&quot;interoception-demoSub1-converted.csv&quot;</span><span class="p">));</span>
-<span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub3-converted.csv&quot;));</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="s">&quot;interoception-demoSub1-converted.csv&quot;</span><span class="p">)));</span>
+<span class="c1"># print(read.csv(paste0(out.path, &quot;interoception-demoSub3-converted.csv&quot;)));</span>
 
 <span class="c1"># it can be easier to run a group of subjects with a loop:</span>
 <span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
@@ -608,24 +607,36 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><table class="dataframe">
-<caption>A data.frame: 8 × 12</caption>
-<thead>
-	<tr><th scope=col>timing</th><th scope=col>Procedure</th><th scope=col>time</th><th scope=col>type</th><th scope=col>timing.Sample</th><th scope=col>black.OnsetTime</th><th scope=col>black.Duration</th><th scope=col>black.OffsetTime</th><th scope=col>startChime.OnsetTime</th><th scope=col>startChime.OffsetTime</th><th scope=col>endChime.OnsetTime</th><th scope=col>endChime.OffsetTime</th></tr>
-	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><td>1</td><td>baselineProc</td><td>300000</td><td>baseline  </td><td>1</td><td> 10617</td><td>   NA</td><td>310617</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>2</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>2</td><td>436909</td><td>60000</td><td>496909</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>3</td><td>trigger     </td><td> 25000</td><td>25 seconds</td><td>3</td><td>    NA</td><td>   NA</td><td>    NA</td><td>496947</td><td>521947</td><td>521963</td><td>523463</td></tr>
-	<tr><td>4</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>4</td><td>523490</td><td>30000</td><td>553490</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>5</td><td>trigger     </td><td> 35000</td><td>35 seconds</td><td>5</td><td>    NA</td><td>   NA</td><td>    NA</td><td>553515</td><td>588515</td><td>588531</td><td>590031</td></tr>
-	<tr><td>6</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>6</td><td>590051</td><td>30000</td><td>620051</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>7</td><td>trigger     </td><td> 45000</td><td>45 seconds</td><td>7</td><td>    NA</td><td>   NA</td><td>    NA</td><td>620070</td><td>665070</td><td>665087</td><td>666587</td></tr>
-	<tr><td>8</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>8</td><td>666609</td><td>60000</td><td>726609</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-</tbody>
-</table>
-</div></div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  timing    Procedure   time       type timing.Sample black.OnsetTime
+1      1 baselineProc 300000   baseline             1           10617
+2      2         rest  60000    60 rest             2          436909
+3      3      trigger  25000 25 seconds             3              NA
+4      4         rest  30000    30 rest             4          523490
+5      5      trigger  35000 35 seconds             5              NA
+6      6         rest  30000    30 rest             6          590051
+7      7      trigger  45000 45 seconds             7              NA
+8      8         rest  60000    60 rest             8          666609
+  black.Duration black.OffsetTime startChime.OnsetTime startChime.OffsetTime
+1             NA           310617                   NA                    NA
+2          60000           496909                   NA                    NA
+3             NA               NA               496947                521947
+4          30000           553490                   NA                    NA
+5             NA               NA               553515                588515
+6          30000           620051                   NA                    NA
+7             NA               NA               620070                665070
+8          60000           726609                   NA                    NA
+  endChime.OnsetTime endChime.OffsetTime
+1                 NA                  NA
+2                 NA                  NA
+3             521963              523463
+4                 NA                  NA
+5             588531              590031
+6                 NA                  NA
+7             665087              666587
+8                 NA                  NA
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
