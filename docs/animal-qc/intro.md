@@ -54,7 +54,7 @@ fields in the same individual.
 For example, MRI can be combined with invasive procedures, such as optogenetic
 techniques, in a single rodent subject but not in human participants.
 
-## Why is preclinical imaging useful for converstaions about quality?
+## Why is preclinical imaging useful for conversations about quality?
 
 Preclinical MRI has historically trailed its human equivalent in some respects.
 This likely reflects its novelty relative to human imaging, but there are a
