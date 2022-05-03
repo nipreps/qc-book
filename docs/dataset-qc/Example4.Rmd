@@ -14,12 +14,29 @@ jupyter:
 
 # Use automated dynamic reports
 ### What are automated dynamic reports?
-A generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and  schemes (markdown, latex, knitr, etc.). 
+"Dynamic reports" is a generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and text styles (markdown, latex, [knitr](https://yihui.org/knitr/), etc.). In research I suggest using dynamic reports in two somewhat different ways: for describing specific one-off analyses, and for dataset QC and other automated analyses. 
 
-Perhaps the most familiar use of dynamic reports is for specific, one-off analyses. In the past I usually summarized results for my collaborators in word documents, copy-pasting images and tables in as needed. This works, but quickly becomes inconvenient, such as if you decide to change the color scheme, all the plots need to be copy-pasted in again. Tracking down the source of each image later (e.g., to change a threshold) is often a nightmare. Dynamic documents can serve the same purpose (combining text and results), but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether for I expect they will be seen by others or not.
+The first use replaces the common practice of summarizing results in word documents, copy-pasting images and tables in as needed from statistical software. This copy-paste procedure works for small things, but quickly becomes inconvenient, such as if you decide to change a color or symbol, all the plots need to be copy-pasted in again. Identifying the source of each image or statistic (e.g., to change a threshold or check a formula) with only the word document is often time consuming, and may be impossible. Dynamic documents can serve the same purpose of combining text and results for easy sharing of results, but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether I expect they will be seen by others or not.
 
+The second broad use case is that of automation, in which a single template file is made and then compiled many times. For example, for the DMCC we produce a set of QC reports summarizing the data for each participant (an example set is [on osf](https://osf.io/7xkq9/); see also [dualmechanisms](https://github.com/ccplabwustl/dualmechanisms/)). A key for template use is that the edits needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Restricting variables in this way allows the script to be run by many researchers and in batches.
 
-I use dynamic reports in two somewhat different ways: for dataset QC and other automated analyses, and for describing particular/one-off analyses. 
+For example, this is a bit of the code near the top of the DMCC [TEMPLATE_convertEprime.R](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R) script.
+```{r}
+
+#**** change the lines of code below here ****#
+
+# wustl.box <- TRUE;   # if a DMCC team member is running this code (includes automatic download and upload from box)
+# reupload <- FALSE;   # whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.
+# files not already on box will always be uploaded if wustl.box == TRUE; this is whether to replace ones already present.
+
+s# ub.id <- "102008";  #  subject id. (in quotes, even if the subject id is all numbers.)
+# which.DMCC <- 2;    # which.DMCC <- 3;  # DMCC phase number (e.g. which.DMCC <- 3 for the second wave of scans, DMCC_Phase3)
+# temp.path <-  "d:/temp/";     # path to a local directory where files will be written as the code runs.
+
+#**** should not need to change the lines of code below here ****#
+
+```
+
 
 
 point out that the tutorial is in a dynamic document, as is the mriqc output html. Pdf can be better for archiving; static docs can be good. have to be careful about caching, scoping. Batch mode good. Don't get carried away with formatting; personal working document may not need to be as fancy as something for publication. pdf good for supplemental, not necessarily demos.
@@ -35,8 +52,3 @@ MUCH easier than copy-pasting from separate files!
 base R; works on multiple os
 
 
-```{r}
-
-print("example 4")
-
-```

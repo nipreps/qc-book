@@ -18,17 +18,18 @@ Given human nature, even the best QC reports won't be consistently used if they 
 For checking the preprocessing of human fMRI data, we have found that it works well to plot temporal mean images and confirm that the volumes **look like brains**. This is especially valuable if all of the participants' runs are plotted side-by-side, like below (10 runs can fit on a single page, e.g., pages 12-14 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/)), enabling many runs to be examined at a glance, and differences between the runs to be spotted.
 <img src="example2files/volumes.jpg">
 
-Surface temporal mean images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But gross errors can still be spotted (below, right); my suggestion is to check for **tiger stripes** along the top of the hemispheres due to the central sulcus (below, left). Pages 15-17 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/) show an array of surface temporal mean images.
-<img src="example2files/good.jpg" width="250"/> <img src="example2files/failure.jpg" width="250"/> 
+Surface temporal mean images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But gross errors can still be spotted; my suggestion is to check for **tiger stripes** along the top of the hemispheres due to the central sulcus (arrows). Pages 15-17 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/) show an array of surface temporal mean images.
+<img src="example2files/good.jpg" width="500"/> 
+<img src="example2files/failure.jpg" width="500"/> 
 
 ## Visual displays can help with more than image quality
-These examples are of visual displays for checking image quality, but plots can be used to efficiently examine other things, too, such as task performance. This plot shows what a participant did during the [DMCC Sternberg task](https://doi.org/10.1038/s41597-022-01226-4). Time is along the x-axis, and each grey-ish plotting symbol indicates a trial onset (NN, NP, RN, 5:8 refer to trial types). The pink and red lines show each button press, with the black tick marks indicating if the response was correct. With a bit of practice a lot of task and performance information can be quickly seen in these types of plots, including trial jitter, randomization, and strange participant responses. For example, this participant gave the incorrect response for several trials in each run and block, but got the great majority correct, suggesting that they were attending to the task and trying to do it properly.
+These previous examples are of visual displays for checking MR image quality, but plots can be used to efficiently examine other things, too, such as task performance. This plot shows what a participant did during the [DMCC Sternberg task](https://doi.org/10.1038/s41597-022-01226-4). Time is along the x-axis, and each grey-ish plotting symbol indicates a trial onset (NN, NP, RN, 5:8 refer to trial types). The pink and red lines show the time and identity of each button press, with the black tick marks indicating if the response was correct. With a bit of practice a lot of task and performance information can be quickly seen in these types of plots, including trial jitter, randomization, and unexpected participant response patterns. For example, this participant gave the incorrect response for several trials in each run and block, but got the great majority correct, suggesting that they were attending to the task and trying to do it properly.
 <img src="example2files/goodSternberg.jpg">
 
-By contrast, this participant responded to a few trials, sometimes correctly, but mostly did not, and the RAs noted that the person was sleepy: we do not want to include this person's data in the analyses. It is important to be able to check for this (and other) strange response patterns. For example, if an analysis shows only the percent of responded-to trials with the correct response, this person's performance seems quite good (most trials with a response are correct); the high proportion of trials without a response needs to be considered as well.
+By contrast, this participant responded to a few trials, sometimes correctly, but mostly did not, and the RAs noted that the person was sleepy: we do not want to include this person's data in the analyses. It is important to be able to check for this (and other) strange response patterns. For example, if an analysis calculated performance as the percent of trials with a correct response out of all trials with any response, this person's performance will seem **quite good** (most trials with a response are correct); the high proportion of trials without a response needs to be considered as well.
 <img src="example2files/sleepySternberg.jpg">
 
-## Example: fMRI volume (nifti) image plotting
+## Example: anatomical volume (nifti) image plotting
 Efficiently displaying QC images depends upon being able to easily access and plot the source files. The tutorial demonstrates basic image reading and plotting, the key foundation skill upon which the more complex files (see links at the end of this page) are built.
 
 ```{r}
@@ -59,9 +60,45 @@ image(img[,20,], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE
 image(img[,,50], col=gray(0:64/64), xlab="", ylab="", axes=FALSE, useRaster=TRUE);   # plot slice k=50
 ```
 
-Many more neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o; each includes plotting functions as well. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions.
+## Example: functional volume (nifti) image plotting
 
-## Additional examples and notes
+Functional nifti images are read in with the same command, but as a 4d matrix: the three dimensions plus time. This next bit of code reads a functional run from the first DMCC55B participant, downloaded from ,https://openneuro.org/datasets/ds003465/versions/1.0.5, then edited to only have the first eight frames (so the file wouldn't be too large).
+
+```{r}
+# load a (small) functional run from the first DMCC55B participant 
+in.img <- readNifti("example2files/sub-f1027ao_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz");  
+
+print(dim(in.img));  # [1]  81  96  81 8
+
+```
+
+We can plot the same slice at different times (frames), and calculate statistics from individual frames or across time. The frames look quite similar, but there are small differences, as reflected in the maximum voxel value printed on each image.
+```{r}
+options(repr.plot.width=8, repr.plot.height=3);  # specify size in jupyter
+layout(matrix(1:4, c(1,4)));  # have four images in one row
+par(mar=c(0.1, 0.1, 0.1, 0.1));   # specify plot margins
+
+do.k <- 50;  # which k slice to plot
+# so all frames will be plotted with the same color scaling, specify before plotting
+z.lim <- c(min(in.img[,,do.k,]), max(in.img[,,do.k,]));  # range calculated across all TRs
+
+# plot one frame
+image(in.img[,,do.k,1], col=gray(0:64/64), zlim=z.lim, xlab="", ylab="", axes=FALSE, useRaster=TRUE);
+text(x=0.2, y=0.95, labels="frame 1", col='lightblue');  # add a label
+
+# plot with a loop
+show.frames <- c(3, 5, 7);  # which (and how many) frames to plot
+for (i in 1:length(show.frames)) {   # i <- 1;
+  image(in.img[,,do.k,show.frames[i]], col=gray(0:64/64), zlim=z.lim, xlab="", ylab="", axes=FALSE, useRaster=TRUE);
+  text(x=0.15, y=0.95, labels=paste("frame", show.frames[i]), col='white');  # add a label
+  text(x=0.25, y=0.05, labels=paste0("max=", round(max(in.img[,,do.k,show.frames[i]]),2)), col='white');  # add a statistic
+}
+
+```
+
+## Notes and links
+Many neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o; each includes plotting functions as well. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions.
+
 - [when making QC (or most any) images, don't mask the brain ...](https://mvpa.blogspot.com/2020/02/when-making-qc-or-most-any-images-dont.html)
 - The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the [temporal mean, SD, and tSNR](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html) and [motion (realignment parameters)](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html) examples. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
 - Examples of the files created for each [DMCC](https://sites.wustl.edu/dualmechanisms/) participant may also be useful; see <https://osf.io/z62s5/> and other files in the *analyses* subdirectory. More task behavior summary images and the source code are at <https://osf.io/7xkq9/>.

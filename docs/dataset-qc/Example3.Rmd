@@ -34,7 +34,7 @@ This is a color-word Stroop, with spoken responses. Each participant completed t
 
 ### Implementing the control test
 We will use the [Schaefer2018_LocalGlobal](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal) 1000 parcels x 17 networks parcellation for this analysis. This parcellation is independent from the task data, in the same space (fsaverage5) as the preprocessed images, and has parcels [labeled by network](https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv). The example uses parcel 116 (below left, 17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (below right, 17Networks_RH_DefaultB_PFCv_2) for comparison. (Aside these surface images were made with R, see [this post](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for my function and tutorial.)
-<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="250"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="250"/> 
+<img src="example3files/Schaefer1000x17_p116_outer.jpg" width="300"/> <img src="example3files/Schaefer1000x17_p964_outer.jpg" width="300"/> 
 
 To keep things as simple as possible, we can plot the BOLD in each parcel (averaged over its vertices) at each timepoint during the trials (the "parcel-average timeseries"). The time each trial started is given in the BIDS [_events.tsv files](https://openneuro.org/datasets/ds003465/). The parcel-average timeseries files used as input for this tutorial were made from the gifti files created during fmriprep preprocessing (i.e., [_space-fsaverage5_hemi-L.func.gii](https://openneuro.org/datasets/ds003465/)), using AFNI to [normalize and detrend](http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html) each vertex's timecourse, and then make parcel-average timecourse text files with AFNI's [3dROIstats](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html). See end the of this page for script links and more details.
 
@@ -94,7 +94,7 @@ if (file.exists(fname)) {
 
 ```
 ### No Stroop congruency?!
-The _events.tsv includes a lot of trial information that is not used in this control analysis. Stroop experiments usually make predictions about effects of features such as congruency (same ink color as the printed word or not) or bias (e.g., if a particular color is usually congruent); analyses for these types of effects require comparing responses for different trials. For a control analysis, we will not label or subset trials by congruency or any other hypothesis-relevant feature.
+The _events.tsv includes a lot of trial information that is not used in this control analysis. Stroop experiments usually make predictions about the effects of features such as congruency (same ink color as the printed word or not) and bias (e.g., if a particular color is usually congruent); analyses for these types of effects require comparing responses for different trials. For a control analysis, we will not label or subset trials by congruency or any other hypothesis-relevant feature.
 
 ### Parcel mean event timecourses
 This first code block defines a function (plot.means) to plot the five subjects' average (over trials) timecourse for a particular parcel and run. 
@@ -103,7 +103,7 @@ This first code block defines a function (plot.means) to plot the five subjects'
 
 # the plotting code, in a function to allow use with different parcels and runs
 # rid is the run to plot (1 or 2); pid is the parcel to plot (1:1000)
-plot.means <- function(rid, pid, show.legend=FALSE) {   # rid <- 1; pid <- 116;  
+plot.means <- function(rid, pid) {   # rid <- 1; pid <- 116;  
   # surface data; parcels 1:500 are in the left hemisphere file and 501:1000 on R 
   if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  
   
@@ -135,9 +135,6 @@ plot.means <- function(rid, pid, show.legend=FALSE) {   # rid <- 1; pid <- 116;
   }
   vals <- apply(all.means, 2, mean, trim=do.trim);   # calculate the across-subjects (trimmed) mean
   lines(x=0:n.TRs, y=vals, col='black', lwd=3);    # and plot it
-
-  # add a legend, if requested
-  if (show.legend == TRUE) { legend('topleft', fill=sub.clrs, legend=sub.ids, bty='n', cex=1.1); }
   box();  # redraw box around plot for neatness
 }
 
@@ -155,10 +152,8 @@ plot.means(1, 116);  # call the function for the 1st run, parcel 116 17Networks_
 plot.means(2, 116);  # plot parcel 116 again, with run 2
 
 plot.means(1, 964);   # run 1, parcel 964 17Networks_RH_DefaultB_PFCv_2
-plot.means(2, 964, show.legend=TRUE);   # and run 2, with a legend
-
+plot.means(2, 964);    # and run 2
 ```
-
 Notice the different appearance of the timecourses for the two parcels: the activation is higher around 4 TRs (4.8 seconds) after trial onset in both runs in most people in the somatomotor network parcel (116) but not the default network parcel (964). It is also reassuring that the parcel differences are greater than the run differences (since the same task was done in both runs). A [more complete analysis](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) includes all 55 participants and 1000 parcels. 
 
 Here is another version of the plotting function, one which takes file names instead of parcel and run indices.
@@ -168,7 +163,7 @@ Here is another version of the plotting function, one which takes file names ins
 # np.suff is the last part of the parcel-average timecourses filename.
 # pid is the parcel to plot (1:1000). 
 # rid is not needed in this version since each file only has data for one run.
-plot.means.fn <- function(pid, ev.suff, np.suff, show.legend=FALSE) {    
+plot.means.fn <- function(pid, ev.suff, np.suff) {    
   # pid <- 116; ev.suff <- "acq-mb4AP_run-1_events.tsv"; np.suff <- "run1_np2_L.txt"; 
   if (pid > 500) { hem.lbl <- "R"; hem.dif <- 500; } else { hem.lbl <- "L"; hem.dif <- 0; }  # parcels > 500 are on R
   
@@ -200,14 +195,11 @@ plot.means.fn <- function(pid, ev.suff, np.suff, show.legend=FALSE) {
   }
   vals <- apply(all.means, 2, mean, trim=do.trim);   # calculate the across-subjects (trimmed) mean
   lines(x=0:n.TRs, y=vals, col='black', lwd=3);    # and plot it
-
-  # add a legend, if requested
-  if (show.legend == TRUE) { legend('topleft', fill=sub.clrs, legend=sub.ids, bty='n', cex=1.1); }
   box();  # redraw box around plot for neatness
 }
 
 ```
-Now we call the function to plot the timecourses for the same motor parcel (116):
+Now we call this new function to plot the timecourses for the same motor parcel (116):
 
 ```{r}
 options(repr.plot.width=9, repr.plot.height = 3);  # specify plot size
@@ -242,7 +234,7 @@ Note how there isn't an obvious difference between using the correct and incorre
 ### Full examples and additional notes
 The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include [buttons](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html) and [ONs](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html) positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
 
-The parcel-average timecourse files for this example were made using the code in the first block of [controlAnalysis_prep.R](https://osf.io/f79p6/), which uses [readGIfTI](https://github.com/muschellij2/gifti) to read each gifti file created during [fmriprep preprocessing](https://openneuro.org/datasets/ds003465/), write it into a temporary .1D text matrix file, and then calls [AFNI's 3dDetrend](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDetrend.html) function to [normalize and detrend](http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html) each vertex's timecourse. (At the time of writing, 3dDetrend does not accept gifti image inputs, so the "1D" text files are a work-around.)
+The parcel-average timecourse files for this example were made using the code in the first block of [controlAnalysis_prep.R](https://osf.io/f79p6/), which uses [readGIfTI](https://github.com/muschellij2/gifti) to read each gifti file created by [fmriprep preprocessing](https://openneuro.org/datasets/ds003465/), write it into a temporary .1D text matrix file, and then calls [AFNI's 3dDetrend](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDetrend.html) function to [normalize and detrend](http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html) each vertex's timecourse. (At the time of writing, 3dDetrend does not accept gifti image inputs, so the "1D" text files are a work-around.)
 
 The second step is to make parcel-average timecourses with AFNI's [3dROIstats](https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html). The code and necessary input files for this is in the startup code chunk of [controlAnalysis_ONs.rnw](https://osf.io/z8g4u/). This uses the [1000-parcel, 17-network Schaefer parcellation](https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/FreeSurfer5.3).
 

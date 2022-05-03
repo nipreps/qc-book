@@ -34,7 +34,6 @@ Since this example is Eprime and R, we will use the [eMergeR](https://github.com
 I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. For the demo we will convert files for four "participants": demoSub1, demoSub2, demoSub3, and demoSub4.
 
 ```{r}
-options(warn=FALSE, message=FALSE);
 library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
 
 # define some variables to be used later in this script
@@ -106,7 +105,7 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
-do.convert("demoSub1"); 
+do.convert("demoSub1");  
 ```
 
 ```{r}
