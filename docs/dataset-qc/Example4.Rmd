@@ -32,16 +32,14 @@ A general warning is to be careful about how caching and scoping is handled in w
 ### Keep variables consistent and non-creative
 When writing code for template use, I recommend that the variable changes needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Using consistent naming of key variables (such as `sub.id` for subject ID) and flagging key sections helps non-experts navigate the files and simplifies long-term maintenance. For example, the DMCC55B supplemental knitr files all start with a `startup` code chunk such as this from [behavioralSession_individualDifferences.rnw](https://osf.io/yv56d/):
 ```{r}
-options(eval=FALSE)
-
-rm(list=ls());     # clear R's workspace
-options(warnPartialMatchDollar=TRUE);    # safety option: warns if column names specified with $ don't match exactly
+# rm(list=ls());     # clear R's workspace
+# options(warnPartialMatchDollar=TRUE);    # safety option: warns if column names specified with $ don't match exactly
 
 # change this variable to the local copy of this directory; download from https://openneuro.org/datasets/ds003465/
-in.path <- "d:/temp/DMCC_box/DMCC55B/derivatives/questionnaires/";  
+# in.path <- "d:/temp/DMCC_box/DMCC55B/derivatives/questionnaires/";  
 
 # should not need to change the code below here to reproduce the manuscript statistics
-use.robust.stats <- TRUE;   # whether to use robust statistics or not for the means and SEMs
+# use.robust.stats <- TRUE;   # whether to use robust statistics or not for the means and SEMs
 ```
 
 ### Use batch scripts to compile many reports
@@ -58,8 +56,7 @@ temp.path <- "d:/temp/";
 ###### should not need to change any code below here
 ```
 If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the `sub.id` variable of each, and then compile each one, but that is tedious and it'd be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this:
-```{r}
-options(eval=FALSE)
+```{r, eval=FALSE}
 out.path <- "d:/temp/out/";   # where files will be written
 git.path <- "d:/gitFiles/";   # local git directory for input template
 
