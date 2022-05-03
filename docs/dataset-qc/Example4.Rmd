@@ -55,29 +55,29 @@ temp.path <- "d:/temp/";
 
 ###### should not need to change any code below here
 ```
-If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the `sub.id` variable of each, and then compile each one, but that is tedious and it'd be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this:
-```{r, eval=FALSE}
+If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the `sub.id` variable of each, and then compile each one, but that is tedious and it'd be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this (non-executable code):
+```{r}
 out.path <- "d:/temp/out/";   # where files will be written
 git.path <- "d:/gitFiles/";   # local git directory for input template
 
 sub.ids <- c("1111", "2222", "3333");  # subject IDs to run
 
-# check if out.path exists, and make it if not.
-if (!dir.exists(out.path)) { dir.create(out.path); }
+# check if out.path exists, and make it if not. (do not run)
+# if (!dir.exists(out.path)) { dir.create(out.path); }
 
-in.file <- readLines(paste0(git.path, "template_ERfilmTask.rnw"));   # read in the template knitr
-for (sub.id in sub.ids) {    # sub.id <- sub.ids[1];
-  s.path <- paste0(out.path, sub.id, "/");   # make a subdirectory of out.path for each person
-  if (!dir.exists(s.path)) { dir.create(s.path); }
-  
-  out.file <- gsub('do.sub <- "9999";', paste0('do.sub <- "', sub.id, '";'), in.file);    # put in subject ID
-  cat(out.file, file=paste0(s.path, sub.id, "_ERfilmTask.rnw"), sep="\n");    # write out the knitr template with this person's info
-}
+# in.file <- readLines(paste0(git.path, "template_ERfilmTask.rnw"));   # read in the template knitr
+# for (sub.id in sub.ids) {    # sub.id <- sub.ids[1];
+#  s.path <- paste0(out.path, sub.id, "/");   # make a subdirectory of out.path for each person
+#  if (!dir.exists(s.path)) { dir.create(s.path); }
+#  
+#  out.file <- gsub('do.sub <- "9999";', paste0('do.sub <- "', sub.id, '";'), in.file);    # put in subject ID
+#  cat(out.file, file=paste0(s.path, sub.id, "_ERfilmTask.rnw"), sep="\n");    # write out the knitr template with this person's info
+# }
 ```
 This type of script can also be used to put a single subject ID into multiple templates, to write a script to compile a group of files, etc.
 
 ## Tying it together
 Dynamic reports can make it straightforward and efficient to highlight important and diagnostic features in your dataset, such as done elsewhere in this section. For example, DMCC55B [QC_SD_volume.pdf](https://osf.io/xchwm/) [QC_SD_volume.rnw source](https://osf.io/3872s/), shows temporal standard deviation images for eight runs for each of the 55 participants:
-<img src="example4files/sd.jpg">
+<img src="example4files/sd.JPG">
 
 The [code](https://osf.io/3872s/) making this pdf may strike you as surprisingly short: just 135 lines contain the LaTeX, code calling AFNI to create the standard deviation images if needed, and plotting the images themselves.

@@ -48,7 +48,7 @@ sub.ids <- paste0("demoSub", 1:4);  # declare vector of subject IDs
 #### A conversion function
 Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.
 
-```{r}
+```{r, warning=FALSE}
 do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
   out.fname <- paste0("interoception-", sub.id, "-converted.csv");  # name of the output file to be made
   # in a full script this would be a good place to check if the out.fname file already exists
