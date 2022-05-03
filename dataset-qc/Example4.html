@@ -425,7 +425,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> variable of each, and then compile each one, but that is tedious and it’d be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this:</p>
+<p>If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> variable of each, and then compile each one, but that is tedious and it’d be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this (non-executable code):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/out/&quot;</span><span class="p">;</span>   <span class="c1"># where files will be written</span>
@@ -433,34 +433,17 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;1111&quot;</span><span class="p">,</span> <span class="s">&quot;2222&quot;</span><span class="p">,</span> <span class="s">&quot;3333&quot;</span><span class="p">);</span>  <span class="c1"># subject IDs to run</span>
 
-<span class="c1"># check if out.path exists, and make it if not.</span>
-<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="n">out.path</span><span class="p">))</span> <span class="p">{</span> <span class="nf">dir.create</span><span class="p">(</span><span class="n">out.path</span><span class="p">);</span> <span class="p">}</span>
+<span class="c1"># check if out.path exists, and make it if not. (do not run)</span>
+<span class="c1"># if (!dir.exists(out.path)) { dir.create(out.path); }</span>
 
-<span class="n">in.file</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">git.path</span><span class="p">,</span> <span class="s">&quot;template_ERfilmTask.rnw&quot;</span><span class="p">));</span>   <span class="c1"># read in the template knitr</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">sub.id</span> <span class="n">in</span> <span class="n">sub.ids</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># sub.id &lt;- sub.ids[1];</span>
-  <span class="n">s.path</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>   <span class="c1"># make a subdirectory of out.path for each person</span>
-  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="n">s.path</span><span class="p">))</span> <span class="p">{</span> <span class="nf">dir.create</span><span class="p">(</span><span class="n">s.path</span><span class="p">);</span> <span class="p">}</span>
-  
-  <span class="n">out.file</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#39;do.sub &lt;- &quot;9999&quot;;&#39;</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;do.sub &lt;- &quot;&#39;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&#39;&quot;;&#39;</span><span class="p">),</span> <span class="n">in.file</span><span class="p">);</span>    <span class="c1"># put in subject ID</span>
-  <span class="nf">cat</span><span class="p">(</span><span class="n">out.file</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span><span class="n">s.path</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;_ERfilmTask.rnw&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;\n&quot;</span><span class="p">);</span>    <span class="c1"># write out the knitr template with this person&#39;s info</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in dir.create(out.path):
-“cannot create dir &#39;d:/temp/out&#39;, reason &#39;No such file or directory&#39;”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in file(con, &quot;r&quot;):
-“cannot open file &#39;d:/gitFiles/template_ERfilmTask.rnw&#39;: No such file or directory”
-</pre></div>
-</div>
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">):</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">connection</span>
-<span class="ne">Traceback</span>:
-
-<span class="mi">1</span><span class="o">.</span> <span class="n">readLines</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">git</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;template_ERfilmTask.rnw&quot;</span><span class="p">))</span>
-<span class="mi">2</span><span class="o">.</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="c1"># in.file &lt;- readLines(paste0(git.path, &quot;template_ERfilmTask.rnw&quot;));   # read in the template knitr</span>
+<span class="c1"># for (sub.id in sub.ids) {    # sub.id &lt;- sub.ids[1];</span>
+<span class="c1">#  s.path &lt;- paste0(out.path, sub.id, &quot;/&quot;);   # make a subdirectory of out.path for each person</span>
+<span class="c1">#  if (!dir.exists(s.path)) { dir.create(s.path); }</span>
+<span class="c1">#  </span>
+<span class="c1">#  out.file &lt;- gsub(&#39;do.sub &lt;- &quot;9999&quot;;&#39;, paste0(&#39;do.sub &lt;- &quot;&#39;, sub.id, &#39;&quot;;&#39;), in.file);    # put in subject ID</span>
+<span class="c1">#  cat(out.file, file=paste0(s.path, sub.id, &quot;_ERfilmTask.rnw&quot;), sep=&quot;\n&quot;);    # write out the knitr template with this person&#39;s info</span>
+<span class="c1"># }</span>
 </pre></div>
 </div>
 </div>
@@ -471,7 +454,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="tying-it-together">
 <h2>Tying it together<a class="headerlink" href="#tying-it-together" title="Permalink to this headline">¶</a></h2>
 <p>Dynamic reports can make it straightforward and efficient to highlight important and diagnostic features in your dataset, such as done elsewhere in this section. For example, DMCC55B <a class="reference external" href="https://osf.io/xchwm/">QC_SD_volume.pdf</a> <a class="reference external" href="https://osf.io/3872s/">QC_SD_volume.rnw source</a>, shows temporal standard deviation images for eight runs for each of the 55 participants:
-<img alt="dataset-qc/example4files/sd.jpg" src="dataset-qc/example4files/sd.jpg" /></p>
+<img alt="../_images/sd.JPG" src="../_images/sd.JPG" /></p>
 <p>The <a class="reference external" href="https://osf.io/3872s/">code</a> making this pdf may strike you as surprisingly short: just 135 lines contain the LaTeX, code calling AFNI to create the standard deviation images if needed, and plotting the images themselves.</p>
 </div>
 </div>
