@@ -105,6 +105,7 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r}
+options(warning=FALSE);
 do.convert("demoSub1");  
 ```
 

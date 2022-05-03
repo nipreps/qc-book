@@ -297,6 +297,28 @@ const thebe_selector_output = ".output, .cell_output"
    What are automated dynamic reports?
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-suggestions-for-using-automated-dynamic-reports">
+   Some suggestions for using automated dynamic reports
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keep-variables-consistent-and-non-creative">
+     Keep variables consistent and non-creative
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-batch-scripts-to-compile-many-reports">
+     Use batch scripts to compile many reports
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tying-it-together">
+   Tying it together
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -322,6 +344,28 @@ const thebe_selector_output = ".output, .cell_output"
    What are automated dynamic reports?
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-suggestions-for-using-automated-dynamic-reports">
+   Some suggestions for using automated dynamic reports
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keep-variables-consistent-and-non-creative">
+     Keep variables consistent and non-creative
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-batch-scripts-to-compile-many-reports">
+     Use batch scripts to compile many reports
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tying-it-together">
+   Tying it together
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -336,36 +380,102 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="what-are-automated-dynamic-reports">
 <h2>What are automated dynamic reports?<a class="headerlink" href="#what-are-automated-dynamic-reports" title="Permalink to this headline">¶</a></h2>
 <p>“Dynamic reports” is a generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and text styles (markdown, latex, <a class="reference external" href="https://yihui.org/knitr/">knitr</a>, etc.). In research I suggest using dynamic reports in two somewhat different ways: for describing specific one-off analyses, and for dataset QC and other automated analyses.</p>
-<p>The first use replaces the common practice of summarizing results in word documents, copy-pasting images and tables in as needed from statistical software. This copy-paste procedure works for small things, but quickly becomes inconvenient, such as if you decide to change a color or symbol, all the plots need to be copy-pasted in again. Identifying the source of each image or statistic (e.g., to change a threshold or check a formula) with only the word document is often time consuming, and may be impossible. Dynamic documents can serve the same purpose of combining text and results for easy sharing of results, but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether I expect they will be seen by others or not.</p>
-<p>The second broad use case is that of automation, in which a single template file is made and then compiled many times. For example, for the DMCC we produce a set of QC reports summarizing the data for each participant (an example set is <a class="reference external" href="https://osf.io/7xkq9/">on osf</a>; see also <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/">dualmechanisms</a>). A key for template use is that the edits needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Restricting variables in this way allows the script to be run by many researchers and in batches.</p>
-<p>For example, this is a bit of the code near the top of the DMCC <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">TEMPLATE_convertEprime.R</a> script:</p>
+<p>The first use replaces the common practice of describing the results of any particular analysis in word documents, copy-pasting images and tables in as needed from statistical software. Copy-paste works for small things, but quickly becomes inconvenient, such as if you decide to change a color or symbol, all the plots need to be copy-pasted in again. Identifying the source of each image or statistic (e.g., to change a threshold or check a formula) with only the word document is often time consuming, and may be impossible. Dynamic documents can serve the same purpose of combining text and results for easy sharing of results, but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. (I now use knitr for essentially all analyses, whether I expect they will be seen by others or not.)</p>
+<p>The second broad use case is that of automation, in which a single <strong>template</strong> is compiled or run many times. For example, for the DMCC we produce a set of standard knitr documents summarizing the data for each participant (an example set is <a class="reference external" href="https://osf.io/7xkq9/">on osf</a>; see also <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/">dualmechanisms</a>). We spent a lot of time deciding what would be most useful for determining the quality of the various types of data collected during this particular experiment, and then how the information could be efficiently and clearly displayed. But once this was decided and a set of files made to show the data for one participant, the files were converted to templates which can be quickly and easily used for any other participant.</p>
+</div>
+<div class="section" id="some-suggestions-for-using-automated-dynamic-reports">
+<h2>Some suggestions for using automated dynamic reports<a class="headerlink" href="#some-suggestions-for-using-automated-dynamic-reports" title="Permalink to this headline">¶</a></h2>
+<p>There is no single set of best practices when writing dynamic reports or any other type of scientific code, but I will share a few suggestions and thoughts that may both give a sense of what’s possible and reduce the likelihood of problems.</p>
+<p>The first set of choices are of which languages to use for the programming and text part of the report, which I believe is largely a matter of personal preference and what your colleagues are using. I use knitr, R, and LaTeX (<a class="reference external" href="https://mvpa.blogspot.com/2020/03/introductory-knitr-tutorial.html">tutorial here</a>), but again, these are not the only options.</p>
+<p>An important choice is how the finished documents will be used: will they be compiled to a static file (e.g., pdf, html, word) or to something more interactive (such as this Jupyter notebook)? pdfs and other static documents (assuming the source is stored with the compiled version) have the advantage of always looking the same and being easy to archive and share (such as for a publication’s supplemental information <a class="reference external" href="https://osf.io/p6msu/">https://osf.io/p6msu/</a> is one of my favorites); once compiled they can be viewed again without the need for particular software. Interactive documents can be good for teaching and demonstrations, but I think static (compiled to standard formats) is more stable for long-term storage or wide sharing.</p>
+<p>A general warning is to be careful about how caching and scoping is handled in whichever report system you use. With R and knitr I habitually clear the environment and cache before compiling a document, and the code chunks are run in top-down order. But caching can allow the figure or statistic from a previous compilation to be improperly included, and some interactive systems allow chunks to be run out of order (<a class="reference external" href="https://yihui.org/en/2018/09/notebook-war/">described here, for example</a>), breaking the (to me, all-important) link between code and displayed result.</p>
+<div class="section" id="keep-variables-consistent-and-non-creative">
+<h3>Keep variables consistent and non-creative<a class="headerlink" href="#keep-variables-consistent-and-non-creative" title="Permalink to this headline">¶</a></h3>
+<p>When writing code for template use, I recommend that the variable changes needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Using consistent naming of key variables (such as <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> for subject ID) and flagging key sections helps non-experts navigate the files and simplifies long-term maintenance. For example, the DMCC55B supplemental knitr files all start with a <code class="docutils literal notranslate"><span class="pre">startup</span></code> code chunk such as this from <a class="reference external" href="https://osf.io/yv56d/">behavioralSession_individualDifferences.rnw</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#**** change the lines of code below here ****#</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">eval</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 
-<span class="n">wustl.box</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>   <span class="c1"># if a DMCC team member is running this code (includes automatic download and upload from box)</span>
-<span class="n">reupload</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>   <span class="c1"># whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.</span>
-<span class="c1"># files not already on box will always be uploaded if wustl.box == TRUE; this is whether to replace ones already present.</span>
+<span class="nf">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="nf">ls</span><span class="p">());</span>     <span class="c1"># clear R&#39;s workspace</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">warnPartialMatchDollar</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>    <span class="c1"># safety option: warns if column names specified with $ don&#39;t match exactly</span>
 
-<span class="n">sub.id</span> <span class="o">&lt;-</span> <span class="s">&quot;102008&quot;</span><span class="p">;</span>  <span class="c1">#  subject id. (in quotes, even if the subject id is all numbers.)</span>
-<span class="n">which.DMCC</span> <span class="o">&lt;-</span> <span class="m">2</span><span class="p">;</span>    <span class="c1"># which.DMCC &lt;- 3;  # DMCC phase number (e.g. which.DMCC &lt;- 3 for the second wave of scans, DMCC_Phase3)</span>
-<span class="n">temp.path</span> <span class="o">&lt;-</span>  <span class="s">&quot;d:/temp/&quot;</span><span class="p">;</span>     <span class="c1"># path to a local directory where files will be written as the code runs.</span>
+<span class="c1"># change this variable to the local copy of this directory; download from https://openneuro.org/datasets/ds003465/</span>
+<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/DMCC_box/DMCC55B/derivatives/questionnaires/&quot;</span><span class="p">;</span>  
 
-<span class="c1">#**** should not need to change the lines of code below here ****#</span>
+<span class="c1"># should not need to change the code below here to reproduce the manuscript statistics</span>
+<span class="n">use.robust.stats</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>   <span class="c1"># whether to use robust statistics or not for the means and SEMs</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>point out that the tutorial is in a dynamic document, as is the mriqc output html. Pdf can be better for archiving; static docs can be good. have to be careful about caching, scoping. Batch mode good. Don’t get carried away with formatting; personal working document may not need to be as fancy as something for publication. pdf good for supplemental, not necessarily demos.</p>
-<p>Most of the previous examples (and my recent publications) use knitr; R and LaTeX, compiled to pdfs.
-Example: DMCC55B QC_SD_volume  <a class="reference external" href="https://osf.io/xchwm/">https://osf.io/xchwm/</a> and <a class="reference external" href="https://osf.io/3872s/">https://osf.io/3872s/</a>
-Key bits:
-not that much code; looping through and plotting a lot of images
-afni called to calculate the temporal SD
-easy to add more participants, change the views
-compiled file is long, but can be browsed to spot exceptions/patterns/etc.
-MUCH easier than copy-pasting from separate files!
-base R; works on multiple os</p>
+</div>
+<div class="section" id="use-batch-scripts-to-compile-many-reports">
+<h3>Use batch scripts to compile many reports<a class="headerlink" href="#use-batch-scripts-to-compile-many-reports" title="Permalink to this headline">¶</a></h3>
+<p>Once a report template is made, other scripts can be used to manage and streamline its compilation. For example, here is part of a <code class="docutils literal notranslate"><span class="pre">startup</span></code> code chunk for a knitr file that generates a report on a a single participant’s performance:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">###### change the variables starting here</span>
+
+<span class="n">sub.id</span> <span class="o">&lt;-</span> <span class="s">&quot;9999&quot;</span><span class="p">;</span>    <span class="c1">#  subject (participant) id to run this time (in quotes)</span>
+<span class="n">use.boxr</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>    <span class="c1"># if running this code at wustl and want files downloaded from box.</span>
+
+<span class="n">temp.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/&quot;</span><span class="p">;</span>   
+<span class="c1"># path to a local directory. One file will be written into temp.path as the code runs regardless of the use.boxr setting. </span>
+
+<span class="c1">###### should not need to change any code below here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> variable of each, and then compile each one, but that is tedious and it’d be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">eval</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/out/&quot;</span><span class="p">;</span>   <span class="c1"># where files will be written</span>
+<span class="n">git.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/gitFiles/&quot;</span><span class="p">;</span>   <span class="c1"># local git directory for input template</span>
+
+<span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;1111&quot;</span><span class="p">,</span> <span class="s">&quot;2222&quot;</span><span class="p">,</span> <span class="s">&quot;3333&quot;</span><span class="p">);</span>  <span class="c1"># subject IDs to run</span>
+
+<span class="c1"># check if out.path exists, and make it if not.</span>
+<span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="n">out.path</span><span class="p">))</span> <span class="p">{</span> <span class="nf">dir.create</span><span class="p">(</span><span class="n">out.path</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="n">in.file</span> <span class="o">&lt;-</span> <span class="nf">readLines</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">git.path</span><span class="p">,</span> <span class="s">&quot;template_ERfilmTask.rnw&quot;</span><span class="p">));</span>   <span class="c1"># read in the template knitr</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">sub.id</span> <span class="n">in</span> <span class="n">sub.ids</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># sub.id &lt;- sub.ids[1];</span>
+  <span class="n">s.path</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>   <span class="c1"># make a subdirectory of out.path for each person</span>
+  <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">dir.exists</span><span class="p">(</span><span class="n">s.path</span><span class="p">))</span> <span class="p">{</span> <span class="nf">dir.create</span><span class="p">(</span><span class="n">s.path</span><span class="p">);</span> <span class="p">}</span>
+  
+  <span class="n">out.file</span> <span class="o">&lt;-</span> <span class="nf">gsub</span><span class="p">(</span><span class="s">&#39;do.sub &lt;- &quot;9999&quot;;&#39;</span><span class="p">,</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;do.sub &lt;- &quot;&#39;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&#39;&quot;;&#39;</span><span class="p">),</span> <span class="n">in.file</span><span class="p">);</span>    <span class="c1"># put in subject ID</span>
+  <span class="nf">cat</span><span class="p">(</span><span class="n">out.file</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span><span class="n">s.path</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;_ERfilmTask.rnw&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;\n&quot;</span><span class="p">);</span>    <span class="c1"># write out the knitr template with this person&#39;s info</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in dir.create(out.path):
+“cannot create dir &#39;d:/temp/out&#39;, reason &#39;No such file or directory&#39;”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in file(con, &quot;r&quot;):
+“cannot open file &#39;d:/gitFiles/template_ERfilmTask.rnw&#39;: No such file or directory”
+</pre></div>
+</div>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">):</span> <span class="n">cannot</span> <span class="nb">open</span> <span class="n">the</span> <span class="n">connection</span>
+<span class="ne">Traceback</span>:
+
+<span class="mi">1</span><span class="o">.</span> <span class="n">readLines</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">git</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;template_ERfilmTask.rnw&quot;</span><span class="p">))</span>
+<span class="mi">2</span><span class="o">.</span> <span class="n">file</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This type of script can also be used to put a single subject ID into multiple templates, to write a script to compile a group of files, etc.</p>
+</div>
+</div>
+<div class="section" id="tying-it-together">
+<h2>Tying it together<a class="headerlink" href="#tying-it-together" title="Permalink to this headline">¶</a></h2>
+<p>Dynamic reports can make it straightforward and efficient to highlight important and diagnostic features in your dataset, such as done elsewhere in this section. For example, DMCC55B <a class="reference external" href="https://osf.io/xchwm/">QC_SD_volume.pdf</a> <a class="reference external" href="https://osf.io/3872s/">QC_SD_volume.rnw source</a>, shows temporal standard deviation images for eight runs for each of the 55 participants:
+<img alt="dataset-qc/example4files/sd.jpg" src="dataset-qc/example4files/sd.jpg" /></p>
+<p>The <a class="reference external" href="https://osf.io/3872s/">code</a> making this pdf may strike you as surprisingly short: just 135 lines contain the LaTeX, code calling AFNI to create the standard deviation images if needed, and plotting the images themselves.</p>
 </div>
 </div>
 
