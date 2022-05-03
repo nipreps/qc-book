@@ -17,7 +17,6 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-options(eval=FALSE)
 out.path <- "d:/temp/out/";   # where files will be written
 git.path <- "d:/gitFiles/";   # local git directory for input template
 

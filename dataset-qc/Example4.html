@@ -394,16 +394,14 @@ const thebe_selector_output = ".output, .cell_output"
 <p>When writing code for template use, I recommend that the variable changes needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Using consistent naming of key variables (such as <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> for subject ID) and flagging key sections helps non-experts navigate the files and simplifies long-term maintenance. For example, the DMCC55B supplemental knitr files all start with a <code class="docutils literal notranslate"><span class="pre">startup</span></code> code chunk such as this from <a class="reference external" href="https://osf.io/yv56d/">behavioralSession_individualDifferences.rnw</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">eval</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-
-<span class="nf">rm</span><span class="p">(</span><span class="n">list</span><span class="o">=</span><span class="nf">ls</span><span class="p">());</span>     <span class="c1"># clear R&#39;s workspace</span>
-<span class="nf">options</span><span class="p">(</span><span class="n">warnPartialMatchDollar</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>    <span class="c1"># safety option: warns if column names specified with $ don&#39;t match exactly</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># rm(list=ls());     # clear R&#39;s workspace</span>
+<span class="c1"># options(warnPartialMatchDollar=TRUE);    # safety option: warns if column names specified with $ don&#39;t match exactly</span>
 
 <span class="c1"># change this variable to the local copy of this directory; download from https://openneuro.org/datasets/ds003465/</span>
-<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/DMCC_box/DMCC55B/derivatives/questionnaires/&quot;</span><span class="p">;</span>  
+<span class="c1"># in.path &lt;- &quot;d:/temp/DMCC_box/DMCC55B/derivatives/questionnaires/&quot;;  </span>
 
 <span class="c1"># should not need to change the code below here to reproduce the manuscript statistics</span>
-<span class="n">use.robust.stats</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>   <span class="c1"># whether to use robust statistics or not for the means and SEMs</span>
+<span class="c1"># use.robust.stats &lt;- TRUE;   # whether to use robust statistics or not for the means and SEMs</span>
 </pre></div>
 </div>
 </div>
@@ -430,8 +428,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>If I wanted to compile this report for a dozen participants I could make a dozen copies of the .rnw template, put one subject ID into the <code class="docutils literal notranslate"><span class="pre">sub.id</span></code> variable of each, and then compile each one, but that is tedious and it’d be easy to make a typo. It is more efficient to use a script to handle the duplication and text edits, such as this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">eval</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/out/&quot;</span><span class="p">;</span>   <span class="c1"># where files will be written</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/temp/out/&quot;</span><span class="p">;</span>   <span class="c1"># where files will be written</span>
 <span class="n">git.path</span> <span class="o">&lt;-</span> <span class="s">&quot;d:/gitFiles/&quot;</span><span class="p">;</span>   <span class="c1"># local git directory for input template</span>
 
 <span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;1111&quot;</span><span class="p">,</span> <span class="s">&quot;2222&quot;</span><span class="p">,</span> <span class="s">&quot;3333&quot;</span><span class="p">);</span>  <span class="c1"># subject IDs to run</span>
