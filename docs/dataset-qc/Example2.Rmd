@@ -15,10 +15,10 @@ jupyter:
 # Highlight important and diagnostic features as efficiently as possible
 Given human nature, even the best QC reports won't be consistently used if they are too long, ugly, or annoying. It is often more effective to quickly create short, aesthetically pleasing QC files which emphasize easy-to-check diagnostic features. If these summary files suggest something may be amiss, it can be investigated in detail; trying to fit all possibly-useful images and statistics into one document is often counterproductive.
 
-For checking the preprocessing of human fMRI data, we have found that it works well to plot temporal mean images and confirm that the volumes **look like brains**. This is especially valuable if all of the participants' runs are plotted side-by-side, like below (10 runs can fit on a single page, e.g., pages 12-14 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/)), enabling many runs to be examined at a glance, and differences between the runs to be spotted.
+For checking the preprocessing of human fMRI data, we have found that it works well to plot temporal mean images ([without masking](https://mvpa.blogspot.com/2020/02/when-making-qc-or-most-any-images-dont.html)) and confirm that the volumes **look like brains**. This is especially valuable if all of the participants' runs are plotted side-by-side, like below (10 runs can fit on a single page, e.g., pages 12-14 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/)), enabling many runs to be examined at a glance, and differences between the runs to be spotted.
 <img src="example2files/volumes.jpg">
 
-Surface temporal mean images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But gross errors can still be spotted; my suggestion is to check for **tiger stripes** along the top of the hemispheres due to the central sulcus (arrows). Pages 15-17 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/) show an array of surface temporal mean images.
+Surface images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But it's still worth looking at the surface images as large preprocessing or other problems can be spotted; one feature is that the **tiger stripes** along the top of the hemispheres due to the central sulcus (arrows) are plainly visible. The lower image shows how a acquisition mishap can appear on the surface; this or other non-anatomical patterns (like polka dots) should be investigated. Pages 15-17 of [132017_fMRI_movementSummary_fmriprep.pdf](https://osf.io/z62s5/) show an array of surface temporal mean images.
 <img src="example2files/good.jpg" width="500"/> 
 <img src="example2files/failure.jpg" width="500"/> 
 
@@ -51,7 +51,7 @@ print(img[30,20,50]);  # value of the voxel at 30,20,50
 
 Slices through the image can be plotted with the same functions as any other image.
 ```{r}
-options(repr.plot.width=8, repr.plot.height=3);  # specify size in jupyter
+options(repr.plot.width=8, repr.plot.height=2.5);  # specify size in jupyter
 layout(matrix(1:3, c(1,3)));  # have three images in one row
 par(mar=c(0.1, 0.1, 0.1, 0.1));   # specify plot margins
 
@@ -69,12 +69,11 @@ Functional nifti images are read in with the same command, but as a 4d matrix: t
 in.img <- readNifti("example2files/sub-f1027ao_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz");  
 
 print(dim(in.img));  # [1]  81  96  81 8
-
 ```
 
-We can plot the same slice at different times (frames), and calculate statistics from individual frames or across time. The frames look quite similar, but there are small differences, as reflected in the maximum voxel value printed on each image.
+We can plot the same slice at different times (frames), and calculate statistics from individual frames or across time. The frames look quite similar plotted this way, but there are differences, as reflected in the maximum voxel value on each image and the voxel timecourse below. Can you change the code to print a statistic on the first frame as well? Show different slices and TRs? The values of a different voxel?
 ```{r}
-options(repr.plot.width=8, repr.plot.height=3);  # specify size in jupyter
+options(repr.plot.width=8, repr.plot.height=2);  # specify size in jupyter
 layout(matrix(1:4, c(1,4)));  # have four images in one row
 par(mar=c(0.1, 0.1, 0.1, 0.1));   # specify plot margins
 
@@ -84,7 +83,7 @@ z.lim <- c(min(in.img[,,do.k,]), max(in.img[,,do.k,]));  # range calculated acro
 
 # plot one frame
 image(in.img[,,do.k,1], col=gray(0:64/64), zlim=z.lim, xlab="", ylab="", axes=FALSE, useRaster=TRUE);
-text(x=0.2, y=0.95, labels="frame 1", col='lightblue');  # add a label
+text(x=0.2, y=0.95, labels="frame 1", col='green');  # add a label
 
 # plot with a loop
 show.frames <- c(3, 5, 7);  # which (and how many) frames to plot
@@ -94,11 +93,10 @@ for (i in 1:length(show.frames)) {   # i <- 1;
   text(x=0.25, y=0.05, labels=paste0("max=", round(max(in.img[,,do.k,show.frames[i]]),2)), col='white');  # add a statistic
 }
 
+print(in.img[20,30,23,]);   # the value of this voxel in all frames
 ```
 
 ## Notes and links
-Many neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o; each includes plotting functions as well. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions.
+Many neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the [RNifti](https://github.com/jonclayden/RNifti), [gifti](https://github.com/muschellij2/gifti), and [ciftiTools](https://github.com/mandymejia/ciftiTools) R packages for file i/o; each includes plotting functions as well. I [wrote tutorials](https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html) for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions. 
 
-- [when making QC (or most any) images, don't mask the brain ...](https://mvpa.blogspot.com/2020/02/when-making-qc-or-most-any-images-dont.html)
-- The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the [temporal mean, SD, and tSNR](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html) and [motion (realignment parameters)](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html) examples. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>.
-- Examples of the files created for each [DMCC](https://sites.wustl.edu/dualmechanisms/) participant may also be useful; see <https://osf.io/z62s5/> and other files in the *analyses* subdirectory. More task behavior summary images and the source code are at <https://osf.io/7xkq9/>.
+The DMCC55B [dataset descriptor paper](https://doi.org/10.1038/s41597-022-01226-4) supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the [temporal mean, SD, and tSNR](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html) and [motion (realignment parameters)](https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html) examples. Those links are to blog posts describing the supplemental materials, which reside at <https://osf.io/vqe92/>. Examples of the files created for each [DMCC](https://sites.wustl.edu/dualmechanisms/) participant may also be useful; see <https://osf.io/z62s5/> and other files in the *analyses* subdirectory. More task behavior summary images and the source code are at <https://osf.io/7xkq9/>.

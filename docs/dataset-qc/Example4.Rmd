@@ -20,21 +20,19 @@ The first use replaces the common practice of summarizing results in word docume
 
 The second broad use case is that of automation, in which a single template file is made and then compiled many times. For example, for the DMCC we produce a set of QC reports summarizing the data for each participant (an example set is [on osf](https://osf.io/7xkq9/); see also [dualmechanisms](https://github.com/ccplabwustl/dualmechanisms/)). A key for template use is that the edits needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Restricting variables in this way allows the script to be run by many researchers and in batches.
 
-For example, this is a bit of the code near the top of the DMCC [TEMPLATE_convertEprime.R](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R) script.
+For example, this is a bit of the code near the top of the DMCC [TEMPLATE_convertEprime.R](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R) script:
 ```{r}
-
 #**** change the lines of code below here ****#
 
-# wustl.box <- TRUE;   # if a DMCC team member is running this code (includes automatic download and upload from box)
-# reupload <- FALSE;   # whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.
+wustl.box <- TRUE;   # if a DMCC team member is running this code (includes automatic download and upload from box)
+reupload <- FALSE;   # whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.
 # files not already on box will always be uploaded if wustl.box == TRUE; this is whether to replace ones already present.
 
-s# ub.id <- "102008";  #  subject id. (in quotes, even if the subject id is all numbers.)
-# which.DMCC <- 2;    # which.DMCC <- 3;  # DMCC phase number (e.g. which.DMCC <- 3 for the second wave of scans, DMCC_Phase3)
-# temp.path <-  "d:/temp/";     # path to a local directory where files will be written as the code runs.
+sub.id <- "102008";  #  subject id. (in quotes, even if the subject id is all numbers.)
+which.DMCC <- 2;    # which.DMCC <- 3;  # DMCC phase number (e.g. which.DMCC <- 3 for the second wave of scans, DMCC_Phase3)
+temp.path <-  "d:/temp/";     # path to a local directory where files will be written as the code runs.
 
 #**** should not need to change the lines of code below here ****#
-
 ```
 
 
