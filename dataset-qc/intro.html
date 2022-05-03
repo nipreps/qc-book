@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dataset QC: Taking control of your data &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Introduction &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -118,7 +118,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Dataset QC: Taking control of your data
+   Introduction
   </a>
  </li>
  <li class="toctree-l1">
@@ -270,8 +270,13 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+  <a class="reference internal nav-link" href="#abstract">
+   Abstract
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aside-some-r-programming-comments-and-opinions">
+   Aside … some R programming comments and opinions
   </a>
  </li>
 </ul>
@@ -284,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Dataset QC: Taking control of your data</h1>
+                <h1>Introduction</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -295,8 +300,13 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#synopsis">
-   Synopsis
+  <a class="reference internal nav-link" href="#abstract">
+   Abstract
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aside-some-r-programming-comments-and-opinions">
+   Aside … some R programming comments and opinions
   </a>
  </li>
 </ul>
@@ -308,33 +318,19 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="dataset-qc-taking-control-of-your-data">
-<h1>Dataset QC: Taking control of your data<a class="headerlink" href="#dataset-qc-taking-control-of-your-data" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="synopsis">
-<h2>Synopsis<a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
-<p>We will begin this session by giving an introduction on the
-quality issues in MRI, and how these can be addressed
-by the use of pipelines and scripts for efficient
-preprocessing and analysis of the data. Sharing her
-experience of working on the Dual Mechanisms of Cognitive Control (DMCC) project (<a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">Etzel et al., Scientific Data 2022</a>), Jo will then present certain QC/QA procedures,
-analysis approaches, and software practices that she
-has found most beneficial (using tools such as R and
-fMRIprep). Dynamic reports (e.g., knitr, markdown)
-should be used for analyses whenever possible, so that
-images, results, source code, and discussion are together.
-This is especially important to share with published papers,
-to enable readers to reproduce the results and
-see the parameters. The audience will learn to extend
-these best practices to their own dataset through the
-interactive tutorials that will
-follow which will use tools
-such as knitr and markdown.
-These tools facilitate the
-generation of dynamic
-reports for analyses which
-ensures that images, results,
-source code and discussions
-are in one place.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This section is meant to expand upon and illustrate the material presented by <a class="reference external" href="https://sites.wustl.edu/ccplab/people/jo-etzel/">Jo Etzel</a> in the “Dataset QC: Taking control of your data” talk at the ISMRM 2022 “Taking Control of Your Data using Reproducible QC Workflows” session. A recorded version of the session should be available afterwards.</p>
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<p>We will begin this session by giving an introduction on the quality issues in MRI, and how these can be addressed by the use of pipelines and scripts for efficient preprocessing and analysis of the data. Sharing her experience of working on the Dual Mechanisms of Cognitive Control (DMCC) project (<a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">Etzel et al., Scientific Data 2022</a>), Jo will then present certain QC/QA procedures, analysis approaches, and software practices that she has found most beneficial (using tools such as R and fMRIprep). Dynamic reports (e.g., knitr, markdown) should be used for analyses whenever possible, so that images, results, source code, and discussion are together. This is especially important to share with published papers, to enable readers to reproduce the results and see the parameters. The audience will learn to extend these best practices to their own dataset through the interactive tutorials that will follow which will use tools such as knitr and markdown. These tools facilitate the generation of dynamic reports for analyses which ensures that images, results, source code and discussions are in one place.</p>
+</div>
+<div class="section" id="aside-some-r-programming-comments-and-opinions">
+<h2>Aside … some R programming comments and opinions<a class="headerlink" href="#aside-some-r-programming-comments-and-opinions" title="Permalink to this headline">¶</a></h2>
+<p>R programmers may have a few questions about my coding style in these examples, including that I usually put semicolons at the ends of statements and am not at all “<a class="reference external" href="https://www.tidyverse.org/">tidy</a>”.</p>
+<p>The semicolons sometimes confuse people: <a class="reference external" href="https://cran.r-project.org/doc/manuals/r-devel/R-lang.html#Control-structures">R allows but does not require</a> statements to end with a semicolon in most cases; a line return (or sometimes just a space) is usually sufficient. Part of why I prefer ending lines with semicolons is habit: I started with languagues in which it is required (and habitually use a lot of semicolons in my writing!). But I use them in R code because I think it can help with code readability, and reduces any uncertainty about where a statement ends: semicolons are <strong>always</strong> the end of a statement while line returns may or may not be.</p>
+<p>I love the hexagonal tidyverse stickers, but not the “tidy” coding style. I use base R and as few packages as possible; I use many for loops but no pipes. There are a lot of opinions on the relative merits of tidy and base R for different applications (<a class="reference external" href="https://github.com/matloff/TidyverseSkeptic">Norm Matloff’s</a> is pretty comprehensive for teaching). To my mind, one big reason to stick with base R is <strong>stability</strong>: base R <em>just works</em> across platforms (running the same code on windows, apple, linux) and is robust to updates. I often write code that needs to be usable by many people on many different computers for years, and I don’t want to be concerned about software versions. (In the last fifteen years I’ve had an update break old code once.) Another reason I prefer base R, especially for newcomers, is its use of “standard” programming logic (<code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, etc.). Translating from or to matlab, java, etc. reduces to learning the difference in syntax, rather than different concepts (meaning things like mutate and pipes, which don’t always have an equivalent).</p>
+<p>I see the goal of scientific programming as clarity and long-term stability, not efficiency. By “scientific programming” I mean things like in the demos and linked code from this notebook: scripts to carry out a particular conversion or analysis, not something like writing an operating system for new hardware or weather forecasting. If you find yourself thinking that code could be written in a “clever” way, consider how much time it would take to explain what that bit of code is doing to someone else, or debug it if there is trouble later. If the “clever” implementation would be harder to explain or debug, use the “boring”, even if it might take a few msec more to run.</p>
 </div>
 </div>
 

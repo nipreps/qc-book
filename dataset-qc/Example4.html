@@ -118,7 +118,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Dataset QC: Taking control of your data
+   Introduction
   </a>
  </li>
  <li class="toctree-l1">
@@ -338,26 +338,20 @@ const thebe_selector_output = ".output, .cell_output"
 <p>“Dynamic reports” is a generic term for files (like this notebook) that combine code and text in a single file, which is then compiled to produce a document. The compiled document may be static (html, pdf, etc.) or interactive, and implementations are available for many programming languages (R, python, matlab, etc.), and text styles (markdown, latex, <a class="reference external" href="https://yihui.org/knitr/">knitr</a>, etc.). In research I suggest using dynamic reports in two somewhat different ways: for describing specific one-off analyses, and for dataset QC and other automated analyses.</p>
 <p>The first use replaces the common practice of summarizing results in word documents, copy-pasting images and tables in as needed from statistical software. This copy-paste procedure works for small things, but quickly becomes inconvenient, such as if you decide to change a color or symbol, all the plots need to be copy-pasted in again. Identifying the source of each image or statistic (e.g., to change a threshold or check a formula) with only the word document is often time consuming, and may be impossible. Dynamic documents can serve the same purpose of combining text and results for easy sharing of results, but with the major advantage that the source of images, tables, etc. can be checked, and much more efficiently updated when needed. I now use knitr for essentially all analyses, whether I expect they will be seen by others or not.</p>
 <p>The second broad use case is that of automation, in which a single template file is made and then compiled many times. For example, for the DMCC we produce a set of QC reports summarizing the data for each participant (an example set is <a class="reference external" href="https://osf.io/7xkq9/">on osf</a>; see also <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/">dualmechanisms</a>). A key for template use is that the edits needed to compile the document for any particular participant (or group, etc.) are clearly explained and collected at the top of the file. Restricting variables in this way allows the script to be run by many researchers and in batches.</p>
-<p>For example, this is a bit of the code near the top of the DMCC <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">TEMPLATE_convertEprime.R</a> script.</p>
+<p>For example, this is a bit of the code near the top of the DMCC <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">TEMPLATE_convertEprime.R</a> script:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#**** change the lines of code below here ****#</span>
 
-<span class="c1"># wustl.box &lt;- TRUE;   # if a DMCC team member is running this code (includes automatic download and upload from box)</span>
-<span class="c1"># reupload &lt;- FALSE;   # whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.</span>
+<span class="n">wustl.box</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>   <span class="c1"># if a DMCC team member is running this code (includes automatic download and upload from box)</span>
+<span class="n">reupload</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>   <span class="c1"># whether to attempt to reupload files to box, even if already present. ignored if wustl.box == FALSE.</span>
 <span class="c1"># files not already on box will always be uploaded if wustl.box == TRUE; this is whether to replace ones already present.</span>
 
-<span class="n">s</span><span class="c1"># ub.id &lt;- &quot;102008&quot;;  #  subject id. (in quotes, even if the subject id is all numbers.)</span>
-<span class="c1"># which.DMCC &lt;- 2;    # which.DMCC &lt;- 3;  # DMCC phase number (e.g. which.DMCC &lt;- 3 for the second wave of scans, DMCC_Phase3)</span>
-<span class="c1"># temp.path &lt;-  &quot;d:/temp/&quot;;     # path to a local directory where files will be written as the code runs.</span>
+<span class="n">sub.id</span> <span class="o">&lt;-</span> <span class="s">&quot;102008&quot;</span><span class="p">;</span>  <span class="c1">#  subject id. (in quotes, even if the subject id is all numbers.)</span>
+<span class="n">which.DMCC</span> <span class="o">&lt;-</span> <span class="m">2</span><span class="p">;</span>    <span class="c1"># which.DMCC &lt;- 3;  # DMCC phase number (e.g. which.DMCC &lt;- 3 for the second wave of scans, DMCC_Phase3)</span>
+<span class="n">temp.path</span> <span class="o">&lt;-</span>  <span class="s">&quot;d:/temp/&quot;</span><span class="p">;</span>     <span class="c1"># path to a local directory where files will be written as the code runs.</span>
 
 <span class="c1">#**** should not need to change the lines of code below here ****#</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">envir</span><span class="p">,</span> <span class="n">enclos</span><span class="p">):</span> <span class="nb">object</span> <span class="s1">&#39;s&#39;</span> <span class="ow">not</span> <span class="n">found</span>
-<span class="ne">Traceback</span>:
 </pre></div>
 </div>
 </div>
