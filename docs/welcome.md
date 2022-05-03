@@ -22,6 +22,7 @@ working in other fields and species, e.g., knee or prostate MRI, or non-human pr
 Human and preclinical MRI practitioners of all experience levels who want to improve their current QA/QC strategy of their research workflow.
 
 ```{admonition} Learning outcomes
+- Introduction (Dhritiman Das): Define QA, QC, QI and IQM; Explain QC in the context of neuroimaging 
 - Tutorial 1 (Joset Etzel) : Use standards operating procedures (SOPs) and implement best pipeline and reporting practices for quality assessment across different MRI datasets in the context of reproducible research.
 - Tutorial 2 (Oscar Esteban): Understand the problems of “scanner-effects”, how they affect image quality metrics automatically extracted from images, and how to validate the statistical modeling when these effects are present.
 - Tutorial 3 (Eilidh MacNicol): Adapting QA/QC procedures and protocols to preclinical imaging - MRIQC for rodents.
