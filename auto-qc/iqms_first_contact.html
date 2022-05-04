@@ -185,6 +185,11 @@ const thebe_selector_output = ".output, .cell_output"
    Target labels: manual ratings by humans
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dimensionality_reduction.html">
+   Reducing the dimensionality of the metrics
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -356,6 +361,12 @@ Let’s explore the dataset:</p>
 
 <span class="c1"># 2. Once imported, let&#39;s pull up some data</span>
 <span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">split_strategy</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Remove non-informative IQMs (image size and spacing)</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;size_x&#39;</span><span class="p">,</span> <span class="s1">&#39;size_y&#39;</span><span class="p">,</span> <span class="s1">&#39;size_z&#39;</span><span class="p">,</span> <span class="s1">&#39;spacing_x&#39;</span><span class="p">,</span> <span class="s1">&#39;spacing_y&#39;</span><span class="p">,</span> <span class="s1">&#39;spacing_z&#39;</span><span class="p">],</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 4. Keep a list of numeric columns before adding the site as a column</span>
+<span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -691,11 +702,24 @@ Both data tables <code class="docutils literal notranslate"><span class="pre">tr
     </tr>
   </tbody>
 </table>
-<p>1101 rows × 69 columns</p>
+<p>1101 rows × 63 columns</p>
 </div></div></div>
 </div>
-<p>This first look is not very informative - there’s no way we can pick any of the structure in our dataset.
-Let’s make use of one plotting utility of <code class="docutils literal notranslate"><span class="pre">mriqc-learn</span></code>, and observe the structure:</p>
+<p>This first look is not very informative - there’s no way we can pick any of the structure in our dataset.</p>
+<p>First, let’s investigate the number of metrics:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">numeric_columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>62
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now make use of one plotting utility of <code class="docutils literal notranslate"><span class="pre">mriqc-learn</span></code>, and observe the structure:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Let&#39;s import a module containing visualization tools for IQMs</span>
@@ -707,7 +731,7 @@ Let’s make use of one plotting utility of <code class="docutils literal notran
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_8_0.png" src="../_images/iqms_first_contact_8_0.png" />
+<img alt="../_images/iqms_first_contact_10_0.png" src="../_images/iqms_first_contact_10_0.png" />
 </div>
 </div>
 <p>The plot above is clearly blocky, very well aligned with the different acquisition sites that are comprehended.</p>
@@ -729,7 +753,7 @@ This means, for each site, calculate mean and standard deviation and apply them 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_10_0.png" src="../_images/iqms_first_contact_10_0.png" />
+<img alt="../_images/iqms_first_contact_12_0.png" src="../_images/iqms_first_contact_12_0.png" />
 </div>
 </div>
 <p>Now the plot is not so <em>blocky</em>.</p>
@@ -742,7 +766,7 @@ For example, this would be the picture for the coefficient of joint variation (C
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_12_0.png" src="../_images/iqms_first_contact_12_0.png" />
+<img alt="../_images/iqms_first_contact_14_0.png" src="../_images/iqms_first_contact_14_0.png" />
 </div>
 </div>
 <p>It is clear that, on the left, sites tend to cluster in regions of the spread of values (<em>X</em>-axis).
@@ -755,7 +779,7 @@ Conversely, on the right-hand histogram, sites overlap much more and form togeth
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_14_0.png" src="../_images/iqms_first_contact_14_0.png" />
+<img alt="../_images/iqms_first_contact_16_0.png" src="../_images/iqms_first_contact_16_0.png" />
 </div>
 </div>
 <p>Now, this is how the <em>entropy-focus criterion</em> (EFC) looks like:</p>
@@ -766,7 +790,7 @@ Conversely, on the right-hand histogram, sites overlap much more and form togeth
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_16_0.png" src="../_images/iqms_first_contact_16_0.png" />
+<img alt="../_images/iqms_first_contact_18_0.png" src="../_images/iqms_first_contact_18_0.png" />
 </div>
 </div>
 <p>Finally, a look on a very commonly used parameter, the <em>contrast-to-noise ratio</em> (CNR):</p>
@@ -777,7 +801,7 @@ Conversely, on the right-hand histogram, sites overlap much more and form togeth
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/iqms_first_contact_18_0.png" src="../_images/iqms_first_contact_18_0.png" />
+<img alt="../_images/iqms_first_contact_20_0.png" src="../_images/iqms_first_contact_20_0.png" />
 </div>
 </div>
 <div class="admonition-what-s-the-problem admonition">
