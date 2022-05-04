@@ -49,7 +49,6 @@ NiftiWidget(fname_proc)
 
 What do you think the problem was?
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
@@ -74,7 +73,6 @@ NiftiWidget(fname)
 
 What do you think the problem was?
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
@@ -104,22 +102,22 @@ NiftiWidget(fname)
 
 What do you think the problem was?
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
 
-````{admonition} Click the button to reveal!
+```{admonition} Click the button to reveal!
 :class: dropdown
 Anisotropic voxel sizes with isotropic mm parameters
 
 **To correct this**, define the number of elements in the bspline grid (including fewer elements in the slice direction), rather than using a bspline fitting distance which is given in mm.
+```
 
 ```{code-cell} python
+:tags: [hide-cell]
 fname = './assets/example-3_desc-n4corr_proc.nii.gz'
 NiftiWidget(fname)
 ```
-````
 
 ## Example 4
 This example concerns brain masking. First, we will use the popular FSL tool `bet` to remove non-brain tissue (aka skull-strip) an image.
@@ -138,7 +136,6 @@ NiftiWidget(bet_fname)
 
 What do you think the problem was?
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
@@ -156,23 +153,23 @@ NiftiWidget(3dss_fname)
 
 What do you think the problem was?
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
 
-````{admonition} Click the button to reveal!
+```{admonition} Click the button to reveal!
 :class: dropdown
 Although the shape assumption is correct, `3dSkullStrip` assumes that the input image is T2-weighted. However, our image is T1-weighted.
 
 
 **To correct this**, try using an atlas-based brain extraction method. Although this method takes longer than some of the other methods, it is robust to image contrast and across scanners. It is for this reason that the NiPreps tools, such as `NiRodents` and `NiBabies`, have developed their own versions of the `ANTs` atlas-based extraction tool: `antsBrainExtraction`.
+```
 
 ```{code-cell} python
+:tags: [hide-cell]
 arts_fname = './assets/example-4_desc-artsmasked_proc.nii.gz'
 NiftiWidget(arts_fname)
 ```
-````
 
 ## Example 5
 This example uses `FSL`'s `topup` tool to correct for susceptibility distortion in EPI images.
@@ -196,19 +193,20 @@ NiftiWidget(fname_orig_IS)
 ```
 
 What do you think the problem was?
-````{hint}
-Check the image header:
+```{hint}
+:class: dropdown
+Check the image header with the code below.
+```
 ```{code-cell} python
+:tags: [hide-cell]
 import nibabel as nb
 
 img = nb.load(fname_orig_IS)
 hdr = img.header()
 print(hdr)
 ```
-````
 
 ```{code-cell} python
-:tags: [remove-input]
 answer = input('What was the problem?')
 print(answer)
 ```
