@@ -1,15 +1,17 @@
 attr
 ghp-import
+git+https://github.com/nipreps/mriqc-learn.git@main
 jupyter-book
 jupytext>=1.11.2  # Full compat with myst-nb
 matplotlib
+myst-nb
 git+https://github.com/spinicist/nanslice@master
 nibabel
 nilearn
 niwidgets
 numpy
+pandas
 pytest
 requests
-pandas
-git+https://github.com/nipreps/mriqc-learn.git@main
-myst-nb
+scikit-learn
+scipy
