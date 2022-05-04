@@ -17,18 +17,16 @@ Computers excel at some tasks: they easily find a typo in thousands of file name
 
  In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they're found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.
 
-When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in [box](box.com). These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, the standard preprocessing scripts use [boxr](https://github.com/r-box/boxr) functions to retrieve and upload files directly. Box integration is not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R) for inspiration. 
+When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in [box](box.com). These files can be transferred by clicking options in the box web GUI, but this is slow and it is easy to accidentally select the wrong file. Instead, preprocessing scripts can use [boxr](https://github.com/r-box/boxr) functions to retrieve and upload files directly. Box integration is not included here, but see [this DMCC example](https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R) for an example. 
 
 ## Example: Eprime to csv conversion
 ### Background and motivation
-[Eprime](https://pstnet.com/products/e-prime/) is a commercial program for presenting stimuli and experiments. Eprime saves each participant's data files in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant's data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.)This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do "manually" (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).
+[Eprime](https://pstnet.com/products/e-prime/) is a commercial program for presenting stimuli and experiments. Eprime saves each participant's data in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant's data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.) This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do "manually" (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).
 
 The example uses eprime files from a heart beat counting task like that described in Pollatos, Traut-Mattausch, and Schandry ([2009](https://doi.org/10.1002/da.20504)). The task starts with a five-minute baseline period, followed by three timed trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds. 
 
 ### Implementation of the conversion script
-The goal is to convert the eprime data file for a participant to a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. For the purpose of the tutorial the file writing parts are commented and replaced by printing to screen, but are included for completeness.
-
-Since this example is Eprime and R, we will use the [eMergeR](https://github.com/AWKruijt/eMergeR) library's functions for parsing information out of the eprime "text recovery" file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)
+The goal is to convert the eprime data file for a participant into a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. Since this example is Eprime and R, we will use [eMergeR](https://github.com/AWKruijt/eMergeR) library functions for parsing information out of the eprime "text recovery" file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)
 
 #### Startup and a look at the input data
 I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. For the demo we will convert files for four "participants": demoSub1, demoSub2, demoSub3, and demoSub4.
@@ -38,7 +36,7 @@ library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKr
 
 # define some variables to be used later in this script
 # I strongly recommend explicitly setting complete paths (e.g., in.path <- 'd:/projects/demo/")
-# at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.
+# at the top of a script rather than using setwd() or similar, but the notebook requires relative paths.
 in.path <- "example1files/";    # path to input file directory
 out.path <- "example1files/output/";   # directory in which the converted files would be written
 
@@ -46,7 +44,7 @@ sub.ids <- paste0("demoSub", 1:4);  # declare vector of subject IDs
 
 ```
 #### A conversion function
-Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.
+Next is a function to carry out the conversion. This type of function could be stored in a separate file which is `source`d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.
 
 ```{r, warning=FALSE}
 do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
@@ -105,7 +103,8 @@ do.convert <- function(sub.id) {    # sub.id <- "demoSub1";
 Then we can call the function to convert each participant's data. Notice the success and error messages that are printed.
 
 ```{r, warning=FALSE}
-do.convert("demoSub1");  
+do.convert("demoSub1");
+
 ```
 
 ```{r}
@@ -123,7 +122,7 @@ do.convert("demoSub4");
 #### Examining the output
 The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why? 
 
-Looking at the names on the input files gives one answer:
+Looking at the names of the input files gives one answer:
 ```{r}
 print(list.files(in.path));  # print the names of the files in the input directory
 ```
@@ -131,8 +130,8 @@ For demoSub4, I edited the timing values in the raw eprime text recovery to have
 
 ```{r}
 # to see the created csvs:
-read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
-# read.csv(paste0(out.path, "interoception-demoSub3-converted.csv"));
+# read.csv(paste0(out.path, "interoception-demoSub1-converted.csv"));
+read.csv(paste0(out.path, "interoception-demoSub3-converted.csv"));
 
 # it can be easier to run a group of subjects with a loop:
 # for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }
