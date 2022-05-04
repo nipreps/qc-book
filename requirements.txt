@@ -3,7 +3,7 @@ ghp-import
 jupyter-book
 jupytext>=1.11.2  # Full compat with myst-nb
 matplotlib
-nanslice
+git+https://github.com/spinicist/nanslice@master
 nibabel
 nilearn
 niwidgets
