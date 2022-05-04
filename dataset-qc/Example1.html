@@ -408,18 +408,17 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
 <p>Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.</p>
 <p>In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
-<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow it is easy to accidentally select the wrong file. Instead, the standard preprocessing scripts use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for inspiration.</p>
+<p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow and it is easy to accidentally select the wrong file. Instead, preprocessing scripts can use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for an example.</p>
 <div class="section" id="example-eprime-to-csv-conversion">
 <h2>Example: Eprime to csv conversion<a class="headerlink" href="#example-eprime-to-csv-conversion" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="background-and-motivation">
 <h3>Background and motivation<a class="headerlink" href="#background-and-motivation" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> is a commercial program for presenting stimuli and experiments. Eprime saves each participant’s data files in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant’s data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.)This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do “manually” (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).</p>
+<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> is a commercial program for presenting stimuli and experiments. Eprime saves each participant’s data in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant’s data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.) This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do “manually” (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).</p>
 <p>The example uses eprime files from a heart beat counting task like that described in Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three timed trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p>
 </div>
 <div class="section" id="implementation-of-the-conversion-script">
 <h3>Implementation of the conversion script<a class="headerlink" href="#implementation-of-the-conversion-script" title="Permalink to this headline">¶</a></h3>
-<p>The goal is to convert the eprime data file for a participant to a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. For the purpose of the tutorial the file writing parts are commented and replaced by printing to screen, but are included for completeness.</p>
-<p>Since this example is Eprime and R, we will use the <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> library’s functions for parsing information out of the eprime “text recovery” file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)</p>
+<p>The goal is to convert the eprime data file for a participant into a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. Since this example is Eprime and R, we will use <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> library functions for parsing information out of the eprime “text recovery” file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)</p>
 <div class="section" id="startup-and-a-look-at-the-input-data">
 <h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
 <p>I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. For the demo we will convert files for four “participants”: demoSub1, demoSub2, demoSub3, and demoSub4.</p>
@@ -429,7 +428,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <span class="c1"># define some variables to be used later in this script</span>
 <span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;)</span>
-<span class="c1"># at the top of a script rather than using setwd() or similar, but this notebook requires relative paths.</span>
+<span class="c1"># at the top of a script rather than using setwd() or similar, but the notebook requires relative paths.</span>
 <span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
 <span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/output/&quot;</span><span class="p">;</span>   <span class="c1"># directory in which the converted files would be written</span>
 
@@ -446,7 +445,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="section" id="a-conversion-function">
 <h4>A conversion function<a class="headerlink" href="#a-conversion-function" title="Permalink to this headline">¶</a></h4>
-<p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is sourced at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.</p>
+<p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is <code class="docutils literal notranslate"><span class="pre">source</span></code>d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;;</span>
@@ -509,7 +508,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub1&quot;</span><span class="p">);</span>  
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub1&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -584,7 +583,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="examining-the-output">
 <h4>Examining the output<a class="headerlink" href="#examining-the-output" title="Permalink to this headline">¶</a></h4>
 <p>The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why?</p>
-<p>Looking at the names on the input files gives one answer:</p>
+<p>Looking at the names of the input files gives one answer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">list.files</span><span class="p">(</span><span class="n">in.path</span><span class="p">));</span>  <span class="c1"># print the names of the files in the input directory</span>
@@ -603,8 +602,8 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># to see the created csvs:</span>
-<span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="s">&quot;interoception-demoSub1-converted.csv&quot;</span><span class="p">));</span>
-<span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub3-converted.csv&quot;));</span>
+<span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub1-converted.csv&quot;));</span>
+<span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="s">&quot;interoception-demoSub3-converted.csv&quot;</span><span class="p">));</span>
 
 <span class="c1"># it can be easier to run a group of subjects with a loop:</span>
 <span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
@@ -619,14 +618,14 @@ const thebe_selector_output = ".output, .cell_output"
 	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><td>1</td><td>baselineProc</td><td>300000</td><td>baseline  </td><td>1</td><td> 10617</td><td>   NA</td><td>310617</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>2</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>2</td><td>436909</td><td>60000</td><td>496909</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>3</td><td>trigger     </td><td> 25000</td><td>25 seconds</td><td>3</td><td>    NA</td><td>   NA</td><td>    NA</td><td>496947</td><td>521947</td><td>521963</td><td>523463</td></tr>
-	<tr><td>4</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>4</td><td>523490</td><td>30000</td><td>553490</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>5</td><td>trigger     </td><td> 35000</td><td>35 seconds</td><td>5</td><td>    NA</td><td>   NA</td><td>    NA</td><td>553515</td><td>588515</td><td>588531</td><td>590031</td></tr>
-	<tr><td>6</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>6</td><td>590051</td><td>30000</td><td>620051</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
-	<tr><td>7</td><td>trigger     </td><td> 45000</td><td>45 seconds</td><td>7</td><td>    NA</td><td>   NA</td><td>    NA</td><td>620070</td><td>665070</td><td>665087</td><td>666587</td></tr>
-	<tr><td>8</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>8</td><td>666609</td><td>60000</td><td>726609</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
+	<tr><td>1</td><td>baselineProc</td><td>300000</td><td>baseline  </td><td>1</td><td> 17769</td><td>   NA</td><td>317769</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
+	<tr><td>2</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>2</td><td>507197</td><td>60000</td><td>567197</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
+	<tr><td>3</td><td>trigger     </td><td> 25000</td><td>25 seconds</td><td>3</td><td>    NA</td><td>   NA</td><td>    NA</td><td>567236</td><td>592236</td><td>592254</td><td>593754</td></tr>
+	<tr><td>4</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>4</td><td>593778</td><td>30000</td><td>623778</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
+	<tr><td>5</td><td>trigger     </td><td> 35000</td><td>35 seconds</td><td>5</td><td>    NA</td><td>   NA</td><td>    NA</td><td>623796</td><td>658796</td><td>658813</td><td>660313</td></tr>
+	<tr><td>6</td><td>rest        </td><td> 30000</td><td>30 rest   </td><td>6</td><td>660340</td><td>30000</td><td>690340</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
+	<tr><td>7</td><td>trigger     </td><td> 45000</td><td>45 seconds</td><td>7</td><td>    NA</td><td>   NA</td><td>    NA</td><td>690358</td><td>735358</td><td>735374</td><td>736874</td></tr>
+	<tr><td>8</td><td>rest        </td><td> 60000</td><td>60 rest   </td><td>8</td><td>736897</td><td>60000</td><td>796897</td><td>    NA</td><td>    NA</td><td>    NA</td><td>    NA</td></tr>
 </tbody>
 </table>
 </div></div>
