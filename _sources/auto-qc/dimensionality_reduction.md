@@ -18,6 +18,7 @@ kernelspec:
 ```{code-cell} python
 :tags: [remove-cell]
 import numpy as np
+import pandas as pd
 # Some configurations to "beautify" plots
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -37,8 +38,9 @@ from mriqc_learn.models.preprocess import SiteRobustScaler
 from mriqc_learn.datasets import load_dataset
 
 (train_x, train_y), _ = load_dataset(split_strategy="none")
-train_x = train_x.drop(columns = ['size_x', 'size_y', 'size_z', 'spacing_x', 'spacing_y', 'spacing_z'], inplace = False)
+train_x.drop(columns=["size_x", "size_y", "size_z", "spacing_x", "spacing_y", "spacing_z"])
 numeric_columns = train_x.columns.tolist()
+train_x["site"] = train_y.site
 
 # Harmonize between sites
 scaled_x = SiteRobustScaler(unit_variance=True).fit_transform(train_x)
@@ -74,10 +76,10 @@ To make an educated guess of a sufficient number of components for properly repr
 
 ```{code-cell} python
 fig = plt.figure(figsize=(15,6))
-plt.plot(np.cumsum(pca.explained_variance_ratio_ * 100), "-x")
+plt.plot(np.cumsum(pca_model.explained_variance_ratio_ * 100), "-x")
 plt.ylabel("Cumulative variance explained [%]")
 plt.xlabel("Number of components")
-plt.xticks(list(range(1, pca.explained_variance_ratio_.size + 1)))
+plt.xticks(list(range(1, pca_model.explained_variance_ratio_.size + 1)))
 plt.show()
 ```
 
@@ -91,7 +93,7 @@ n_components = 4
 Components are no more than linear decomposition of the original metrics, so let's now look at the coefficients that correspond to the IQMs for each of those first four components:
 
 ```{code-cell} python
-basis = pca.components_[:n_components,:]
+basis = pca_model.components_[:n_components,:]
 fig, axs = plt.subplots(1, 4, sharex=False, sharey=False, figsize=(24, 6))
 for k in range(basis.shape[0]):
     axs[k].plot(np.abs(basis[k,:]), "x")
