@@ -1,0 +1,33 @@
+# python cache
+.cache/
+__pycache__/**/*
+__pycache__
+*.pyc
+
+# python distribution
+build/**/*
+build
+dist/**/*
+dist
+mriqc.egg-info/**/*
+mriqc.egg-info
+.eggs/**/*
+.eggs
+src/**/*
+src/
+notebooks/
+.maint/
+
+# releasing
+Makefile
+
+# git
+.github/
+.gitignore
+.gitattributes
+.git/**/*
+.git
+
+
+# local build of book
+docs/_build
