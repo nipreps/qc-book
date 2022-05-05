@@ -39,11 +39,17 @@ from mriqc_learn.datasets import load_dataset
 (train_x, train_y), _ = load_dataset(split_strategy="none")
 
 # 3. Remove non-informative IQMs (image size and spacing)
-train_x = train_x.drop(columns = ['size_x', 'size_y', 'size_z', 'spacing_x', 'spacing_y', 'spacing_z'], inplace = False)
+train_x = train_x.drop(columns=[
+    "size_x",
+    "size_y",
+    "size_z",
+    "spacing_x",
+    "spacing_y",
+    "spacing_z",
+])
 
 # 4. Keep a list of numeric columns before adding the site as a column
 numeric_columns = train_x.columns.tolist()
-
 ```
 
 With the argument `split_strategy="none"` we are indicating that we want to obtain the full dataset, without partitioning it in any ways.
