@@ -11,15 +11,15 @@ LevelName: LogLevel8
 LevelName: LogLevel9
 LevelName: LogLevel10
 Experiment: interoception
-SessionDate: 04-12-2022
-SessionTime: 15:41:27
-SessionStartDateTimeUtc: 4/12/2022 8:41:27 PM
-Subject: 3081
+SessionDate: 04-21-2022
+SessionTime: 09:36:30
+SessionStartDateTimeUtc: 4/21/2022 2:36:30 PM
+Subject: 3085
 Session: 1
-DataFile.Basename: interoception-3081-1
-RandomSeed: 521255639
+DataFile.Basename: interoception-3085-1
+RandomSeed: 5904442
 Group: 1
-Display.RefreshRate: 75.000
+Display.RefreshRate: 75.004
 *** Header End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -30,14 +30,14 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 1
 	Running: timing
-	baseline5min.OnsetTime: 10617
+	baseline5min.OnsetTime: 9889
 	baseline5min.Duration: 300000
-	baseline5min.OffsetTime: 310617
+	baseline5min.OffsetTime: 309889
 	baseline5min.Tag: baseline5min
 	spaceToStart.DEVICE: Keyboard
-	spaceToStart.OnsetTime: 310650
-	spaceToStart.OffsetTime: 436885
-	spaceToStart.RT: 126235
+	spaceToStart.OnsetTime: 309922
+	spaceToStart.OffsetTime: 433621
+	spaceToStart.RT: 123699
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -48,9 +48,9 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 2
 	Running: timing
-	black.OnsetTime: 436909
+	black.OnsetTime: 433648
 	black.Duration: 60000
-	black.OffsetTime: 496909
+	black.OffsetTime: 493648
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -61,11 +61,11 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 3
 	Running: timing
-	startChime.OnsetTime: 496947
-	startChime.OffsetTime: 521947
-	endChime.OnsetTime: 521963
+	startChime.OnsetTime: 493696
+	startChime.OffsetTime: 518696
+	endChime.OnsetTime: 518713
 	endChime.Duration: 1500
-	endChime.OffsetTime: 523463
+	endChime.OffsetTime: 520213
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -76,9 +76,9 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 4
 	Running: timing
-	black.OnsetTime: 523490
+	black.OnsetTime: 520242
 	black.Duration: 30000
-	black.OffsetTime: 553490
+	black.OffsetTime: 550242
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -89,11 +89,11 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 5
 	Running: timing
-	startChime.OnsetTime: 553515
-	startChime.OffsetTime: 588515
-	endChime.OnsetTime: 588531
+	startChime.OnsetTime: 550267
+	startChime.OffsetTime: 585267
+	endChime.OnsetTime: 585284
 	endChime.Duration: 1500
-	endChime.OffsetTime: 590031
+	endChime.OffsetTime: 586784
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -104,9 +104,9 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 6
 	Running: timing
-	black.OnsetTime: 590051
+	black.OnsetTime: 586804
 	black.Duration: 30000
-	black.OffsetTime: 620051
+	black.OffsetTime: 616804
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -117,11 +117,11 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 7
 	Running: timing
-	startChime.OnsetTime: 620070
-	startChime.OffsetTime: 665070
-	endChime.OnsetTime: 665087
+	startChime.OnsetTime: 616823
+	startChime.OffsetTime: 661823
+	endChime.OnsetTime: 661844
 	endChime.Duration: 1500
-	endChime.OffsetTime: 666587
+	endChime.OffsetTime: 663344
 	*** LogFrame End ***
 	Level: 2
 	*** LogFrame Start ***
@@ -132,26 +132,26 @@ Display.RefreshRate: 75.000
 	timing.Cycle: 1
 	timing.Sample: 8
 	Running: timing
-	black.OnsetTime: 666609
+	black.OnsetTime: 663375
 	black.Duration: 60000
-	black.OffsetTime: 726609
+	black.OffsetTime: 723375
 	*** LogFrame End ***
 Level: 1
 *** LogFrame Start ***
 Experiment: interoception
-SessionDate: 04-12-2022
-SessionTime: 15:41:27
-SessionStartDateTimeUtc: 4/12/2022 8:41:27 PM
-Subject: 3081
+SessionDate: 04-21-2022
+SessionTime: 09:36:30
+SessionStartDateTimeUtc: 4/21/2022 2:36:30 PM
+Subject: 3085
 Session: 1
-DataFile.Basename: interoception-3081-1
-RandomSeed: 521255639
+DataFile.Basename: interoception-3085-1
+RandomSeed: 5904442
 Group: 1
-Display.RefreshRate: 75.000
-Clock.Information: <?xml version="1.0"?>\n<Clock xmlns:dt="urn:schemas-microsoft-com:datatypes"><Description dt:dt="string">E-Prime Primary Realtime Clock</Description><StartTime><Timestamp dt:dt="int">0</Timestamp><DateUtc dt:dt="string">2022-04-12T20:41:26Z</DateUtc></StartTime><FrequencyChanges><FrequencyChange><Frequency dt:dt="r8">10000000</Frequency><Timestamp dt:dt="r8">17257697226909</Timestamp><Current dt:dt="r8">0</Current><DateUtc dt:dt="string">2022-04-12T20:41:26Z</DateUtc></FrequencyChange></FrequencyChanges></Clock>\n
+Display.RefreshRate: 75.004
+Clock.Information: <?xml version="1.0"?>\n<Clock xmlns:dt="urn:schemas-microsoft-com:datatypes"><Description dt:dt="string">E-Prime Primary Realtime Clock</Description><StartTime><Timestamp dt:dt="int">0</Timestamp><DateUtc dt:dt="string">2022-04-21T14:36:30Z</DateUtc></StartTime><FrequencyChanges><FrequencyChange><Frequency dt:dt="r8">10000000</Frequency><Timestamp dt:dt="r8">7421706746876</Timestamp><Current dt:dt="r8">0</Current><DateUtc dt:dt="string">2022-04-21T14:36:30Z</DateUtc></FrequencyChange></FrequencyChanges></Clock>\n
 StudioVersion: 3.0.3.82
 RuntimeVersion: 3.0.3.80
 RuntimeVersionExpected: 3.0.3.80
 RuntimeCapabilities: Full
-ExperimentVersion: 1.0.0.97
+ExperimentVersion: 1.0.0.99
 *** LogFrame End ***
