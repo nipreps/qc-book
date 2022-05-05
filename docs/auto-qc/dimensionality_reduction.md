@@ -76,10 +76,10 @@ To make an educated guess of a sufficient number of components for properly repr
 
 ```{code-cell} python
 fig = plt.figure(figsize=(15,6))
-ax = plt.plot(np.cumsum(pca.explained_variance_ratio_ * 100), "-x")
+ax = plt.plot(np.cumsum(pca_model.explained_variance_ratio_ * 100), "-x")
 plt.ylabel("Cumulative variance explained [%]")
 plt.xlabel("Number of components")
-xticks = np.arange(0, pca.explained_variance_ratio_.size, dtype=int)
+xticks = np.arange(0, pca_model.explained_variance_ratio_.size, dtype=int)
 plt.xticks(xticks)
 plt.gca().set_xticklabels(xticks + 1)
 plt.show()
