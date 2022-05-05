@@ -144,4 +144,12 @@ In other words, our machine-learning model will operate like a human would do: *
 At this point, it is clear that we are about to try training models on rather noisy features, which also show strong biases correlated with the acquisition site.
 
 Unfortunately, there are further complications.
-Indeed, the targets (image quality assessments) that we can use in training are also very noisy, as we will see in the next unit.
+Indeed, the targets (image quality assessments) that we can use in training are also very noisy.
+
+# Target labels: manual ratings by humans
+Let's go further in exploring the effect of *labels noise*, by now focusing our attention on the dataset targets (`train_y`).
+
+```{code-cell} python
+from mriqc_learn.viz import ratings
+ratings.raters_variability_plot(train_y);
+```
