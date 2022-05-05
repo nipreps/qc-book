@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
 
       - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME --build_arg GITHUB_PAT=${{ secrets.GITHUB_TOKEN }}
+        run: docker build . --file Dockerfile --tag $IMAGE_NAME --build-arg GITHUB_PAT=${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image to GitHub Container Registry
         if: github.event_name == 'release'
