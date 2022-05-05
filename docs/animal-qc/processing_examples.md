@@ -29,23 +29,27 @@ So, we got through our data acquisition.
 The raw images look good.
 What do we do with that? 
 
-It's recommended to follow a standardised processing protocol, such as fMRIPrep, but many times
+It's recommended to follow a standardised processing protocol, like `fMRIPrep`, but many times
 there are hidden parameters which are not applicable for rodents.
-Here are some of the most common.
+Here are some of the most common obstacles that were unearthed during the development of
+`fMRIPrep-rodents`.
 
 ## Example 1
 First, we will correct for non-uniformity that is inherent across the intensity values of many types of "weighted" images.
 This example used the default call to `N4BiasFieldCorrection` from `ANTs`.
-Again, let's look at the original first:
+Let's look at the original first:
 
 ```{code-cell} python
-ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True)
+import nanslice.jupyter as ns
+%matplotlib widget
+
+ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 Now let's look at the corrected image. The results are not as good as they could be.
 
 ```{code-cell} python
-ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{admonition} What do you think the problem was?
@@ -54,6 +58,8 @@ Anisotropic voxel sizes with isotropic mm parameters
 
 **To correct this**, define the number of elements in the bspline grid (including fewer elements in the slice direction), 
 rather than using a bspline fitting distance which is given in mm.
+Also consider reducing the shrink factor, which helps speed up processing.
+As this is applied the same in every plane, out-of-plane anisotropic voxels can be blurry.
 ```
 
 ```{code-cell} python
@@ -67,12 +73,12 @@ We will use the popular FSL tool `bet` to remove non-brain tissue (aka skull-str
 This step helps downstream preprocessing such as registration.
 
 ```{code-cell} python
-ns.three_plane('assets/example-2_desc-orig_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-2_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 After applying the mask supplied by `bet`, the image looks like this:
 ```{code-cell} python
-ns.three_plane('assets/example-2_desc-bet_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-2_desc-bet_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{admonition} What do you think the problem was?
@@ -82,7 +88,7 @@ ns.three_plane('assets/example-2_desc-bet_proc.nii.gz', interactive=True)
 
 Let's try another tool, instead this one is made for rats: `AFNI`'s `3dSkullStrip` with the `-rat` flag.
 ```{code-cell} python
-ns.three_plane('assets/example-2_desc-3dss_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-2_desc-3dss_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{admonition} What do you think the problem was?
@@ -97,31 +103,28 @@ of the `ANTs` atlas-based extraction tool: `antsBrainExtraction`.
 
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-4_desc-artsmasked_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-2_desc-arts_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ## Example 3
 This example involves normalisation of a subject's anatomical image to a standard space template.
-First, let's load the original image:
+First, let's load the target image (this image isn't completely raw; it has been clipped and normalised):
 ```{code-cell} python
-import nanslice.jupyter as ns
-%matplotlib widget
-
-ns.three_plane('assets/example-3_desc-orig_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-3_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
 ```
 and the template:
 ```{code-cell} python
-ns.three_plane('assets/example-3_desc-tpl_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-3_desc-tpl_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 Now, let's look at the processed image:
 ```{code-cell} python
-ns.three_plane('assets/example-3_desc-proc_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-3_desc-warped_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{admonition} What do you think the problem was?
 :class: dropdown
-Wrong prior information: mouse target to rat template!
+Wrong prior information: we tried to register a mouse target image to rat template!
 
 The reference image was a rat, but the target image was a mouse.
 Although these species may have similar brain anatomy, the difference in scale was too large for the registration algorithm to overcome.
@@ -136,16 +139,16 @@ and the other with a phase-encoding direction going from inferior to superior.
 
 Below are the mean images of the volumes acquired for each phase-encoding direction:
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-SI_desc-orig_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-4_dir-IS_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-IS_desc-orig_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-4_dir-SI_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 The `topup` output is less than desirable:
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-IS_desc-orig_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-4_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 What do you think the problem was?
@@ -157,8 +160,8 @@ Check the image header with the code below.
 :tags: [hide-cell]
 import nibabel as nb
 
-img = nb.load(fname_orig_IS)
-hdr = img.header()
+img = nb.load('assets/example-4_dir-IS_desc-tmean_proc.nii.gz')
+hdr = img.header
 print(hdr)
 ```
 
@@ -175,6 +178,14 @@ it would probably have the same effect as scaling the header but while keeping t
 
 This approach still requires further testing.
 ```
+```{code-cell} python
+:tags: [hide-cell]
+ns.three_plane('assets/example-4_desc-micron_proc.nii.gz', interactive=True, cmap='gray', title='unit adjusted header')
+```
+```{code-cell} python
+:tags: [hide-cell]
+ns.three_plane('assets/example-4_desc-scaled_proc.nii.gz', interactive=True, cmap='gray', title='scale adjusted header')
+```
 
 ## Example 5
 Our final example uses EPI data normalised in `SPM`.
@@ -182,7 +193,7 @@ The warp calculated the mean across time to a template image, and then applied i
 
 Below is the output warped EPI volume:
 ```{code-cell} python
-ns.three_plane('assets/example-5_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-5_proc.nii.gz', interactive=True, cmap='gray')
 ```
 
 ```{admonition} What was the problem?
