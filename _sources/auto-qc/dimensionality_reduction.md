@@ -33,12 +33,18 @@ plt.rcParams["savefig.facecolor"] = "white"
 First, let's load the ABIDE dataset, and apply the site-wise normalization.
 
 ```{code-cell} python
-from mriqc_learn.viz import metrics
-from mriqc_learn.models.preprocess import SiteRobustScaler
 from mriqc_learn.datasets import load_dataset
+from mriqc_learn.models.preprocess import SiteRobustScaler
 
 (train_x, train_y), _ = load_dataset(split_strategy="none")
-train_x.drop(columns=["size_x", "size_y", "size_z", "spacing_x", "spacing_y", "spacing_z"])
+train_x = train_x.drop(columns=[
+    "size_x",
+    "size_y",
+    "size_z",
+    "spacing_x",
+    "spacing_y",
+    "spacing_z",
+])
 numeric_columns = train_x.columns.tolist()
 train_x["site"] = train_y.site
 
@@ -51,6 +57,8 @@ Highly correlated (either positive or negatively correlated) are not adding much
 We therefore expect to see high (negative and positive) correlations between different metrics:
 
 ```{code-cell} python
+from mriqc_learn.viz import metrics
+
 metrics.plot_corrmat(scaled_x[numeric_columns].corr(), figsize=(12, 12));
 ```
 
@@ -76,13 +84,15 @@ To make an educated guess of a sufficient number of components for properly repr
 
 ```{code-cell} python
 fig = plt.figure(figsize=(15,6))
-ax = plt.plot(np.cumsum(pca_model.explained_variance_ratio_ * 100), "-x")
+plt.plot(np.cumsum(pca_model.explained_variance_ratio_ * 100), "-x")
 plt.ylabel("Cumulative variance explained [%]")
 plt.xlabel("Number of components")
 xticks = np.arange(0, pca_model.explained_variance_ratio_.size, dtype=int)
 plt.xticks(xticks)
 plt.gca().set_xticklabels(xticks + 1)
-plt.show()
+yticks = np.linspace(92.0, 100.0, num=5)
+plt.yticks(yticks)
+plt.gca().set_yticklabels([f"{v:.2f}" for v in yticks]);
 ```
 
 We can see that the first four components account for 99% of the variance, which is pretty high.
@@ -122,3 +132,6 @@ The components should not be correlated:
 components.drop(columns=["site"])
 metrics.plot_corrmat(components.corr(), figsize=(12, 12));
 ```
+
+## Thanks
+We thank Céline Provins for the [original notebook](https://github.com/nipreps/mriqc-learn/blob/5132ffd69af1e56427bda39a9e44de13988d57aa/docs/notebooks/Dimensionality%20Reduction%20on%20IQMs.ipynb) on which this section is based.

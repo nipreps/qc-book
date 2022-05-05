@@ -53,6 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Making predictions about quality" href="classification.html" />
     <link rel="prev" title="Target labels: manual ratings by humans" href="manual_ratings.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -189,6 +190,11 @@ const thebe_selector_output = ".output, .cell_output"
    Reducing the dimensionality of the metrics
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="classification.html">
+   Making predictions about quality
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -304,6 +310,11 @@ const thebe_selector_output = ".output, .cell_output"
    Principal Components Analysis (PCA)
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thanks">
+   Thanks
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -329,6 +340,11 @@ const thebe_selector_output = ".output, .cell_output"
    Principal Components Analysis (PCA)
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#thanks">
+   Thanks
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -343,12 +359,18 @@ const thebe_selector_output = ".output, .cell_output"
 <p>First, let’s load the ABIDE dataset, and apply the site-wise normalization.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mriqc_learn.viz</span> <span class="kn">import</span> <span class="n">metrics</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mriqc_learn.datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
 <span class="kn">from</span> <span class="nn">mriqc_learn.models.preprocess</span> <span class="kn">import</span> <span class="n">SiteRobustScaler</span>
-<span class="kn">from</span> <span class="nn">mriqc_learn.datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
 
 <span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">split_strategy</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
-<span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;size_x&quot;</span><span class="p">,</span> <span class="s2">&quot;size_y&quot;</span><span class="p">,</span> <span class="s2">&quot;size_z&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_x&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_y&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_z&quot;</span><span class="p">])</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;size_x&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;size_y&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;size_z&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;spacing_x&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;spacing_y&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;spacing_z&quot;</span><span class="p">,</span>
+<span class="p">])</span>
 <span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 <span class="n">train_x</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_y</span><span class="o">.</span><span class="n">site</span>
 
@@ -363,7 +385,9 @@ Highly correlated (either positive or negatively correlated) are not adding much
 We therefore expect to see high (negative and positive) correlations between different metrics:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics</span><span class="o">.</span><span class="n">plot_corrmat</span><span class="p">(</span><span class="n">scaled_x</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">));</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mriqc_learn.viz</span> <span class="kn">import</span> <span class="n">metrics</span>
+
+<span class="n">metrics</span><span class="o">.</span><span class="n">plot_corrmat</span><span class="p">(</span><span class="n">scaled_x</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
@@ -397,13 +421,15 @@ To make an educated guess of a sufficient number of components for properly repr
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative variance explained [%]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of components&quot;</span><span class="p">)</span>
 <span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">yticks</span><span class="p">]);</span>
 </pre></div>
 </div>
 </div>
@@ -478,42 +504,42 @@ The second two are more composite of several metrics, but again only two feature
   <tbody>
     <tr>
       <th>0</th>
-      <td>-2055.660527</td>
-      <td>-6.944733</td>
-      <td>-4.097332</td>
-      <td>-1.920274</td>
+      <td>-6.947685</td>
+      <td>-1.913501</td>
+      <td>-2.438583</td>
+      <td>-1.045978</td>
       <td>PITT</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-2055.660419</td>
-      <td>-4.370268</td>
-      <td>-3.988600</td>
-      <td>-1.730077</td>
+      <td>-4.373293</td>
+      <td>-1.723562</td>
+      <td>-3.803143</td>
+      <td>-0.219094</td>
       <td>PITT</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-2055.660562</td>
-      <td>-7.239357</td>
-      <td>-4.099959</td>
-      <td>-0.491495</td>
+      <td>-7.242282</td>
+      <td>-0.484759</td>
+      <td>0.994786</td>
+      <td>-1.353356</td>
       <td>PITT</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>-2055.660487</td>
-      <td>-7.173637</td>
-      <td>-4.009833</td>
-      <td>-2.456011</td>
+      <td>-7.176610</td>
+      <td>-2.449517</td>
+      <td>-1.096229</td>
+      <td>-1.298902</td>
       <td>PITT</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-2055.660551</td>
-      <td>-7.136195</td>
-      <td>-4.005131</td>
-      <td>0.805537</td>
+      <td>-7.139118</td>
+      <td>0.812015</td>
+      <td>3.909931</td>
+      <td>-0.496021</td>
       <td>PITT</td>
     </tr>
     <tr>
@@ -526,42 +552,42 @@ The second two are more composite of several metrics, but again only two feature
     </tr>
     <tr>
       <th>1096</th>
-      <td>-2055.660560</td>
-      <td>-6.677951</td>
-      <td>-3.974158</td>
-      <td>-2.419417</td>
+      <td>-6.680810</td>
+      <td>-2.407759</td>
+      <td>1.327108</td>
+      <td>-0.842666</td>
       <td>SBL</td>
     </tr>
     <tr>
       <th>1097</th>
-      <td>-2055.660440</td>
-      <td>-6.509916</td>
-      <td>-4.004327</td>
-      <td>-1.914586</td>
+      <td>-6.512875</td>
+      <td>-1.902763</td>
+      <td>-1.429952</td>
+      <td>-0.977564</td>
       <td>SBL</td>
     </tr>
     <tr>
       <th>1098</th>
-      <td>-2055.660512</td>
-      <td>-6.559571</td>
-      <td>-3.973299</td>
-      <td>-0.953384</td>
+      <td>-6.562521</td>
+      <td>-0.946969</td>
+      <td>-0.655515</td>
+      <td>-1.599633</td>
       <td>SBL</td>
     </tr>
     <tr>
       <th>1099</th>
-      <td>-2055.660519</td>
-      <td>-6.951343</td>
-      <td>-4.022915</td>
-      <td>-1.031959</td>
+      <td>-6.954292</td>
+      <td>-1.025446</td>
+      <td>0.491796</td>
+      <td>-2.239100</td>
       <td>MAX_MUN</td>
     </tr>
     <tr>
       <th>1100</th>
-      <td>-2055.660553</td>
-      <td>-6.543426</td>
-      <td>-4.042952</td>
-      <td>-2.052596</td>
+      <td>-6.546351</td>
+      <td>-2.045979</td>
+      <td>0.338038</td>
+      <td>-1.860973</td>
       <td>MAX_MUN</td>
     </tr>
   </tbody>
@@ -581,6 +607,10 @@ The second two are more composite of several metrics, but again only two feature
 <img alt="../_images/dimensionality_reduction_18_0.png" src="../_images/dimensionality_reduction_18_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="thanks">
+<h2>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h2>
+<p>We thank Céline Provins for the <a class="reference external" href="https://github.com/nipreps/mriqc-learn/blob/5132ffd69af1e56427bda39a9e44de13988d57aa/docs/notebooks/Dimensionality%20Reduction%20on%20IQMs.ipynb">original notebook</a> on which this section is based.</p>
 </div>
 </div>
 
@@ -615,6 +645,13 @@ The second two are more composite of several metrics, but again only two feature
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Target labels: manual ratings by humans</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="classification.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Making predictions about quality</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             
