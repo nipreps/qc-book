@@ -397,10 +397,10 @@ To make an educated guess of a sufficient number of components for properly repr
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative variance explained [%]&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of components&quot;</span><span class="p">)</span>
-<span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -408,20 +408,7 @@ To make an educated guess of a sufficient number of components for properly repr
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative variance explained [%]&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of components&quot;</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;pca&#39; is not defined
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1080x432 with 0 Axes&gt;
-</pre></div>
-</div>
+<img alt="../_images/dimensionality_reduction_10_0.png" src="../_images/dimensionality_reduction_10_0.png" />
 </div>
 </div>
 <p>We can see that the first four components account for 99% of the variance, which is pretty high.
@@ -444,6 +431,9 @@ Let’s then choose to keep four components from now on:</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/dimensionality_reduction_14_0.png" src="../_images/dimensionality_reduction_14_0.png" />
+</div>
 </div>
 <p>The first two components are basically aligned with one original metric each.
 The second two are more composite of several metrics, but again only two features weight above 0.5, in both cases.</p>
@@ -459,6 +449,125 @@ The second two are more composite of several metrics, but again only two feature
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PC1</th>
+      <th>PC2</th>
+      <th>PC3</th>
+      <th>PC4</th>
+      <th>site</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-2055.660527</td>
+      <td>-6.944733</td>
+      <td>-4.097332</td>
+      <td>-1.920274</td>
+      <td>PITT</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-2055.660419</td>
+      <td>-4.370268</td>
+      <td>-3.988600</td>
+      <td>-1.730077</td>
+      <td>PITT</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2055.660562</td>
+      <td>-7.239357</td>
+      <td>-4.099959</td>
+      <td>-0.491495</td>
+      <td>PITT</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-2055.660487</td>
+      <td>-7.173637</td>
+      <td>-4.009833</td>
+      <td>-2.456011</td>
+      <td>PITT</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-2055.660551</td>
+      <td>-7.136195</td>
+      <td>-4.005131</td>
+      <td>0.805537</td>
+      <td>PITT</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>1096</th>
+      <td>-2055.660560</td>
+      <td>-6.677951</td>
+      <td>-3.974158</td>
+      <td>-2.419417</td>
+      <td>SBL</td>
+    </tr>
+    <tr>
+      <th>1097</th>
+      <td>-2055.660440</td>
+      <td>-6.509916</td>
+      <td>-4.004327</td>
+      <td>-1.914586</td>
+      <td>SBL</td>
+    </tr>
+    <tr>
+      <th>1098</th>
+      <td>-2055.660512</td>
+      <td>-6.559571</td>
+      <td>-3.973299</td>
+      <td>-0.953384</td>
+      <td>SBL</td>
+    </tr>
+    <tr>
+      <th>1099</th>
+      <td>-2055.660519</td>
+      <td>-6.951343</td>
+      <td>-4.022915</td>
+      <td>-1.031959</td>
+      <td>MAX_MUN</td>
+    </tr>
+    <tr>
+      <th>1100</th>
+      <td>-2055.660553</td>
+      <td>-6.543426</td>
+      <td>-4.042952</td>
+      <td>-2.052596</td>
+      <td>MAX_MUN</td>
+    </tr>
+  </tbody>
+</table>
+<p>1101 rows × 5 columns</p>
+</div></div></div>
 </div>
 <p>The components should not be correlated:</p>
 <div class="cell docutils container">
@@ -467,6 +576,9 @@ The second two are more composite of several metrics, but again only two feature
 <span class="n">metrics</span><span class="o">.</span><span class="n">plot_corrmat</span><span class="p">(</span><span class="n">components</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">));</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/dimensionality_reduction_18_0.png" src="../_images/dimensionality_reduction_18_0.png" />
 </div>
 </div>
 </div>
