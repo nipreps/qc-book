@@ -122,3 +122,6 @@ The components should not be correlated:
 components.drop(columns=["site"])
 metrics.plot_corrmat(components.corr(), figsize=(12, 12));
 ```
+
+## Thanks
+We thank Céline Provins for the [original notebook](https://github.com/nipreps/mriqc-learn/blob/cd1a57aea2a1dd7f18882f35fc29f07aba00915a/docs/notebooks/Dimensionality%20Reduction%20on%20IQMs.ipynb) on which this section is based.
