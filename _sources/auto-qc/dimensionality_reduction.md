@@ -117,5 +117,6 @@ components
 The components should not be correlated:
 
 ```{code-cell} python
-metrics.plot_corrmat(scaled_x[numeric_columns].corr(), figsize=(12, 12));
+components.drop(columns=["site"])
+metrics.plot_corrmat(components.corr(), figsize=(12, 12));
 ```
