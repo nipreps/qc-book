@@ -96,4 +96,4 @@ RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
     && python -c "from matplotlib import font_manager" \
     && sed -i 's/\(backend *: \).*$/\1Agg/g' $( python -c "import matplotlib; print(matplotlib.matplotlib_fname())" ) \
     && mkdir -p /home/${NB_USER}/.config/ \
-    && echo 'formats = "ipynb,Rmd"' >> /home/${NB_USER}/.config/jupytext.toml
+    && echo 'notebook_extensions = "ipynb,Rmd"' >> /home/${NB_USER}/.config/jupytext.toml
