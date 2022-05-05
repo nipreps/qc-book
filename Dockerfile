@@ -61,9 +61,6 @@ RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tm
 
 RUN fc-cache -v
 
-ARG GITHUB_PAT
-RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
-
 # Installing precomputed python packages
 RUN conda install -y -c conda-forge -c anaconda \
                   attr \
@@ -82,9 +79,8 @@ RUN conda install -y -c conda-forge -c anaconda \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-# Installing nipreps-book
+# Installing requirements
 COPY requirements.txt /tmp/requirements.txt
-
 USER root
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && fix-permissions "${CONDA_DIR}" \
@@ -98,3 +94,6 @@ RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
     && sed -i 's/\(backend *: \).*$/\1Agg/g' $( python -c "import matplotlib; print(matplotlib.matplotlib_fname())" ) \
     && mkdir -p /home/${NB_USER}/.config/ \
     && echo 'notebook_extensions = "ipynb,Rmd"' >> /home/${NB_USER}/.config/jupytext.toml
+
+ARG GITHUB_PAT
+RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
