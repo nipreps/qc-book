@@ -22,58 +22,47 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-FROM jupyter/base-notebook:lab-3.3.3
+FROM jupyter/datascience-notebook:2022-03-02
+
+RUN arch=$(uname -m) && \
+    if [ "${arch}" == "aarch64" ]; then \
+        # Prevent libmamba from sporadically hanging on arm64 under QEMU
+        # <https://github.com/mamba-org/mamba/issues/1611>
+        export G_SLICE=always-malloc; \
+    fi && \
+    mamba install --quiet --yes 'r-rnifti' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 USER root
 
 # Prepare environment
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-                    build-essential \
-                    bzip2 \
                     ca-certificates \
-                    cm-super \
                     curl \
                     dvipng \
                     fontconfig \
-                    fonts-freefont-ttf \
                     git \
-                    libcurl4-gnutls-dev \
-                    libssl-dev \
-                    libxml2-dev \
-                    r-base \
-                    texlive-fonts-extra \
-                    texlive-fonts-recommended \
-                    texlive-latex-extra \
                     unzip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+USER $NB_UID
+
 # Install Libre Franklin font
 RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tmp/LibreFranklin.zip \
-    && mkdir -p /usr/local/share/fonts/LibreFranklin \
-    && pushd /usr/local/share/fonts/LibreFranklin \
+    && mkdir -p /home/${NB_USER}/.fonts \
+    && pushd /home/${NB_USER}/.fonts \
     && unzip -e /tmp/LibreFranklin.zip \
-    && rm /tmp/LibreFranklin.zip \
     && popd \
-    && fix-permissions /usr/local/share/fonts/LibreFranklin
-
-RUN mkdir -p /usr/local/lib/R/site-library \
-    && chmod 777 /usr/local/lib/R/site-library
-
-USER $NB_UID
+    && rm /tmp/LibreFranklin.zip \
+    && fix-permissions /home/${NB_USER}/.fonts
 
 RUN fc-cache -v
 
-# Install IRKernel
-RUN mkdir -p /home/${NB_USER}/.local/lib/R/site-library \
-    && echo ".libPaths(c('~/.local/lib/R/site-library', .libPaths()))" >> $HOME/.Rprofile \ 
-    && R -e "install.packages('IRkernel')" \
-    && R -e "IRkernel::installspec()"
-
 ARG GITHUB_PAT
-COPY install.R /tmp/
-RUN Rscript /tmp/install.R \
-    && fix-permissions "/home/${NB_USER}/.local/lib/R/site-library"
+RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
 
 # Installing precomputed python packages
 RUN conda install -y -c conda-forge -c anaconda \
@@ -101,3 +90,10 @@ RUN pip install --no-cache-dir -r /home/${NB_USER}/qc-book/requirements.txt \
     && fix-permissions "/home/${NB_USER}/qc-book"
 
 USER $NB_UID
+
+# Precaching fonts, set 'Agg' as default backend for matplotlib
+RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
+    && python -c "from matplotlib import font_manager" \
+    && sed -i 's/\(backend *: \).*$/\1Agg/g' $( python -c "import matplotlib; print(matplotlib.matplotlib_fname())" ) \
+    && mkdir -p /home/${NB_USER}/.config/ \
+    && echo 'formats = "ipynb,Rmd"' >> /home/${NB_USER}/.config/jupytext.toml
