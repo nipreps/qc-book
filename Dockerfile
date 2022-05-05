@@ -83,11 +83,12 @@ RUN conda install -y -c conda-forge -c anaconda \
     fix-permissions "/home/${NB_USER}"
 
 # Installing nipreps-book
-COPY . /home/${NB_USER}/qc-book
+COPY requirements.txt /tmp/requirements.txt
 
 USER root
-RUN pip install --no-cache-dir -r /home/${NB_USER}/qc-book/requirements.txt \
-    && fix-permissions "/home/${NB_USER}/qc-book"
+RUN pip install --no-cache-dir -r /tmp/requirements.txt \
+    && fix-permissions "${CONDA_DIR}" \
+    && rm /tmp/requirements.txt
 
 USER $NB_UID
 
