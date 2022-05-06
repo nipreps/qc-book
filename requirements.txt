@@ -8,7 +8,6 @@ myst-nb
 git+https://github.com/spinicist/nanslice@master
 nibabel
 nilearn
-niwidgets
 numpy
 pandas
 pytest
