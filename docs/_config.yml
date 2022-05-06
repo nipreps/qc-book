@@ -36,7 +36,7 @@ html:
 launch_buttons:
   notebook_interface: "jupyterlab"
   # The URL of the JupyterHub (e.g., https://datahub.berkeley.edu)
-  jupyterhub_url: "https://hub.dandiarchive.org"
+  jupyterhub_url: "https://ismrm.dandiarchive.org"
   # The URL of the BinderHub (e.g., https://mybinder.org)
   binderhub_url: "https://mybinder.org"
 
