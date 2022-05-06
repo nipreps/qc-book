@@ -241,14 +241,11 @@ const thebe_selector_output = ".output, .cell_output"
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../_sources/auto-qc/dimensionality_reduction.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+        
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/auto-qc/dimensionality_reduction.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/auto-qc/dimensionality_reduction.Rmd"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
+                data-placement="left">.Rmd</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
                 onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -278,29 +275,6 @@ const thebe_selector_output = ".output, .cell_output"
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/auto-qc/dimensionality_reduction.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        <a class="jupyterhub-button" href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/auto-qc/dimensionality_reduction.md&branch=main"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
-                data-placement="left"><img class="jupyterhub-button-logo"
-                    src="../_static/images/logo_jupyterhub.svg"
-                    alt="Interact on JupyterHub">JupyterHub</button></a>
-        
-        
-        
-    </div>
-</div>
 
         </div>
 
@@ -364,256 +338,24 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="reducing-the-dimensionality-of-the-metrics">
 <h1>Reducing the dimensionality of the metrics<a class="headerlink" href="#reducing-the-dimensionality-of-the-metrics" title="Permalink to this headline">¶</a></h1>
 <p>First, let’s load the ABIDE dataset, and apply the site-wise normalization.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mriqc_learn.datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
-<span class="kn">from</span> <span class="nn">mriqc_learn.models.preprocess</span> <span class="kn">import</span> <span class="n">SiteRobustScaler</span>
-
-<span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">),</span> <span class="n">_</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">split_strategy</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">)</span>
-<span class="n">train_x</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span>
-    <span class="s2">&quot;size_x&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;size_y&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;size_z&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;spacing_x&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;spacing_y&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;spacing_z&quot;</span><span class="p">,</span>
-<span class="p">])</span>
-<span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">train_x</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">train_x</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train_y</span><span class="o">.</span><span class="n">site</span>
-
-<span class="c1"># Harmonize between sites</span>
-<span class="n">scaled_x</span> <span class="o">=</span> <span class="n">SiteRobustScaler</span><span class="p">(</span><span class="n">unit_variance</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>We have a total of 62 features (i.e., metrics), and many of them are related (e.g., region-wise SNR calculations, or different ways of estimating a particular measure).
 Highly correlated (either positive or negatively correlated) are not adding much information about the image to one another.
 We therefore expect to see high (negative and positive) correlations between different metrics:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mriqc_learn.viz</span> <span class="kn">import</span> <span class="n">metrics</span>
-
-<span class="n">metrics</span><span class="o">.</span><span class="n">plot_corrmat</span><span class="p">(</span><span class="n">scaled_x</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">));</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/dimensionality_reduction_4_0.png" src="../_images/dimensionality_reduction_4_0.png" />
-</div>
-</div>
 <div class="section" id="principal-components-analysis-pca">
 <h2>Principal Components Analysis (PCA)<a class="headerlink" href="#principal-components-analysis-pca" title="Permalink to this headline">¶</a></h2>
 <p>PCA is a fundamental statistical decomposition of data that was proposed to resolve the problem of source separation.
 By using a few of the largest components, the signal can effectively be reduced from our initial 62 channels into a much lower number.
 We will be using scikit-learn and scipy in this example:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>First we instantiate the model without limiting the number of components and fit the model to the numeric columns (i.e., without site of origin) of our dataframe:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pca_model</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">scaled_x</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>Now let’s investigate this PCA model.
 To make an educated guess of a sufficient number of components for properly representing the data, we typically look at an elbow plot showing the variance explained vs. the number of components.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span> <span class="o">*</span> <span class="mi">100</span><span class="p">),</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative variance explained [%]&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of components&quot;</span><span class="p">)</span>
-<span class="n">xticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pca_model</span><span class="o">.</span><span class="n">explained_variance_ratio_</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">xticks</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">xticks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">92.0</span><span class="p">,</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">yticks</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">yticks</span><span class="p">]);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/dimensionality_reduction_10_0.png" src="../_images/dimensionality_reduction_10_0.png" />
-</div>
-</div>
 <p>We can see that the first four components account for 99% of the variance, which is pretty high.
 Let’s then choose to keep four components from now on:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_components</span> <span class="o">=</span> <span class="mi">4</span>
-</pre></div>
-</div>
-</div>
-</div>
 <p>Components are no more than linear decomposition of the original metrics, so let’s now look at the coefficients that correspond to the IQMs for each of those first four components:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">basis</span> <span class="o">=</span> <span class="n">pca_model</span><span class="o">.</span><span class="n">components_</span><span class="p">[:</span><span class="n">n_components</span><span class="p">,:]</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">basis</span><span class="p">[</span><span class="n">k</span><span class="p">,:]),</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Component </span><span class="si">{</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/dimensionality_reduction_14_0.png" src="../_images/dimensionality_reduction_14_0.png" />
-</div>
-</div>
 <p>The first two components are basically aligned with one original metric each.
 The second two are more composite of several metrics, but again only two features weight above 0.5, in both cases.</p>
 <p>Let’s refit the model with the limitation of 4 components, and project our original data onto the new four-dimensional space.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqm_reduced</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="n">n_components</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span>
-  <span class="n">scaled_x</span><span class="p">[</span><span class="n">numeric_columns</span><span class="p">]</span>
-<span class="p">)</span>
-<span class="n">components</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iqm_reduced</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;PC</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_components</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
-<span class="n">components</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scaled_x</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-<span class="n">components</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>PC1</th>
-      <th>PC2</th>
-      <th>PC3</th>
-      <th>PC4</th>
-      <th>site</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-6.947685</td>
-      <td>-1.913501</td>
-      <td>-2.438583</td>
-      <td>-1.045978</td>
-      <td>PITT</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>-4.373293</td>
-      <td>-1.723562</td>
-      <td>-3.803143</td>
-      <td>-0.219094</td>
-      <td>PITT</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>-7.242282</td>
-      <td>-0.484759</td>
-      <td>0.994786</td>
-      <td>-1.353356</td>
-      <td>PITT</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>-7.176610</td>
-      <td>-2.449517</td>
-      <td>-1.096229</td>
-      <td>-1.298902</td>
-      <td>PITT</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-7.139118</td>
-      <td>0.812015</td>
-      <td>3.909931</td>
-      <td>-0.496021</td>
-      <td>PITT</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>1096</th>
-      <td>-6.680810</td>
-      <td>-2.407759</td>
-      <td>1.327108</td>
-      <td>-0.842666</td>
-      <td>SBL</td>
-    </tr>
-    <tr>
-      <th>1097</th>
-      <td>-6.512875</td>
-      <td>-1.902763</td>
-      <td>-1.429952</td>
-      <td>-0.977564</td>
-      <td>SBL</td>
-    </tr>
-    <tr>
-      <th>1098</th>
-      <td>-6.562521</td>
-      <td>-0.946969</td>
-      <td>-0.655515</td>
-      <td>-1.599633</td>
-      <td>SBL</td>
-    </tr>
-    <tr>
-      <th>1099</th>
-      <td>-6.954292</td>
-      <td>-1.025446</td>
-      <td>0.491796</td>
-      <td>-2.239100</td>
-      <td>MAX_MUN</td>
-    </tr>
-    <tr>
-      <th>1100</th>
-      <td>-6.546351</td>
-      <td>-2.045979</td>
-      <td>0.338038</td>
-      <td>-1.860973</td>
-      <td>MAX_MUN</td>
-    </tr>
-  </tbody>
-</table>
-<p>1101 rows × 5 columns</p>
-</div></div></div>
-</div>
 <p>The components should not be correlated:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">components</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;site&quot;</span><span class="p">])</span>
-<span class="n">metrics</span><span class="o">.</span><span class="n">plot_corrmat</span><span class="p">(</span><span class="n">components</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">));</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/dimensionality_reduction_18_0.png" src="../_images/dimensionality_reduction_18_0.png" />
-</div>
-</div>
 </div>
 <div class="section" id="thanks">
 <h2>Thanks<a class="headerlink" href="#thanks" title="Permalink to this headline">¶</a></h2>
