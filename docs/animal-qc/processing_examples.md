@@ -43,13 +43,13 @@ Let's look at the original first:
 import nanslice.jupyter as ns
 %matplotlib widget
 
-ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 Now let's look at the corrected image. The results are not as good as they could be.
 
 ```{code-cell} python
-ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 ```{admonition} What do you think the problem was?
@@ -64,7 +64,7 @@ As this is applied the same in every plane, out-of-plane anisotropic voxels can 
 
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-1_desc-n4final_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-1_desc-n4final_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 ## Example 2
@@ -139,16 +139,16 @@ and the other with a phase-encoding direction going from inferior to superior.
 
 Below are the mean images of the volumes acquired for each phase-encoding direction:
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-IS_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_dir-IS_desc-tmean_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-SI_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_dir-SI_desc-tmean_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 The `topup` output is less than desirable:
 ```{code-cell} python
-ns.three_plane('assets/example-4_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_desc-orig_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 What do you think the problem was?
@@ -180,11 +180,23 @@ This approach still requires further testing.
 ```
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-4_desc-micron_proc.nii.gz', interactive=True, cmap='gray', title='unit adjusted header')
+ns.three_plane(
+  'assets/example-4_desc-micron_proc.nii.gz',
+  interactive=True,
+  cmap='gray',
+  clim=(0,50),
+  title='unit adjusted header'
+)
 ```
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-4_desc-scaled_proc.nii.gz', interactive=True, cmap='gray', title='scale adjusted header')
+ns.three_plane(
+  'assets/example-4_desc-scaled_proc.nii.gz',
+  interactive=True,
+  cmap='gray',
+  clim=(0,50),
+  title='scale adjusted header'
+)
 ```
 
 ## Example 5
@@ -193,7 +205,7 @@ The warp calculated the mean across time to a template image, and then applied i
 
 Below is the output warped EPI volume:
 ```{code-cell} python
-ns.three_plane('assets/example-5_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-5_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 ```{admonition} What was the problem?

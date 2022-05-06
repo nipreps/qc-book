@@ -63,13 +63,13 @@ and that the head coil is positioned equally over the brain.
 ## Example 2
 Here is a subject whose 4D BOLD images from a single session have been assessed with `MRIQC`:
 ```{code-cell} python
-ns.three_plane('assets/example-2_run-01_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-2_run-01_acq.nii.gz', interactive=True, clim=(0,75))
 ```
 ```{code-cell} python
-ns.three_plane('assets/example-2_run-02_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-2_run-02_acq.nii.gz', interactive=True, clim=(0,75))
 ```
 
-The `MRIQC` reports for [run 1](./assets/example-2_run-01_acq.html) and [run 2](./assets/example-2_run-02_acq.html) are also available.
+The `MRIQC` reports for {download}`run 1<./assets/example-2_run-01_acq.html>` and {download}`run 2<./assets/example-2_run-02_acq.html>` are also available.
 
 Which run is better? Can you spot the problem?
 ```{hint}
@@ -90,18 +90,18 @@ Interestingly, this is not obvious in the mean image, which is justification to 
 ```
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('./assets/example-2_run-02_desc-tmean_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('./assets/example-2_run-02_desc-tmean_acq.nii.gz', interactive=True, clim=(0,75))
 ```
 
 ## Example 3
 Below is the first attempt at a structural image of a subject
 ```{code-cell} python
-# ns.three_plane('./assets/example-3_desc-orig_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('./assets/example-3_run-01_acq.nii.gz', interactive=True, cmap='gray', clim=(0,5))
 ```
 
 Next, let's look at the structural image, *with the same scan parameters*, that was used for processing:
 ```{code-cell} python
-# ns.three_plane('assets/example-3_desc-orig_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-3_run-03_acq.nii.gz', interactive=True, cmap='gray', clim=(0,5))
 ```
 
 ```{admonition} What is the difference between the two images??
@@ -112,19 +112,19 @@ In particular, the head coil was not set as the receiver coil.
 ```
 
 ## Example 4
-Here are three multiparametric mapping images from a single subject acquired with the same protocol in three separate scanning sessions.
+Here are three Magnetisation Transfer weighted images acquired as part of a multiparametric mapping sequence in a single subject. All three images are acquired with the same protocol in three separate scanning sessions.
 
 Session 1:
 ```{code-cell} python
-# ns.three_plane('assets/example-4_ses-1_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_ses-1_acq.nii.gz', interactive=True, clim=(0,3))
 ```
 Session 2:
 ```{code-cell} python
-# ns.three_plane('assets/example-4_ses-2_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_ses-2_acq.nii.gz', interactive=True, clim=(0,3))
 ```
 Session 3:
 ```{code-cell} python
-# ns.three_plane('assets/example-4_ses-3_acq.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-4_ses-3_acq.nii.gz', interactive=True, clim=(0,3))
 ```
 
 ```{admonition} Which image has the worst quality? What do you think the problem was?
