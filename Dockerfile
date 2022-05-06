@@ -97,3 +97,4 @@ RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
 
 ARG GITHUB_PAT
 RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
+RUN pip install --no-cache-dir nbgitpuller
