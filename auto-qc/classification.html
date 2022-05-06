@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Reducing the dimensionality of the metrics" href="dimensionality_reduction.html" />
@@ -160,6 +162,16 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../animal-qc/processing.html">
    Idiosyncrasies of processing MRI data from small animals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/acquisition_examples.html">
+   “What went wrong?” data acquisition edition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/processing_examples.html">
+   “What went wrong?” data processing edition
   </a>
  </li>
 </ul>
@@ -489,7 +501,7 @@ By leaving one whole site out for validation at a time, we can get a sense of ho
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.6233737335975014 ± 0.21465967071024322
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.627941551541183 ± 0.21427286098620768
 </pre></div>
 </div>
 </div>
@@ -649,7 +661,7 @@ In this case, we will use locally linear embedding:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.5517174560178059 ± 0.13886025448378417
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.6114938977015655 ± 0.13820173676005434
 </pre></div>
 </div>
 </div>
@@ -710,18 +722,18 @@ It can be instantiated with <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.8632736489136595 ± 0.16512068839726146
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.8705929188916494 ± 0.1552113893099031
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC on DS030 is 0.667989417989418.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC on DS030 is 0.6554232804232804.
               precision    recall  f1-score   support
 
-           0       0.91      0.98      0.94       189
-           1       0.71      0.36      0.48        28
+           0       0.91      0.99      0.95       189
+           1       0.82      0.32      0.46        28
 
     accuracy                           0.90       217
-   macro avg       0.81      0.67      0.71       217
-weighted avg       0.89      0.90      0.88       217
+   macro avg       0.86      0.66      0.70       217
+weighted avg       0.90      0.90      0.88       217
 </pre></div>
 </div>
 </div>

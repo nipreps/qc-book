@@ -51,6 +51,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Idiosyncrasies of acquiring data from small animals" href="acquisition.html" />
@@ -161,6 +163,16 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="processing.html">
    Idiosyncrasies of processing MRI data from small animals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="acquisition_examples.html">
+   “What went wrong?” data acquisition edition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="processing_examples.html">
+   “What went wrong?” data processing edition
   </a>
  </li>
 </ul>
@@ -285,8 +297,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-   Why is preclinical imaging useful for converstaions about quality?
+  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-conversations-about-quality">
+   Why is preclinical imaging useful for conversations about quality?
   </a>
  </li>
 </ul>
@@ -320,8 +332,8 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-   Why is preclinical imaging useful for converstaions about quality?
+  <a class="reference internal nav-link" href="#why-is-preclinical-imaging-useful-for-conversations-about-quality">
+   Why is preclinical imaging useful for conversations about quality?
   </a>
  </li>
 </ul>
@@ -354,7 +366,8 @@ software tools are designed
 for humans and have implicit
 voxel size/shape/contrast
 assumptions that are not
-valid for rodents. The tutorial
+valid for rodents.</p>
+<p>The tutorial
 will highlight where in the
 processing pipeline these are
 most likely to arise, examples
@@ -390,9 +403,10 @@ fields in the same individual.
 For example, MRI can be combined with invasive procedures, such as optogenetic
 techniques, in a single rodent subject but not in human participants.</p>
 </div>
-<div class="section" id="why-is-preclinical-imaging-useful-for-converstaions-about-quality">
-<h2>Why is preclinical imaging useful for converstaions about quality?<a class="headerlink" href="#why-is-preclinical-imaging-useful-for-converstaions-about-quality" title="Permalink to this headline">¶</a></h2>
-<p>Preclinical MRI has historically trailed its human equivalent in some respects.
+<div class="section" id="why-is-preclinical-imaging-useful-for-conversations-about-quality">
+<h2>Why is preclinical imaging useful for conversations about quality?<a class="headerlink" href="#why-is-preclinical-imaging-useful-for-conversations-about-quality" title="Permalink to this headline">¶</a></h2>
+<p>In priniciple, preclinical MRI is equivalent to human MRI, which makes it very attractive as a translational technique.</p>
+<p>However, in practice, preclinical MRI has historically trailed its human equivalent in some respects.
 This likely reflects its novelty relative to human imaging, but there are a
 number of factors including acquistion idiosyncracies for a given study’s design,
 and the availability of software resources.</p>
@@ -401,6 +415,15 @@ regardless of the target species.
 Following this, we will work through the stages of acquisitional and processing
 standard operating procedures to visualise what happens when things go wrong and
 how automated tools can objectively identify problematic images.</p>
+<div class="admonition-learning-outcomes admonition">
+<p class="admonition-title">Learning outcomes</p>
+<ul class="simple">
+<li><p>Understand the similarities and differences between <em>preclinical</em> and human MRI</p></li>
+<li><p>Become familiar with the common sources of error in image acquisition and processing</p></li>
+<li><p>Understand the importance of visualisation for data quality</p></li>
+<li><p>Use different visualisation methods to identify problems in image quality</p></li>
+</ul>
+</div>
 </div>
 </div>
 

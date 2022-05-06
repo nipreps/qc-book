@@ -18,7 +18,9 @@ software tools are designed
 for humans and have implicit
 voxel size/shape/contrast
 assumptions that are not
-valid for rodents. The tutorial
+valid for rodents.
+
+The tutorial
 will highlight where in the
 processing pipeline these are
 most likely to arise, examples
@@ -54,9 +56,11 @@ fields in the same individual.
 For example, MRI can be combined with invasive procedures, such as optogenetic
 techniques, in a single rodent subject but not in human participants.
 
-## Why is preclinical imaging useful for converstaions about quality?
+## Why is preclinical imaging useful for conversations about quality?
 
-Preclinical MRI has historically trailed its human equivalent in some respects.
+In priniciple, preclinical MRI is equivalent to human MRI, which makes it very attractive as a translational technique.
+
+However, in practice, preclinical MRI has historically trailed its human equivalent in some respects.
 This likely reflects its novelty relative to human imaging, but there are a
 number of factors including acquistion idiosyncracies for a given study's design,
 and the availability of software resources.
@@ -66,3 +70,11 @@ regardless of the target species.
 Following this, we will work through the stages of acquisitional and processing
 standard operating procedures to visualise what happens when things go wrong and
 how automated tools can objectively identify problematic images.
+
+
+```{admonition} Learning outcomes
+* Understand the similarities and differences between *preclinical* and human MRI
+* Become familiar with the common sources of error in image acquisition and processing
+* Understand the importance of visualisation for data quality 
+* Use different visualisation methods to identify problems in image quality
+```
