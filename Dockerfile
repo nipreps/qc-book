@@ -65,6 +65,7 @@ RUN fc-cache -v
 RUN conda install -y -c conda-forge \
                   attr \
                   jupytext \
+                  nbgitpuller \
                   nibabel \
                   nilearn \
                   matplotlib \
@@ -78,6 +79,15 @@ RUN conda install -y -c conda-forge \
     conda clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
+  && export NODE_OPTIONS=--max-old-space-size=4096 \
+  && jupyter lab build && \
+     jupyter lab clean && \
+     jlpm cache clean && \
+     npm cache clean --force && \
+     rm -rf $HOME/.node-gyp && \
+     rm -rf $HOME/.local && rm -rf /tmp/*
 
 # Installing requirements
 COPY requirements.txt /tmp/requirements.txt
@@ -97,13 +107,3 @@ RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
 
 ARG GITHUB_PAT
 RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
-
-RUN pip install --no-cache-dir nbgitpuller
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
-  && export NODE_OPTIONS=--max-old-space-size=4096 \
-  && jupyter lab build && \
-     jupyter lab clean && \
-     jlpm cache clean && \
-     npm cache clean --force && \
-     rm -rf $HOME/.node-gyp && \
-     rm -rf $HOME/.local && rm -rf /tmp/*
