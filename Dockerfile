@@ -48,8 +48,6 @@ RUN apt-get update && \
                     unzip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-USER $NB_UID
-
 # Install Libre Franklin font
 RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tmp/LibreFranklin.zip \
     && mkdir -p /usr/local/share/fonts/LibreFranklin \
@@ -58,6 +56,8 @@ RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tm
     && popd \
     && rm /tmp/LibreFranklin.zip \
     && fix-permissions /usr/local/share/fonts/LibreFranklin
+
+USER $NB_UID
 
 RUN fc-cache -v
 
