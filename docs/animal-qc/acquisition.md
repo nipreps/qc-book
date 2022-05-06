@@ -21,15 +21,16 @@ Those with Bruker scanners may also have a maintenance package which includes te
 for quality assurance.
 ### Coils
 Some volume coils require manual tuning.
-For scanners from out-of-business manufacturers, "homemade" coils are more common
-and less standardised.
+For scanners from out-of-business manufacturers, "homemade" coils are more common.
+These coils use known standards in day-to-day scanning, so are possibly more standardised in terms
+of replicability, but may be less standardised across sites.
 Cryocoils are increasingly available but not yet ubiquitous.
 ### Physiological monitoring
 While the requirements for accurate physiological monitoring is explained in more
 detail below, there are many pieces of hardware that can be discussed.
 This minimally includes rectal thermometers and respiration balloons, but can also
 include pulse oximeters and/or invasive blood pressure monitoring.
-### Other hardware_
+### Other hardware
 Cradles, bite bars, ear bars, pillows can be provided by the scanner manufacturer or
 "homemade".
 These facilitate support of the animal in the scanner and reduce movement.
@@ -104,13 +105,14 @@ Compound | Administration | Benefits | Costs
 Isoflurane | inhalation | <li> non-invasive administration</li><li>Short recovery</li>|<li>Uncouples BOLD response</li><li>Dangerous cumulative effects</li>
 (Dex)meditomidine | infusion | <li> preserves BOLD response </li> | <li>requires Atipamezole for speedy recovery</li>
 Alpha-Chloralose | infusion |<li> preserves BOLD response </li> | <li> requires cannulation</li><li>Difficult recovery</li>
-Ketamine | infusion | |
+Ketamine | infusion | <li>established anaesthetic<li> <li> single administration has long effects</li> <li>easily reversible</li>  | <li>confound with BOLD response</li>
+Halothane | inhalation | <li> non-invasive administration </li> <li>preserves BOLD response</li> | <li>toxic</li> <li>increasingly hard to acquire</li>
 
 ### Respiration
 Respiration rate and the pattern of inhalation is impacted by the choice of
 anaesthesia or sedative.
 Often anaesthetic procedures prescribe a respiration rate to standardise across
-animals, rather than a rate of anaesthetic delivery.
+animals, with a wider range of rates for anaesthetic delivery.
 
 ### Thermal homeostasis
 Small animals, particularly mice, find it difficult to regulate their body
