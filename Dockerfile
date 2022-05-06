@@ -62,7 +62,7 @@ RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tm
 RUN fc-cache -v
 
 # Installing precomputed python packages
-RUN conda install -y -c conda-forge -c anaconda \
+RUN conda install -y -c conda-forge \
                   attr \
                   jupytext \
                   nibabel \
@@ -97,4 +97,13 @@ RUN rm -rf /home/${NB_USER}/.cache/matplotlib \
 
 ARG GITHUB_PAT
 RUN R -e "devtools::install_github('AWKruijt/eMergeR')"
+
 RUN pip install --no-cache-dir nbgitpuller
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
+  && export NODE_OPTIONS=--max-old-space-size=4096 \
+  && jupyter lab build && \
+     jupyter lab clean && \
+     jlpm cache clean && \
+     npm cache clean --force && \
+     rm -rf $HOME/.node-gyp && \
+     rm -rf $HOME/.local && rm -rf /tmp/*
