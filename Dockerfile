@@ -52,12 +52,12 @@ USER $NB_UID
 
 # Install Libre Franklin font
 RUN curl -sSL "https://fonts.google.com/download?family=Libre%20Franklin" -o /tmp/LibreFranklin.zip \
-    && mkdir -p /home/${NB_USER}/.fonts \
-    && pushd /home/${NB_USER}/.fonts \
+    && mkdir -p /usr/local/share/fonts/LibreFranklin \
+    && pushd /usr/local/share/fonts/LibreFranklin \
     && unzip -e /tmp/LibreFranklin.zip \
     && popd \
     && rm /tmp/LibreFranklin.zip \
-    && fix-permissions /home/${NB_USER}/.fonts
+    && fix-permissions /usr/local/share/fonts/LibreFranklin
 
 RUN fc-cache -v
 
