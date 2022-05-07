@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Before we dive into QA/QC &#8212; ISMRM&#39;22 QC Book</title>
+    <title>Before we dive into QA/QC : Definitions and terminology &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -108,7 +108,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Before we dive into QA/QC
+   Before we dive into QA/QC : Definitions and terminology
   </a>
  </li>
 </ul>
@@ -287,9 +287,16 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#definitions-and-terminology">
-   Definitions and terminology
+  <a class="reference internal nav-link" href="#what-does-quality-imply-in-neuroimaging">
+   What does “Quality” imply in neuroimaging
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-categories-of-image-quality-in-neuroimaging">
+     Defining categories of image quality in neuroimaging
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -301,7 +308,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Before we dive into QA/QC</h1>
+                <h1>Before we dive into QA/QC : Definitions and terminology</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -312,9 +319,16 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#definitions-and-terminology">
-   Definitions and terminology
+  <a class="reference internal nav-link" href="#what-does-quality-imply-in-neuroimaging">
+   What does “Quality” imply in neuroimaging
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#defining-categories-of-image-quality-in-neuroimaging">
+     Defining categories of image quality in neuroimaging
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -325,10 +339,19 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="before-we-dive-into-qa-qc">
-<h1>Before we dive into QA/QC<a class="headerlink" href="#before-we-dive-into-qa-qc" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="definitions-and-terminology">
-<h2>Definitions and terminology<a class="headerlink" href="#definitions-and-terminology" title="Permalink to this headline">¶</a></h2>
+  <div class="tex2jax_ignore mathjax_ignore section" id="before-we-dive-into-qa-qc-definitions-and-terminology">
+<h1>Before we dive into QA/QC : Definitions and terminology<a class="headerlink" href="#before-we-dive-into-qa-qc-definitions-and-terminology" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-does-quality-imply-in-neuroimaging">
+<h2>What does “Quality” imply in neuroimaging<a class="headerlink" href="#what-does-quality-imply-in-neuroimaging" title="Permalink to this headline">¶</a></h2>
+<p>The accuracy and repeatability of neuroimaging measurements are limited not just by the nominal performance regimes of the data acquisition resources, protocols, and processing and analysis workflows, but also by factors contingent on the actual processes in the workflow  (e.g., physiological noise during scanning, head-motion, room temperature, drifts from calibration settings, or the platform and operating system on which a particular processing step is executed)</p>
+<p>Although <em><strong>“image quality”</strong></em> at several points of the neuroimaging research workflow has been the object of investigation in a number of studies in the last thirty years, the interest in the particular topic has been quickly building up in the last decade catalyzed by the explosion in data acquisition and availability.</p>
+<div class="section" id="defining-categories-of-image-quality-in-neuroimaging">
+<h3>Defining categories of image quality in neuroimaging<a class="headerlink" href="#defining-categories-of-image-quality-in-neuroimaging" title="Permalink to this headline">¶</a></h3>
+<p>Drawing from the software engineering field, we can approximate two <strong>broad</strong> definitions of <em><strong>“image quality”</strong></em> for a given particular step in the neuroimaging workflow (e.g., acquisition &amp; reconstruction, brain extraction, or spatial normalization) as follows:</p>
+<p><ins><strong>Functional quality (FQ)</strong></ins> refers to the degree to which the step under assessment produces an output that is “correct”. For example, one aspect of functional quality would cover how different brain extraction tools perform and determining which one does the job “best” given an input dataset. Another often studied example in neuroimaging is <em>spatial normalization</em>, where manually placed landmarks and overlap measures of regions have been typically used to benchmark the performance.
+Once the functional requirements are met (the device or the software tool “works” broadly speaking), <ins><strong>structural quality (SQ)</strong></ins> addresses other quality aspects such as <em>homogeneity across sites, robustness, reliability, run time, resources required, or maintainability</em>.</p>
+<p>One important <ins><em>pitfall</em></ins> associated with such a division between functional and non-functional quality aspects is that the boundary between their definitions is <em><strong>application-dependent</strong></em>. This brings us back to the traditional holistic approach: for instance, a particular T1-weighted MRI image acquired with MPRAGE may have a noise level and intensity non-uniformity that allow a precise enough measurement of brain volume to be used with other biomarkers in determining, e.g., age of the subject given the gender, but the overall quality of reconstructed cortical surfaces insufficient for inclusion in a cortical thickness analysis. In the case of brain extraction, noise-level could be understood as a structural quality metric because the brain mask will be “correct” for most of the range of possible noise levels, but better with lower levels (despite the tool used, generally). Conversely, noise-level is a functional quality metric for surface reconstruction, as it directly informs whether the given tool will work correctly.</p>
+</div>
 </div>
 </div>
 

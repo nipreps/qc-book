@@ -1,3 +1,15 @@
-# Before we dive into QA/QC
+# Before we dive into QA/QC : Definitions and terminology
 
-## Definitions and terminology
+## What does "Quality" imply in neuroimaging 
+The accuracy and repeatability of neuroimaging measurements are limited not just by the nominal performance regimes of the data acquisition resources, protocols, and processing and analysis workflows, but also by factors contingent on the actual processes in the workflow  (e.g., physiological noise during scanning, head-motion, room temperature, drifts from calibration settings, or the platform and operating system on which a particular processing step is executed)
+
+Although ***“image quality”*** at several points of the neuroimaging research workflow has been the object of investigation in a number of studies in the last thirty years, the interest in the particular topic has been quickly building up in the last decade catalyzed by the explosion in data acquisition and availability.
+
+#### Defining categories of image quality in neuroimaging
+
+Drawing from the software engineering field, we can approximate two **broad** definitions of ***“image quality”*** for a given particular step in the neuroimaging workflow (e.g., acquisition & reconstruction, brain extraction, or spatial normalization) as follows:
+
+<ins>**Functional quality (FQ)**</ins> refers to the degree to which the step under assessment produces an output that is “correct”. For example, one aspect of functional quality would cover how different brain extraction tools perform and determining which one does the job “best” given an input dataset. Another often studied example in neuroimaging is *spatial normalization*, where manually placed landmarks and overlap measures of regions have been typically used to benchmark the performance.
+Once the functional requirements are met (the device or the software tool “works” broadly speaking), <ins>**structural quality (SQ)**</ins> addresses other quality aspects such as *homogeneity across sites, robustness, reliability, run time, resources required, or maintainability*.
+
+One important <ins>*pitfall*</ins> associated with such a division between functional and non-functional quality aspects is that the boundary between their definitions is ***application-dependent***. This brings us back to the traditional holistic approach: for instance, a particular T1-weighted MRI image acquired with MPRAGE may have a noise level and intensity non-uniformity that allow a precise enough measurement of brain volume to be used with other biomarkers in determining, e.g., age of the subject given the gender, but the overall quality of reconstructed cortical surfaces insufficient for inclusion in a cortical thickness analysis. In the case of brain extraction, noise-level could be understood as a structural quality metric because the brain mask will be “correct” for most of the range of possible noise levels, but better with lower levels (despite the tool used, generally). Conversely, noise-level is a functional quality metric for surface reconstruction, as it directly informs whether the given tool will work correctly.
