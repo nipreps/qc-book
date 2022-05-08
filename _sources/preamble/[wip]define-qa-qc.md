@@ -27,6 +27,10 @@ these may involve aspects such as ensuring proper operation of the scanner, prop
 Therefore, QA is a ***backward-looking process*** (i.e., **retrospective**) with the goal of preempting the replication of quality issues that eventually emerge in the output. 
 Typically, QA utilizes the outputs of QC to identify these quality issues and then take corrective actions on the assessed system.
 
+#### Overlap of QC and QA
+
+In a clinical or research environment, there are various types of QC and QA which are interlinked and often feed into each other. For example: QC in one step of the workflow can serve as QA for the next steps. Examples: Facility QC/QA -> Scanner QC/QA -> Session QC/QA -> Data QC/QA -> Beyond the image (Credits: [Pradeep Raamana](https://crossinvalidation.files.wordpress.com/2019/06/raamana-niqc-overview-and-anatomical-mri.pdf))
+
 ## Quality Improvement (QI)
 
 Additionally, **Quality improvement (QI)** refers to all the ***data-driven processes with feedback*** which serve to improve imaging efficiency 
