@@ -43,13 +43,13 @@ Let's look at the original first:
 import nanslice.jupyter as ns
 %matplotlib widget
 
-ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-1_desc-orig_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 Now let's look at the corrected image. The results are not as good as they could be.
 
 ```{code-cell} python
-ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-1_desc-n4default_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 ```{admonition} What do you think the problem was?
@@ -64,7 +64,7 @@ As this is applied the same in every plane, out-of-plane anisotropic voxels can 
 
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-1_desc-n4final_proc.nii.gz', interactive=True)
+ns.three_plane('assets/example-1_desc-n4final_proc.nii.gz', interactive=True, clim=(0,150))
 ```
 
 ## Example 2
@@ -133,22 +133,40 @@ Although these species may have similar brain anatomy, the difference in scale w
 ```
 
 ## Example 4
-This example uses `FSL`'s `topup` tool to correct for susceptibility distortion in EPI images.
+This example uses EPI data normalised in `SPM`.
+The warp calculated the mean across time to a template image, and then applied it to each frame individually.
+
+Below is the output warped EPI volume:
+```{code-cell} python
+ns.three_plane('assets/example-4_proc.nii.gz', interactive=True, clim=(0,50))
+```
+
+```{admonition} What was the problem?
+:class: dropdown
+`SPM` normalisation has a `bounding box` parameter, which was not changed from the default.
+The image origin is not in the middle of the image, so when the warp is calculated with the default Bounding Box parameters, the top of the image is outside
+the bounding box and consequently is cut off.
+
+**To correct this**, either set bounding boxes to `NaN` or use other software which may not require specific bounding boxes.
+```
+
+## Example 5
+Our final example uses `FSL`'s `topup` tool to correct for susceptibility distortion in EPI images.
 We have two spin-echo images, one with the phase-encoding direction that is superior to inferior, 
 and the other with a phase-encoding direction going from inferior to superior.
 
 Below are the mean images of the volumes acquired for each phase-encoding direction:
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-IS_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-5_dir-IS_desc-tmean_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 ```{code-cell} python
-ns.three_plane('assets/example-4_dir-SI_desc-tmean_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-5_dir-SI_desc-tmean_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 The `topup` output is less than desirable:
 ```{code-cell} python
-ns.three_plane('assets/example-4_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
+ns.three_plane('assets/example-5_desc-orig_proc.nii.gz', interactive=True, clim=(0,50))
 ```
 
 What do you think the problem was?
@@ -160,7 +178,7 @@ Check the image header with the code below.
 :tags: [hide-cell]
 import nibabel as nb
 
-img = nb.load('assets/example-4_dir-IS_desc-tmean_proc.nii.gz')
+img = nb.load('assets/example-5_dir-IS_desc-tmean_proc.nii.gz')
 hdr = img.header
 print(hdr)
 ```
@@ -180,27 +198,21 @@ This approach still requires further testing.
 ```
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-4_desc-micron_proc.nii.gz', interactive=True, cmap='gray', title='unit adjusted header')
+ns.three_plane(
+  'assets/example-5_desc-micron_proc.nii.gz',
+  interactive=True,
+  cmap='gray',
+  clim=(0,50),
+  title='unit adjusted header'
+)
 ```
 ```{code-cell} python
 :tags: [hide-cell]
-ns.three_plane('assets/example-4_desc-scaled_proc.nii.gz', interactive=True, cmap='gray', title='scale adjusted header')
-```
-
-## Example 5
-Our final example uses EPI data normalised in `SPM`.
-The warp calculated the mean across time to a template image, and then applied it to each frame individually.
-
-Below is the output warped EPI volume:
-```{code-cell} python
-ns.three_plane('assets/example-5_proc.nii.gz', interactive=True, cmap='gray')
-```
-
-```{admonition} What was the problem?
-:class: dropdown
-`SPM` normalisation has a `bounding box` parameter, which was not changed from the default.
-The image origin is not in the middle of the image, so when the warp is calculated with the default Bounding Box parameters, the top of the image is outside
-the bounding box and consequently is cut off.
-
-**To correct this**, either set bounding boxes to `NaN` or use other software which may not require specific bounding boxes.
+ns.three_plane(
+  'assets/example-5_desc-scaled_proc.nii.gz',
+  interactive=True,
+  cmap='gray',
+  clim=(0,50),
+  title='scale adjusted header'
+)
 ```
