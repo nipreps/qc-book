@@ -16,8 +16,8 @@ parts:
   chapters:
   - file: animal-qc/intro
   - file: animal-qc/acquisition
-  - file: animal-qc/processing
   - file: animal-qc/acquisition_examples
+  - file: animal-qc/processing
   - file: animal-qc/processing_examples
 - caption: Automating QA
   chapters:
