@@ -32,6 +32,7 @@ The goal is to convert the eprime data file for a participant into a human and c
 I generally suggest starting each script by loading any needed libraries, clearing R's memory, setting options, and defining needed variables. For the demo we will convert files for four "participants": demoSub1, demoSub2, demoSub3, and demoSub4.
 
 ```{r}
+knitr::opts_chunk$set(message=FALSE);  # don't print warning messages
 library(eMergeR);   # for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR
 
 # define some variables to be used later in this script
