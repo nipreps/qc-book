@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Defining QC and QA &#8212; ISMRM&#39;22 QC Book</title>
+    <title>QC and Neuroimaging &#8212; ISMRM&#39;22 QC Book</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -241,7 +241,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/preamble/[wip]define-qa-qc.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/preamble/qc and neuroimaging.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -285,31 +285,16 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-control-qc">
-   Quality Control (QC)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-assurance-qa">
-   Quality Assurance (QA)
+  <a class="reference internal nav-link" href="#qc-of-acquired-data">
+   QC of acquired data
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overlap-of-qc-and-qa">
-     Overlap of QC and QA
+    <a class="reference internal nav-link" href="#artifacts-in-the-acquired-data">
+     Artifacts in the acquired data
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-improvement-qi">
-   Quality Improvement (QI)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#image-quality-metrics">
-   Image Quality Metrics
-  </a>
  </li>
 </ul>
 
@@ -321,7 +306,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Defining QC and QA</h1>
+                <h1>QC and Neuroimaging</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -332,31 +317,16 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-control-qc">
-   Quality Control (QC)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-assurance-qa">
-   Quality Assurance (QA)
+  <a class="reference internal nav-link" href="#qc-of-acquired-data">
+   QC of acquired data
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overlap-of-qc-and-qa">
-     Overlap of QC and QA
+    <a class="reference internal nav-link" href="#artifacts-in-the-acquired-data">
+     Artifacts in the acquired data
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#quality-improvement-qi">
-   Quality Improvement (QI)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#image-quality-metrics">
-   Image Quality Metrics
-  </a>
  </li>
 </ul>
 
@@ -367,51 +337,51 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="defining-qc-and-qa">
-<h1>Defining QC and QA<a class="headerlink" href="#defining-qc-and-qa" title="Permalink to this headline">¶</a></h1>
-<p>In many cases, QC and QA are known to be interlinked as <strong>QA</strong> is more <em>process-driven</em> to ensure a defect-free output/product,
-while <strong>QC</strong> is <em>product-driven</em> that looks at the quality of the final output/product to see if it meets the final requirements.</p>
-<div class="section" id="quality-control-qc">
-<h2>Quality Control (QC)<a class="headerlink" href="#quality-control-qc" title="Permalink to this headline">¶</a></h2>
-<p>As per <a class="reference external" href="https://link.springer.com/article/10.1007/s00247-021-05043-6">Sreedher et al. (2021)</a>, <strong>Quality Control (QC)</strong> refers to “a real-time prospective process to ensure imaging quality is maintained
-by comparing it regularly to a defined set of criteria or industry standards.”
-It is important to note that the <em><strong>product or output here</strong></em> could refer to either the scanner output or the output of some pre-processing or post-processing step.
-For example, take the image acquisition step, QC refers then to a process of testing
-and finding possible quality issues in the output of image acquisition scanning protocols,
-and making sure that images not meeting pre-specified standards do not progress forward in the research workflow.
-QC is typically implemented by setting up quality checkpoints.
-This is done to ensure reliability and validity of brain imaging studies by ensuring the input images to each step
-in the processing workflow are within the domain of acceptable functional quality of such step.
-Therefore, QC is a <em><strong>forward-looking process</strong></em> (i.e., <strong>prospective</strong>).</p>
-<p>Another caveat here is that these QC checkpoints also help define an “exclusion criteria” to discard certain units that do not meet the pre-defined standards. This exclusion criteria forms the crux of QC.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="qc-and-neuroimaging">
+<h1>QC and Neuroimaging<a class="headerlink" href="#qc-and-neuroimaging" title="Permalink to this headline">¶</a></h1>
+<p>At the outset, QC failures can have widespread repercussions in the outcomes of neuroimaging analyses.
+For example, cascading errors in QC may introduce <ins><em><strong>variance and biases</strong></em></ins> into derived biomarkers/imaging phenotypes, which may lead to
+either an incorrect diagnosis of a condition or may obscure the presence of abnormalities in the tissue of interest;
+lack of correlation between the quantitative parameters detected and the qualitative appearance of the scan; etc.
+<em>Manual inspection</em> and <em>visual quality checks by expert raters</em> have been the conventional <ins>gold-standard</ins> for performing post-acquisition QC.</p>
+<p>However, manual quality checks are <em><strong>tedious and time-consuming</strong></em> especially in the presence of large and continuously evolving datasets (<a class="reference external" href="https://doi.org/10.1371/journal.pone.0184661">Esteban et al. 2017</a>; <a class="reference external" href="https://pubmed.ncbi.nlm.nih.gov/29079522/">Fidel Alfaro Almagro et al. 2018</a>) and may lack objectivity.
+Furthermore, with an <em>increase in dataset size and inspection times</em>, these checks are also affected by other <em>factors involving the raters</em> -such as training, experience, fatigue, bias and human-errors, motivation, among others-
+and <em>protocols</em> - such as clarity, levels of training, etc. Another variability can be induced by the <em>screen set-up</em> at the rater’s end - such as screen size, screen resolution and fidelity of the color representations.
+Also <em>image manipulation</em> such as adjusting contrast, brightness or color scales may induce variability and bias in the visual quality ratings.</p>
+<div class="section" id="qc-of-acquired-data">
+<h2>QC of acquired data<a class="headerlink" href="#qc-of-acquired-data" title="Permalink to this headline">¶</a></h2>
+<p>The QC of acquired data has received primary attention throughout the literature.
+On the one hand, acquisition is the entry point of the neuroimaging research workflow and therefore undetected defects in quality will cascade throughout the whole downstream pipeline.
+For instance, a failed prescription of the field of view partially clipping out a region of interest may successfully reach the analysis endpoint, snowballing errors as it progresses throughout the pipeline.
+On the other hand, the existence of physical phantoms and ex-vivo specimens that are widely used in the QA process of the hardware and foundational elements of the scanner’s software have been applied to bridge gaps between reference and no reference IQMs for QC.
+Finally, the cost of a quality issue generally is larger as it occurs earlier in the research pipeline.
+For instance, in the case of brain extraction, if one tool fails there might be an alternative software that procures sufficient quality.
+However, if the problem is that the acquisition is substandard, it is well possible that no tool will be able to perform sufficiently.
+This higher cost is also related to the difficulty of amending errors: taking our previous example of the prescription of the field of view, QA of such an error involves recalling the participant to run the MR protocol again.
+If the operator notices the problem during the session, recovering from this error will be less costly than realizing the problem after the participant has abandoned the facility.
+Even more deleterious are design issues and flaws of the standard operation procedure of the experiment, as they propagate across participants (<a class="reference external" href="https://doi.org/10.7554/eLife.60185">Bissett et al. 2021</a>).</p>
+<div class="section" id="artifacts-in-the-acquired-data">
+<h3>Artifacts in the acquired data<a class="headerlink" href="#artifacts-in-the-acquired-data" title="Permalink to this headline">¶</a></h3>
+<p>MRI scans are susceptible to a wide-range of artifacts mainly due to interaction between the <em>object being imaged</em>, the <em>image acquisition sequence</em> and the <em>associated imaging hardware</em>.
+These generally include the following:</p>
+<p><em>motion-induced artifacts</em>;</p>
+<p><em>ringing artifacts driven by aliasing are also common</em>;</p>
+<p><em>distortions due to gradient effects especially in accelerated image acquisition sequences</em>;</p>
+<p><em>eddy current effects</em>;</p>
+<p><em>magnetic field inhomogeneity (B0 and B1)</em> observed across different tissue regions;</p>
+<p><em>coil-interference artifacts</em> commonly seen in parallel imaging techniques caused due to the use of multi-channel coils;</p>
+<p><em>zero filling artifacts</em>;</p>
+<p><em>voxel-bleeding</em> resulting in overlapping of information;</p>
+<p><em>chemical shift errors</em> due to the differences between resonance frequencies of fat and water;</p>
+<p>and <em>aliasing artifacts</em> along with incomplete tissue details resulting from a mismatch between the field of view and the tissue region being scanned.</p>
+<p>Among these, <em>motion artifacts</em> (head, eyes/blinking, swallowing, respiration, heartbeat, etc), <em>EM intereference</em> (spikes, zippers, etc), <em>thermal noise</em>, <em>temporal drifts in sensitivity</em>, <em>magnetic susceptibility artifacts</em> and the <em>presence of air cavities/bubbles</em> are found in both in-vivo and ex-vivo scans.</p>
+<p>The overall quality of the acquired scans can be affected by other factors such as: <em>species</em>, <em>age</em> (e.g. lower contrast between GM and WM in older patients compared to younger adults at 7T MRI which increases the chances of misclassification that can impact the segmentation quality),
+<em>gender, race, education, social environment, weight, height, medical conditions</em> (ex.: adhd tremors from Parkinson’s disease, etc.),
+<em>brain lesions and brain pathology</em> (e.g. may present as hyper- or hypointensities in MR images), <em>deviation from neurotypical development</em>,
+<em>standard operating procedures</em> (and fulfillment thereof) etc. of subjects.</p>
+<p>From an image processing perspective, there would also be constraints in evaluating registration quality (when co-registering functional to anatomical scans), evaluation of segmentation quality (especially at the GM/WM boundaries)
+without having a well-defined decision boundary to assess the segmentations and effects of partial voluming.</p>
 </div>
-<div class="section" id="quality-assurance-qa">
-<h2>Quality Assurance (QA)<a class="headerlink" href="#quality-assurance-qa" title="Permalink to this headline">¶</a></h2>
-<p><strong>Quality assurance (QA)</strong>, more broadly, is a way of preventing mistakes and defects in products and includes processes which are to be followed to ensure that the products meet a minimum standard.
-As per <a class="reference external" href="https://link.springer.com/article/10.1007/s00247-021-05043-6">Sreedher et al. (2021)</a>, “ISO 9000, a set of international standards developed by the International Organization for Standardization, defines QA as the part of quality management focused on providing confidence that quality requirements will be fulfilled”.
-In neuroimaging, QA focuses on improving image acquisition processes to mitigate any quality issues in the scanner output -
-these may involve aspects such as ensuring proper operation of the scanner, proper functioning of the gradient coils and the pre-installed magnet, ensuring subject stillness among others.
-Therefore, QA is a <em><strong>backward-looking process</strong></em> (i.e., <strong>retrospective</strong>) with the goal of preempting the replication of quality issues that eventually emerge in the output.
-Typically, QA utilizes the outputs of QC to identify these quality issues and then take corrective actions on the assessed system.</p>
-<div class="section" id="overlap-of-qc-and-qa">
-<h3>Overlap of QC and QA<a class="headerlink" href="#overlap-of-qc-and-qa" title="Permalink to this headline">¶</a></h3>
-<p>In a clinical or research environment, there are various types of QC and QA which are interlinked and often feed into each other. For example: QC in one step of the workflow can serve as QA for the next steps. Examples: Facility QC/QA -&gt; Scanner QC/QA -&gt; Session QC/QA -&gt; Data QC/QA -&gt; Beyond the image (Credits: <a class="reference external" href="https://crossinvalidation.files.wordpress.com/2019/06/raamana-niqc-overview-and-anatomical-mri.pdf">Pradeep Raamana</a>)</p>
-</div>
-</div>
-<div class="section" id="quality-improvement-qi">
-<h2>Quality Improvement (QI)<a class="headerlink" href="#quality-improvement-qi" title="Permalink to this headline">¶</a></h2>
-<p>Additionally, <strong>Quality improvement (QI)</strong> refers to all the <em><strong>data-driven processes with feedback</strong></em> which serve to improve imaging efficiency
-by identifying and quantifying critical metrics that define quality - these can also be seen to feed into the QA pipeline to bring the eventual
-improvement in quality to meet the QC checkpoints.</p>
-</div>
-<div class="section" id="image-quality-metrics">
-<h2>Image Quality Metrics<a class="headerlink" href="#image-quality-metrics" title="Permalink to this headline">¶</a></h2>
-<p><em><strong>Image Quality Metrics (IQMs)</strong></em> are <em><strong>measurable aspects of the object under assessment</strong></em> that relate in some <em>direct or indirect way</em> to the underlying quality of the object.
-When a “perfect” or ideal instance of the object is available, IQMs are typically defined in reference to this ideal.
-Examples of referenced IQMs are common in the computer vision literature, for instance to compare and benchmark image compression algorithms, where high-quality, original images are subjected to different processes and then the outcomes of those processes are evaluated based on the fidelity of the output to the original image.
-However, and for most of the real-world cases, there is no access to the ideal instance of the object under assessment and therefore, “no-reference” IQMs must be defined.</p>
-<p>An additional point to mention here is that quality can also depend on the scientific question one is trying to ask.  A subject’s data may fail an IQM QC for one study because it has a bad segmentation in a certain region of the brain,
-but if in another study the focus is on another region, then it could pass your own IQM QC (while making the IQM QC of the former study not significant).</p>
 </div>
 </div>
 
