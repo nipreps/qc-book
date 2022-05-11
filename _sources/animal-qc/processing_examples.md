@@ -93,7 +93,8 @@ ns.three_plane('assets/example-2_desc-3dss_proc.nii.gz', interactive=True, cmap=
 
 ```{admonition} What do you think the problem was?
 :class: dropdown
-Although the shape assumption is correct, `3dSkullStrip` assumes that the input image is T2-weighted. However, our image is T1-weighted.
+Although the shape assumption is correct, the default `3dSkullStrip` parameters did not provide a particularly good mask in this case.
+This can be improved by tweaking the parameters, but this may require lots of trial and error.
 
 **To correct this**, try using an atlas-based brain extraction method.
 Although this method takes longer than some of the other methods, it is robust to image contrast and across scanners.
@@ -107,8 +108,8 @@ ns.three_plane('assets/example-2_desc-arts_proc.nii.gz', interactive=True, cmap=
 ```
 
 ## Example 3
-This example involves normalisation of a subject's anatomical image to a standard space template.
-First, let's load the target image (this image isn't completely raw; it has been clipped and normalised):
+This example involves normalisation of the anatomical image of a mouse to a standard space template.
+First, let's load the target image (disclaimer: this image isn't completely raw; it has been clipped and normalised in preparation for the normalisation):
 ```{code-cell} python
 ns.three_plane('assets/example-3_desc-orig_proc.nii.gz', interactive=True, cmap='gray')
 ```
@@ -126,7 +127,7 @@ ns.three_plane('assets/example-3_desc-warped_proc.nii.gz', interactive=True, cma
 :class: dropdown
 Wrong prior information: we tried to register a mouse target image to rat template!
 
-The reference image was a rat, but the target image was a mouse.
+The reference image was an average template made for rats, but the target image was a mouse.
 Although these species may have similar brain anatomy, the difference in scale was too large for the registration algorithm to overcome.
 
 **To correct this**, make sure that the template and target image are as similar as possible.
@@ -144,10 +145,10 @@ ns.three_plane('assets/example-4_proc.nii.gz', interactive=True, clim=(0,50))
 ```{admonition} What was the problem?
 :class: dropdown
 `SPM` normalisation has a `bounding box` parameter, which was not changed from the default.
-The image origin is not in the middle of the image, so when the warp is calculated with the default Bounding Box parameters, the top of the image is outside
+The image origin is not in the middle of the image, so when the warp is calculated with the default bounding box parameters, the top of the image is outside
 the bounding box and consequently is cut off.
 
-**To correct this**, either set bounding boxes to `NaN` or use other software which may not require specific bounding boxes.
+**To correct this**, either set bounding boxes to `NaN` or avoid their use altogether with other software that do not require specifying bounding boxes.
 ```
 
 ## Example 5
