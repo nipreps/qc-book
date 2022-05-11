@@ -5,7 +5,7 @@ jupyter-book
 jupytext>=1.11.2  # Full compat with myst-nb
 matplotlib
 myst-nb
-git+https://github.com/spinicist/nanslice@master
+git+https://github.com/spinicist/nanslice@ab30dbe
 nibabel
 nilearn
 numpy
