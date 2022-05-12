@@ -297,6 +297,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#image-shape">
+   Image shape
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#prior-information">
    Prior information
   </a>
@@ -334,6 +339,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#image-scale">
    Image scale
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#image-shape">
+   Image shape
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -388,6 +398,13 @@ For example, a default gaussian kernel may have a full-width half-maximum (FWHM)
 6 mm, based on the assumption that the average voxel size is 2 mm isotropic.
 Instead, the voxel size can be read from the image header, and define the FWHM as
 three times the in-plane resolution.</p>
+</div>
+<div class="section" id="image-shape">
+<h2>Image shape<a class="headerlink" href="#image-shape" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the difference in voxel size, the shape of the images can also be very different.
+For example, due to the elongation along the rostrocaudal plane relative to humans, the images often require more slices in the anterior-posterior direction to cover the whole brain.</p>
+<p>In images from human data, the image origin may be manually set to the anterior commissure, which is near the centre of the image.
+Although this landmark <em>can</em> be set as the origin in rodents, it is less likely to be located in the centre of the image.</p>
 </div>
 <div class="section" id="prior-information">
 <h2>Prior information<a class="headerlink" href="#prior-information" title="Permalink to this headline">¶</a></h2>

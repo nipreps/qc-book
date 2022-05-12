@@ -33,6 +33,13 @@ For example, a default gaussian kernel may have a full-width half-maximum (FWHM)
 Instead, the voxel size can be read from the image header, and define the FWHM as
 three times the in-plane resolution.
 
+## Image shape
+In addition to the difference in voxel size, the shape of the images can also be very different.
+For example, due to the elongation along the rostrocaudal plane relative to humans, the images often require more slices in the anterior-posterior direction to cover the whole brain.
+
+In images from human data, the image origin may be manually set to the anterior commissure, which is near the centre of the image.
+Although this landmark *can* be set as the origin in rodents, it is less likely to be located in the centre of the image.
+
 ## Prior information
 Group-level analysis often requires the data to be transformed to a shared space.
 Often, such a space is defined by a template image, which can be an average of many
