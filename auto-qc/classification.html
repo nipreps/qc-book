@@ -110,6 +110,16 @@ const thebe_selector_output = ".output, .cell_output"
    Before we dive into QA/QC : Definitions and terminology
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/define-qa-qc.html">
+   Defining QC and QA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/qc-and-neuroimaging.html">
+   QC and Neuroimaging
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -501,7 +511,7 @@ By leaving one whole site out for validation at a time, we can get a sense of ho
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.6279978693032647 ± 0.20940209910413085
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.6223750759761654 ± 0.22485686769080404
 </pre></div>
 </div>
 </div>
@@ -661,7 +671,7 @@ In this case, we will use locally linear embedding:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.6345800563000064 ± 0.16128404634366247
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.5759358365700876 ± 0.20742566101589854
 </pre></div>
 </div>
 </div>
@@ -722,18 +732,18 @@ It can be instantiated with <code class="docutils literal notranslate"><span cla
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.8655877079179409 ± 0.1678167088412733
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC (cross-validated, 15 folds): 0.8726621171599742 ± 0.1524555033174634
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC on DS030 is 0.6732804232804234.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC on DS030 is 0.6554232804232804.
               precision    recall  f1-score   support
 
            0       0.91      0.99      0.95       189
-           1       0.83      0.36      0.50        28
+           1       0.82      0.32      0.46        28
 
-    accuracy                           0.91       217
-   macro avg       0.87      0.67      0.72       217
-weighted avg       0.90      0.91      0.89       217
+    accuracy                           0.90       217
+   macro avg       0.86      0.66      0.70       217
+weighted avg       0.90      0.90      0.88       217
 </pre></div>
 </div>
 </div>
