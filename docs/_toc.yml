@@ -5,8 +5,8 @@ parts:
   chapters:
   - file: preamble/step0
   - file: preamble/qa-qc-basics
-  - file: preamble/define-qa-qc.md
-  - file: preamble/qc-and-neuroimaging.md
+  - file: preamble/define-qa-qc
+  - file: preamble/qc-and-neuroimaging
 - caption: Dataset QC
   chapters:
   - file: dataset-qc/intro
