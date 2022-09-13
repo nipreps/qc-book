@@ -178,7 +178,7 @@ plot.means.fn <- function(pid, ev.suff, np.suff) {
     
     if (file.exists(ev.fname) & file.exists(np.fname)) {
       np.tbl <- read.delim(np.fname); 
-      # surface "timecourses" files have parcel names for the columns, so need to use indicies.
+      # surface "timecourses" files have parcel names for the columns, so need to use indices.
       if (ncol(np.tbl) == 502) { np.tbl <- np.tbl[,3:502]; } else { stop("ncol(np.tbl) != 502"); }
       
       ev.tbl <- read.delim(ev.fname, na.strings="n/a", stringsAsFactors=FALSE);
