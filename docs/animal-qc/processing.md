@@ -12,7 +12,7 @@ emulations of these tools.
 Instead, by including more flexibility at certain bottlenecks, image processing
 software can be species agnostic, allowing all researchers to use the same tools
 regardless of which species they were imaging.
-These are many of the underlying changes made recently to MRIQC that faciliate its adaption to rats.
+These are many of the underlying changes made recently to MRIQC that facilitate its adaption to rats.
 
 ## Image scale
 Due to the difference in brain size, preclinical imaging requires greater
