@@ -2,7 +2,7 @@
 
 [MRIQC](https://mriqc.readthedocs.io/en/latest/) is a powerful tool to assess the quality of MR images in a research study. In addition to a visual report, a number of image quality metrics (IQMs) is generated. However, there is a large number of these metrics and it is not immediately obvious which IQM a researcher should pay most attention to when deciding over the quality of a given image.
 
-In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC.
+In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC. If you want to follow along and run the notebook yourself, please download the runnable notebook at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
 
 
 ```python
@@ -1279,8 +1279,7 @@ Both supervised classification methods give converging evidence that SNR-derived
 ## Acknowledgements
 
 This notebook has been initiated at the [Brainhack Global Geneva 2022](https://brainhack.ch) and springs from a joint effort of the project team composed by 
-Mikkel Schöttner, Céline Provins, Michael Dayan, Vivi Nastase, Jenny Lunde and Oriol Mãne Benach. The full exploratory analysis we performed in the context of this project
-can be found at [https://github.com/brainhack-ch/interpret-iqms](https://github.com/brainhack-ch/interpret-iqms).
+Mikkel Schöttner, Céline Provins, Michael Dayan, Vivi Nastase, Jenny Lunde and Oriol Mãne Benach. The full exploratory analysis we performed in the context of this project can be found at [https://github.com/brainhack-ch/interpret-iqms](https://github.com/brainhack-ch/interpret-iqms). The runnable notebook can be downloaded at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
 
 ## References
 
