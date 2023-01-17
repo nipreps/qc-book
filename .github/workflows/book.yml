@@ -32,6 +32,7 @@ jobs:
                              libbz2-dev \
                              libcurl4-gnutls-dev \
                              libfontconfig1-dev \
+                             libharfbuzz0b \
                              liblzma-dev \
                              libssl-dev \
                              libxml2-dev \
