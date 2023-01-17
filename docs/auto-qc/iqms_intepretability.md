@@ -16,9 +16,12 @@ kernelspec:
 
 # Interpretability of the Image Quality Metrics (IQMs) of MRIQC
 
-[MRIQC](https://mriqc.readthedocs.io/en/latest/) is a powerful tool to assess the quality of MR images in a research study. In addition to a visual report, a number of image quality metrics (IQMs) is generated. However, there is a large number of these metrics and it is not immediately obvious which IQM a researcher should pay most attention to when deciding over the quality of a given image.
+[MRIQC](https://mriqc.readthedocs.io/en/latest/) is a powerful tool to assess the quality of MR images in a research study. 
+In addition to a visual report, a number of image quality metrics (IQMs) are generated. 
+However, there is a large number of these metrics and it is not immediately obvious which IQM a researcher should pay most attention to when deciding over the quality of a given image.
 
-In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC. If you want to follow along and run the notebook yourself, please download the runnable notebook at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
+In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC. 
+If you want to follow along and run the notebook yourself, please download the runnable notebook at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
 
 
 ```{code-cell} python
@@ -44,7 +47,8 @@ from sklearn.svm import SVC
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 ```
 
-First, let's import the data. The [Movement-Related Artifacts (MR-ART)](https://openneuro.org/datasets/ds004173) dataset contains the T1-weighted images of 148 healthy subjects (Nárai et al. 2022). Each subject has been acquired under three motion conditions:
+First, let's import the data. The [Movement-Related Artifacts (MR-ART)](https://openneuro.org/datasets/ds004173) dataset contains the T1-weighted images of 148 healthy subjects (Nárai et al. 2022). 
+Each subject has been acquired under three motion conditions:
 
 1. no head movement
 2. little head movement
@@ -94,7 +98,9 @@ scores = add_condition_column(scores)
 
 ## Rating scores and image conditions
 
-We can explore how well the raters align in their scores with the motion condition. Does their rating reflect how much people moved in the scanner? Let's plot the confusion matrix of the scores assigned by the rater and the motion condition :
+We can explore how well the raters align in their scores with the motion condition. 
+Does their rating reflect how much people moved in the scanner? 
+Let's plot the confusion matrix of the scores assigned by the rater and the motion condition:
 
 
 ```{code-cell} python
@@ -121,7 +127,8 @@ px.strip(scores, x="condition", y="score", color=scores.index)
 
 
 
-If you run this notebook yourself, you will be able to hover over the points to identify the subjects linked to each point. Because the markdown version of this notebook does not display Plotly's figures, we include them as images.
+If you run this notebook yourself, you will be able to hover over the points to identify the subjects linked to each point. 
+Because the markdown version of this notebook does not display Plotly's figures, we include them as images.
 
 ![ScoreVScondition](iqms_interpretability_files/ScoreVScondition.png)
 
@@ -172,7 +179,8 @@ Some of them we can get rid of right away, as they are not image quality metrics
 iqms_use = iqms.drop(["size_x", "size_y", "size_z", "spacing_x", "spacing_y", "spacing_z"], axis=1)
 ```
 
-We should also normalize the data, as the units of the IQMs vary wildly. This is required by some methods like PCA down the line, but it also makes sense computationally to have all values in the same order of magnitude.
+We should also normalize the data, as the units of the IQMs vary wildly. 
+This is required by some methods like PCA down the line, but it also makes sense computationally to have all values in the same order of magnitude.
 
 
 ```{code-cell} python
@@ -532,7 +540,9 @@ data_df
 
 ### Visualizing the data (always!)
 
-Rule number one of data analysis: always visualize your data! We can plot the pairwise scatterplots to get an idea of the relationships between the IQMs. There are quite a few IQMs, so plottings this might take a few minutes, depending on your hardware.
+Rule number one of data analysis: always visualize your data! 
+We can plot the pairwise scatterplots to get an idea of the relationships between the IQMs. 
+There are quite a few IQMs, so plottings this might take a few minutes, depending on your hardware.
 
 
 ```{code-cell} python
@@ -584,13 +594,20 @@ for metrics_set in metrics_sets.values():
     
 
 
-Interesting! There are quite a few non-linear relationships between the IQMs, which we should keep in mind should linear dimension reduction techniques fail. Also note that some metrics are heavily correlated which renders IQMs the perfect candidates for dimensionality reduction. Dimensionality reduction would also help us in our quest to interpret the IQMs by providing a lower dimensional representation. Let's try.
+Interesting! 
+There are quite a few non-linear relationships between the IQMs, which we should keep in mind should linear dimension reduction techniques fail. 
+Also note that some metrics are heavily correlated which renders IQMs the perfect candidates for dimensionality reduction. 
+Dimensionality reduction would also help us in our quest to interpret the IQMs by providing a lower dimensional representation. 
+Let's try.
 
 ## Dimensionality Reduction
 
 ### PCA
 
-The simplest dimension reduction technique is principal component analysis (PCA), which projects the data onto a new set of axis defined by the eigenvectors of the data matrix (principal components). The first principal component corresponds to the direction in which the variance is maximal. For PCA, it is important for all the features to be on the same scale, thus data need to be normalized. Here, as the data are already rescaled, we can directly apply it.
+The simplest dimension reduction technique is principal component analysis (PCA), which projects the data onto a new set of axis defined by the eigenvectors of the data matrix (principal components). 
+The first principal component corresponds to the direction in which the variance is maximal. 
+For PCA, it is important for all the features to be on the same scale, thus data need to be normalized. 
+Here, as the data are already rescaled, we can directly apply it.
 
 
 ```{code-cell} python
@@ -627,7 +644,8 @@ fig.show()
 
 ![PCAbyScore](../figures/PCAbyScore.png)
 
-We can see that the projection of the data on the two first components already allows us to separate well both the ratings and the conditions. Let's see how much variance those two components explain.
+We can see that the projection of the data on the two first components already allows us to separate well both the ratings and the conditions. 
+Let's see how much variance those two components explain.
 
 
 ```{code-cell} python
@@ -656,7 +674,11 @@ print('The two first principal components explain {:.0f}% of the variance.'.form
     
 
 
-The two first principal components explain 62% of the variance. If the goal was to do a dimensionality reduction that retains as much variance as possible, we would want to extract more than two components. However, we already saw that the first component is able to separate the different conditions and ratings already quite well. So for exploration purposes, it makes sense to have a look at the loadings of just the first two components. This way, we will get a sense of which variables contribute most to each component.
+The two first principal components explain 62% of the variance. 
+If the goal was to do a dimensionality reduction that retains as much variance as possible, we would want to extract more than two components. 
+However, we already saw that the first component is able to separate the different conditions and ratings already quite well. 
+So for exploration purposes, it makes sense to have a look at the loadings of just the first two components. 
+This way, we will get a sense of which variables contribute most to each component.
 
 
 ```{code-cell} python
@@ -669,11 +691,19 @@ width=500, height=1300)
 
 ![PCAloadings](../figures/PCAloadings.png)
 
-As we can see do the two components capture different information. We already know from the scatterplot that the first component is the one able to separate the conditions/ratings. When looking at the loadings of the first component, we get an idea which of the IQMs influence this component the most. [Here](https://mriqc.readthedocs.io/en/latest/iqms/t1w.html) is an overview of the different measures, that also tells us if higher or lower values indicate a better quality image. E.g., for CJV, lower is better, while for CNR, higher is better. This means that component 1 is related to the "badness" of the image, as the polarity of the loadings of CJV and CNR is opposite to the interpretation of their value.
+As we can see do the two components capture different information. 
+We already know from the scatterplot that the first component is the one able to separate the conditions/ratings. 
+When looking at the loadings of the first component, we get an idea which of the IQMs influence this component the most. 
+[Here](https://mriqc.readthedocs.io/en/latest/iqms/t1w.html) is an overview of the different measures, that also tells us if higher or lower values indicate a better quality image. 
+E.g., for CJV, lower is better, while for CNR, higher is better. 
+This means that component 1 is related to the "badness" of the image, as the polarity of the loadings of CJV and CNR is opposite to the interpretation of their value.
 
 ### t-SNE
 
-t-distributed Stochastic Neighbor Embedding (t-SNE) is another dimension reduction technique. Unlike PCA, it also captures non-linear relationships. It is often used for visualization purposes. Let's run t-SNE to get another visualization of the data in latent space:
+T-distributed Stochastic Neighbor Embedding (t-SNE) is another dimension reduction technique. 
+Unlike PCA, it also captures non-linear relationships. 
+It is often used for visualization purposes. 
+Let's run t-SNE to get another visualization of the data in latent space:
 
 
 ```{code-cell} python
@@ -705,15 +735,20 @@ plt.show()
     
 
 
-While different from the PCA components, the separation does not seem to improve. If anything, it is worse, as now both components are needed to separate images with rating score 1 from those with 2 or 3, instead of just one component when using PCA. The same is true when looking at the movement condition.
+While different from the PCA components, the separation does not seem to improve. 
+If anything, it is worse, as now both components are needed to separate images with rating score 1 from those with 2 or 3, instead of just one component when using PCA. 
+The same is true when looking at the movement condition.
 
 ### Conclusion about dimensionality reduction
 
-We saw using TSNE and PCA that it is possible to separate the IQMs in a lower-dimensional space based on the motion condition or the manual ratings. However, that did not help us interpret the IQMs. We checked the loadings of the principal components, but it is difficult to extract a clear story. Let's try another approach. 
+We saw using TSNE and PCA that it is possible to separate the IQMs in a lower-dimensional space based on the motion condition or the manual ratings.
+However, that did not help us interpret the IQMs. We checked the loadings of the principal components, but it is difficult to extract a clear story. 
+Let's try another approach. 
 
 ## Classification and Feature Importance
 
-While dimension reduction in general and PCA in particular can give us an idea of which IQMs are useful in telling good from bad quality images, a more direct approach is to use the IQMs as features in a classification task. We will try two supervised machine learning algorithm, namely a logistic regression with elastic-net regularization and support vector classification (SVC).
+While dimension reduction in general and PCA in particular can give us an idea of which IQMs are useful in telling good from bad quality images, a more direct approach is to use the IQMs as features in a classification task. 
+We will try two supervised machine learning algorithm, namely a logistic regression with elastic-net regularization and support vector classification (SVC).
 
 To make the interpretation of the plots easier, we will moreover binarize our target: no-motion versus motion, meaning that we pulled together in one group both levels of motion.
 
@@ -728,7 +763,7 @@ To implement SVC and Elastic-net classifications, we will follow the following s
  * define a final testing set on which to assess the performance of the classifier with selected hyper-parameters
  * do cross-validation on the remaining data to examine the stability of the best hyper-parameters chosen for each test fold
  
-The final test set will be 10% the size of the data, and the cross-validation scheme will be stratified shuffled 10-fold 
+The final test set will be 10% the size of the data, and the cross-validation scheme will be stratified shuffled 10-fold. 
 
 
 ```{code-cell} python
@@ -739,7 +774,10 @@ X = iqms_scaled
 y = scores["condition_bin"]
 ```
 
-**Data split**. The first step of any machine learning method is to split the dataset in a train and a test set. The train set will be used to train the model in a cross-validate fashion. The test set will be used to assess the model accuracy on a set that has not been seen by the model during training.
+**Data split**. 
+The first step of any machine learning method is to split the dataset in a train and a test set. 
+The train set will be used to train the model in a cross-validate fashion. 
+The test set will be used to assess the model accuracy on a set that has not been seen by the model during training.
 
 
 ```{code-cell} python
@@ -749,7 +787,10 @@ X_cv, X_finaltest, y_cv, y_finaltest = train_test_split(X_np, y_np, test_size=te
                                                           stratify=y_np, random_state=42)
 ```
 
-**Cross-validation.** Next, a stratified shuffled 10-fold cross-validation is performed to find the set of best hyperparameters. Stratified means that the folds are made by preserving the percentage of samples for each class. The hyperparameters set selected is the one providing the best performance in the test folds.
+**Cross-validation.** 
+Next, a stratified shuffled 10-fold cross-validation is performed to find the set of best hyperparameters. 
+Stratified means that the folds are made by preserving the percentage of samples for each class. 
+The hyperparameters set selected is the one providing the best performance in the test folds.
 
 
 ```{code-cell} python
@@ -758,11 +799,13 @@ skf = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=42)
 
 ### Classification using Elastic-Net
 
-We first try to predict the motion condition based on the IQMs using Elastic-Net (Zou and Hastie 2005) logistic regression. It combines L1 and L2 regularization, thus both promoting sparsity of the solution -- which is an advantage for feature selection -- and accounting for feature collinearity.
+We first try to predict the motion condition based on the IQMs using Elastic-Net (Zou and Hastie 2005) logistic regression. 
+It combines L1 and L2 regularization, thus both promoting sparsity of the solution -- which is an advantage for feature selection -- and accounting for feature collinearity.
 
 #### Training the model
 
-We will do a grid search to find the best parameters for our learning algorithm. In this case, these will be the C, which referes to the regularization strength, and the L1 ratio, which is the ratio of the L1 penalty to the L2 penalty (remember that elastic net combines both).
+We will do a grid search to find the best parameters for our learning algorithm. 
+In this case, these will be the C, which referes to the regularization strength, and the L1 ratio, which is the ratio of the L1 penalty to the L2 penalty (remember that elastic net combines both).
 
 
 ```{code-cell} python
@@ -828,7 +871,7 @@ print(f"The best set of paramaters are l1 ratio: {en_cv.l1_ratio_[0]} and C: {en
 
 #### Testing the model
 
-To estimate the final model accuracy, we test the model on the hold-out test data and compare it to training accuracy
+To estimate the final model accuracy, we test the model on the hold-out test data and compare it to training accuracy.
 
 
 ```{code-cell} python
@@ -1006,7 +1049,8 @@ px.line_polar(coefs_sorted_non0_df, r='abs_coef', theta='coef_name', color='posi
 
 ![PolarPlotElasticNet](../figures/PolarPlotElasticNet.png)
 
-As a conclusion, the most important features to predict motion presence based on the IQMs are the SNR-derived metrics along with the white matter to maximum intensity ratio (wm2max) and a few summary metrics such as the kurtosis of the background (summary_bg_k) or the number of voxels in the white matter (summary_wm_n). Remember that you can find the list of all the IQMs and their definition [here](https://mriqc.readthedocs.io/en/latest/measures.html).
+As a conclusion, the most important features to predict motion presence based on the IQMs are the SNR-derived metrics along with the white matter to maximum intensity ratio (wm2max) and a few summary metrics such as the kurtosis of the background (summary_bg_k) or the number of voxels in the white matter (summary_wm_n). 
+Remember that you can find the list of all the IQMs and their definition [here](https://mriqc.readthedocs.io/en/latest/measures.html).
 
 ### Classification using Support vector classifier (SVC)
 
@@ -1264,7 +1308,8 @@ px.line_polar(coefs_sorted_df, r='abs_coef', theta='coef_name', color='positive'
 
 ![PolarPlotSVC_full](../figures/PolarPlotSVC_full.png)
 
-Because the plot is too crowded to be readable let's define a threshold on the coefficient weight. Remember that SVC unlike Elastic-Net do not perform L1 regularization, that is why we end up with many more non-zero coefficients.
+Because the plot is too crowded to be readable let's define a threshold on the coefficient weight. 
+Remember that SVC unlike Elastic-Net do not perform L1 regularization, that is why we end up with many more non-zero coefficients.
 
 
 ```{code-cell} python
@@ -1290,12 +1335,17 @@ We see that our results from the Elastic-Net classification holds and SNR-derive
 
 ## Conclusion
 
-Both supervised classification methods give converging evidence that SNR-derived metrics are the most important features to classify motion strength based on the IQMs. Coming back to our original question of interpreting the IQMs, this result means that SNR-derived metrics are important for capturing motion artifacts. We have thus contributed to the understanding and interpretation of the IQMs. We hope that this notebook can now help you perform the analysis of your own IQMs and as such that you can help us further improve the interpretability of the IQMs generated by MRIQC.
+Both supervised classification methods give converging evidence that SNR-derived metrics are the most important features to classify motion strength based on the IQMs. Coming back to our original question of interpreting the IQMs, this result means that SNR-derived metrics are important for capturing motion artifacts. 
+We have thus contributed to the understanding and interpretation of the IQMs. 
+We hope that this notebook can now help you select the most important IQMs for your analysis or perform the analysis of your own IQMs and as such that you can help us further improve the interpretability of the IQMs generated by MRIQC.
 
 ## Acknowledgements
 
-This notebook has been initiated at the [Brainhack Global Geneva 2022](https://brainhack.ch) and springs from a joint effort of the project team composed by 
-Mikkel Schöttner, Céline Provins, Michael Dayan, Vivi Nastase, Jenny Lunde and Oriol Mãne Benach. The full exploratory analysis we performed in the context of this project can be found at [https://github.com/brainhack-ch/interpret-iqms](https://github.com/brainhack-ch/interpret-iqms). The runnable notebook can be downloaded at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
+This notebook has been initiated at the [Brainhack Global Geneva 2022](https://brainhack.ch) and springs from a joint effort of the project team composed by Mikkel Schöttner, Céline Provins, Michael Dayan, Vivi Nastase, Jenny Lunde and Oriol Mãne Benach. 
+The results presented in this notebook have been submitted as an abstract to OHBM Montréal 2023. 
+The abstract is entitled "Signal-to-noise ratio estimates predict head motion presence in T1-weighted MRI" and is available at [https://osf.io/7vqzr/](https://osf.io/7vqzr/). 
+The full exploratory analysis we performed in the context of this project can be found at [https://github.com/brainhack-ch/interpret-iqms](https://github.com/brainhack-ch/interpret-iqms). 
+The runnable notebook can be downloaded at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
 
 ## References
 
