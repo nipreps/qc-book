@@ -22,19 +22,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        if: github.repository == "nipreps/qc-book"
 
       - name: Log into GitHub Container Registry
+        if: github.repository == "nipreps/qc-book"
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - uses: satackey/action-docker-layer-caching@v0.0.8
+        if: github.repository == "nipreps/qc-book"
         # Ignore the failure of a step and avoid terminating the job.
         continue-on-error: true
 
       - name: Build image
+        if: github.repository == "nipreps/qc-book"
         run: docker build . --file Dockerfile --tag $IMAGE_NAME --build-arg GITHUB_PAT=${{ secrets.GITHUB_TOKEN }}
 
       - name: Push image to GitHub Container Registry
-        if: github.event_name == 'release'
+        if: (github.repository == "nipreps/qc-book") && (github.event_name == 'release')
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           # Change all uppercase to lowercase
@@ -50,10 +54,11 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
       - name: Log into DockerHub Container Registry
+        if: github.repository == "nipreps/qc-book"
         run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u niprepsbot --password-stdin
 
       - name: Push image to DockerHub Container Registry
-        if: github.event_name == 'release'
+        if: (github.repository == "nipreps/qc-book") && (github.event_name == 'release')
         run: |
           IMAGE_ID=nipreps/${IMAGE_NAME}
           # Change all uppercase to lowercase
