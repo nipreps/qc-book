@@ -49,7 +49,7 @@ These generally include the following:
 
 and *aliasing artifacts* along with incomplete tissue details resulting from a mismatch between the field of view and the tissue region being scanned.
 
-Among these, *motion artifacts* (head, eyes/blinking, swallowing, respiration, heartbeat, etc), *EM intereference* (spikes, zippers, etc), *thermal noise*, *temporal drifts in sensitivity*, *magnetic susceptibility artifacts* and the *presence of air cavities/bubbles* are found in both in-vivo and ex-vivo scans. 
+Among these, *motion artifacts* (head, eyes/blinking, swallowing, respiration, heartbeat, etc), *EM interference* (spikes, zippers, etc), *thermal noise*, *temporal drifts in sensitivity*, *magnetic susceptibility artifacts* and the *presence of air cavities/bubbles* are found in both in-vivo and ex-vivo scans. 
 
 The overall quality of the acquired scans can be affected by other factors such as: *species*, *age* (e.g. lower contrast between GM and WM in older patients compared to younger adults at 7T MRI which increases the chances of misclassification that can impact the segmentation quality), 
 *gender, race, education, social environment, weight, height, medical conditions* (ex.: adhd tremors from Parkinson’s disease, etc.), 

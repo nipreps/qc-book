@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Is a task repetitive, boring, and/or error-prone? Script it! &#8212; ISMRM&#39;22 QC Book</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
@@ -88,14 +102,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../welcome.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   preamble
  </span>
@@ -215,110 +230,195 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example1.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.Rmd</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/nipreps/qc-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example1.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        <a class="jupyterhub-button" href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example1.Rmd&branch=main"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
-                data-placement="left"><img class="jupyterhub-button-logo"
-                    src="../_static/images/logo_jupyterhub.svg"
-                    alt="Interact on JupyterHub">JupyterHub</button></a>
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example1.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https%3A//github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example1.Rmd&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/nipreps/qc-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/dataset-qc/Example1.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.Rmd</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#example-eprime-to-csv-conversion">
    Example: Eprime to csv conversion
@@ -360,12 +460,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Is a task repetitive, boring, and/or error-prone? Script it!</h1>
@@ -423,39 +522,40 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="is-a-task-repetitive-boring-and-or-error-prone-script-it">
-<h1>Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="is-a-task-repetitive-boring-and-or-error-prone-script-it">
+<h1>Is a task repetitive, boring, and/or error-prone? Script it!<a class="headerlink" href="#is-a-task-repetitive-boring-and-or-error-prone-script-it" title="Permalink to this headline">#</a></h1>
 <p>Computers excel at some tasks: they easily find a typo in thousands of file names, don’t get tired and forget to click an option or accidentally mislabel a file, and happily repeat the same operations many, many times. Whenever possible, have computers do the repetitive and boring parts of dataset QC. If you find yourself dreading part of the preprocessing because it is tedious, step back and see if it can be automated.</p>
 <p>In addition to reducing researcher annoyance (which is of value in itself!), well-designed scripts can reduce how many errors occur and how quickly they’re found (and corrected). For example, if a data file has a typo in its name a script will report the file as missing, while a person may click the file without noticing the typo. Scripts can also make it faster and easier to rerun an analysis or conversion if needed, such as to change a parameter.</p>
 <p>When possible, have scripts read and write files directly from the intended permanent storage locations. For example, we store some files in <span class="xref myst">box</span>. These files can be transferred by clicking options in the box web GUI, but this is slow and it is easy to accidentally select the wrong file. Instead, preprocessing scripts can use <a class="reference external" href="https://github.com/r-box/boxr">boxr</a> functions to retrieve and upload files directly. Box integration is not included here, but see <a class="reference external" href="https://github.com/ccplabwustl/dualmechanisms/blob/master/preparationsAndConversions/eprime/TEMPLATE_convertEprime.R">this DMCC example</a> for an example.</p>
-<div class="section" id="example-eprime-to-csv-conversion">
-<h2>Example: Eprime to csv conversion<a class="headerlink" href="#example-eprime-to-csv-conversion" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="background-and-motivation">
-<h3>Background and motivation<a class="headerlink" href="#background-and-motivation" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> is a commercial program for presenting stimuli and experiments. Eprime saves each participant’s data in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant’s data is usuable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.) This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do “manually” (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).</p>
+<section id="example-eprime-to-csv-conversion">
+<h2>Example: Eprime to csv conversion<a class="headerlink" href="#example-eprime-to-csv-conversion" title="Permalink to this headline">#</a></h2>
+<section id="background-and-motivation">
+<h3>Background and motivation<a class="headerlink" href="#background-and-motivation" title="Permalink to this headline">#</a></h3>
+<p><a class="reference external" href="https://pstnet.com/products/e-prime/">Eprime</a> is a commercial program for presenting stimuli and experiments. Eprime saves each participant’s data in a proprietary format and non-human-readable plain text. We create a csv version of the output as quickly as possible after data collection, both to check that the participant’s data is usable, and to have it in a long-term accessible format. (I suggest doing such a conversion for all non-standard file formats, not just eprime; store critical data in formats like nifti and text whenever possible.) This conversion task is a prime target for scripting: it must be done often, is annoying and slow to do “manually” (requiring clicking through a GUI and having access to a software license), and its accuracy can be tested algorithmically (e.g., by counting trial types).</p>
 <p>The example uses eprime files from a heart beat counting task like that described in Pollatos, Traut-Mattausch, and Schandry (<a class="reference external" href="https://doi.org/10.1002/da.20504">2009</a>). The task starts with a five-minute baseline period, followed by three timed trials during which the participant is asked to count their heart beats. After each trial participants verbally report how many beats they counted and their confidence in the count. The same trial order is used for all participants: the first is 25 seconds, second 35 seconds, and third 45 seconds.</p>
-</div>
-<div class="section" id="implementation-of-the-conversion-script">
-<h3>Implementation of the conversion script<a class="headerlink" href="#implementation-of-the-conversion-script" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="implementation-of-the-conversion-script">
+<h3>Implementation of the conversion script<a class="headerlink" href="#implementation-of-the-conversion-script" title="Permalink to this headline">#</a></h3>
 <p>The goal is to convert the eprime data file for a participant into a human and computer-readable csv. We also want to confirm that the task was presented correctly, in this case, that the three trials, initial baseline, and final rest periods are present, and in the expected order and durations. Since this example is Eprime and R, we will use <a class="reference external" href="https://github.com/AWKruijt/eMergeR">eMergeR</a> library functions for parsing information out of the eprime “text recovery” file. (For long-term stability I suggest keeping code dependencies at the absolute minimum, but it is also generally inadvisable to reimplement complex procedures like eprime file parsing, given the time and effort required, plus likelihood of introducing errors.)</p>
-<div class="section" id="startup-and-a-look-at-the-input-data">
-<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
+<section id="startup-and-a-look-at-the-input-data">
+<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">#</a></h4>
 <p>I generally suggest starting each script by loading any needed libraries, clearing R’s memory, setting options, and defining needed variables. For the demo we will convert files for four “participants”: demoSub1, demoSub2, demoSub3, and demoSub4.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">knitr</span><span class="o">::</span><span class="n">opts_chunk</span><span class="o">$</span><span class="nf">set</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>  <span class="c1"># don&#39;t print warning messages</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span>   <span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">knitr</span><span class="o">::</span><span class="n">opts_chunk</span><span class="o">$</span><span class="nf">set</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span><span class="w">  </span><span class="c1"># don&#39;t print warning messages</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">eMergeR</span><span class="p">);</span><span class="w">   </span><span class="c1"># for edatR(), as.data.frame.edat(). https://github.com/AWKruijt/eMergeR</span>
 
 <span class="c1"># define some variables to be used later in this script</span>
 <span class="c1"># I strongly recommend explicitly setting complete paths (e.g., in.path &lt;- &#39;d:/projects/demo/&quot;)</span>
 <span class="c1"># at the top of a script rather than using setwd() or similar, but the notebook requires relative paths.</span>
-<span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
-<span class="n">out.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example1files/output/&quot;</span><span class="p">;</span>   <span class="c1"># directory in which the converted files would be written</span>
+<span class="n">in.path</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;example1files/&quot;</span><span class="p">;</span><span class="w">    </span><span class="c1"># path to input file directory</span>
+<span class="n">out.path</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;example1files/output/&quot;</span><span class="p">;</span><span class="w">   </span><span class="c1"># directory in which the converted files would be written</span>
 
-<span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;demoSub&quot;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">);</span>  <span class="c1"># declare vector of subject IDs</span>
+<span class="n">sub.ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;demoSub&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">);</span><span class="w">  </span><span class="c1"># declare vector of subject IDs</span>
 </pre></div>
 </div>
 </div>
@@ -465,69 +565,69 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="a-conversion-function">
-<h4>A conversion function<a class="headerlink" href="#a-conversion-function" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="a-conversion-function">
+<h4>A conversion function<a class="headerlink" href="#a-conversion-function" title="Permalink to this headline">#</a></h4>
 <p>Next is a function to carry out the conversion. This type of function could be stored in a separate file which is <code class="docutils literal notranslate"><span class="pre">source</span></code>d at the top of the file with the other startup code. Note that the function includes several checks that the expected values are present. This is valuable for catching errors or changes as quickly as possible, such as if the task presentation script was accidentally changed partway through the study.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">)</span> <span class="p">{</span>    <span class="c1"># sub.id &lt;- &quot;demoSub1&quot;;</span>
-  <span class="n">out.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span>  <span class="c1"># name of the output file to be made</span>
-  <span class="c1"># in a full script this would be a good place to check if the out.fname file already exists</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">do.convert</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">sub.id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="c1"># sub.id &lt;- &quot;demoSub1&quot;;</span>
+<span class="w">  </span><span class="n">out.fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;-converted.csv&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1"># name of the output file to be made</span>
+<span class="w">  </span><span class="c1"># in a full script this would be a good place to check if the out.fname file already exists</span>
 
-  <span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception_&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">);</span>   <span class="c1"># build expected input filename</span>
-  <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># file exists, so read it and convert.</span>
-    <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;loading file for&quot;</span><span class="p">,</span> <span class="n">sub.id</span><span class="p">,</span> <span class="s">&quot;....&quot;</span><span class="p">));</span>  <span class="c1"># a getting-started message</span>
+<span class="w">  </span><span class="n">fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;interoception_&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.txt&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1"># build expected input filename</span>
+<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="n">fname</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1"># file exists, so read it and convert.</span>
+<span class="w">    </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;loading file for&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.id</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;....&quot;</span><span class="p">));</span><span class="w">  </span><span class="c1"># a getting-started message</span>
 
-    <span class="n">e.in</span> <span class="o">&lt;-</span> <span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">));</span>     <span class="c1"># eMergeR function for reading text recovery files</span>
-    <span class="n">e.tbl</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># initial conversion</span>
-    
-    <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">FALSE</span><span class="p">;</span>   <span class="c1"># error-found flag to avoid using stop() or nested ifs</span>
-    <span class="c1"># check that some key fields are present and have the expected values</span>
-    <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">identical</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">Procedure</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;baselineProc&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">,</span> <span class="s">&quot;trigger&quot;</span><span class="p">,</span> <span class="s">&quot;rest&quot;</span><span class="p">)))</span> <span class="p">{</span> 
-      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: mismatch in $Procedure!&quot;</span><span class="p">);</span> 
-      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
-    <span class="p">}</span>
+<span class="w">    </span><span class="n">e.in</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">edatR</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="n">fname</span><span class="p">));</span><span class="w">     </span><span class="c1"># eMergeR function for reading text recovery files</span>
+<span class="w">    </span><span class="n">e.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.data.frame.edat</span><span class="p">(</span><span class="n">e.in</span><span class="p">,</span><span class="w"> </span><span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span><span class="w">   </span><span class="c1"># initial conversion</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="n">found.error</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">;</span><span class="w">   </span><span class="c1"># error-found flag to avoid using stop() or nested ifs</span>
+<span class="w">    </span><span class="c1"># check that some key fields are present and have the expected values</span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">identical</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">Procedure</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;baselineProc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trigger&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trigger&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rest&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;trigger&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;rest&quot;</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">      </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: mismatch in $Procedure!&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">      </span><span class="n">found.error</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">;</span><span class="w">  </span><span class="c1"># change flag</span>
+<span class="w">    </span><span class="p">}</span>
 
-    <span class="c1"># the eMergerR functions put the initial baseline session into e.tbl, but not all </span>
-    <span class="c1"># of its timing info. This next bit of code confirms that the fields are indeed missing </span>
-    <span class="c1"># from e.tbl, retrieves them from the trial_info part of the eMergerR object, checks them</span>
-    <span class="c1"># and finally adds them to the correct places in e.tbl.</span>
-    <span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">|</span> <span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span> <span class="p">{</span> 
-      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: have baseline onsets or offsets??&quot;</span><span class="p">);</span> 
-      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
-    <span class="p">}</span>
-    
-    <span class="c1"># check that the baseline period is of the expected duration</span>
-    <span class="n">tmp.vec</span> <span class="o">&lt;-</span> <span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span> 
-    <span class="c1"># times in msec, so divide by 1000 for seconds, and 60 for minutes</span>
-    <span class="nf">if </span><span class="p">((</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">])</span> <span class="o">-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">]))</span><span class="o">/</span><span class="m">60000</span> <span class="o">!=</span> <span class="m">5</span><span class="p">)</span> <span class="p">{</span> 
-      <span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: the baseline was not 5 minutes&quot;</span><span class="p">);</span> 
-      <span class="n">found.error</span> <span class="o">&lt;-</span> <span class="kc">TRUE</span><span class="p">;</span>  <span class="c1"># change flag</span>
-    <span class="p">}</span> 
-      
-    <span class="nf">if </span><span class="p">(</span><span class="n">found.error</span> <span class="o">==</span> <span class="kc">FALSE</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># all correct, so store values and write</span>
-      <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>  <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span>    <span class="c1"># add missing values to e.tbl</span>
-      <span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
-      
-      <span class="c1"># now have all the information, so write as a csv (commented for demo)</span>
-      <span class="c1"># write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);</span>
-      
-      <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">)))</span> <span class="p">{</span>   <span class="c1"># confirm file present and print a success message</span>
-        <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;success! have&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;on disk.&quot;</span><span class="p">));</span>
-      <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> 
-        <span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;ERROR:&quot;</span><span class="p">,</span> <span class="n">out.fname</span><span class="p">,</span> <span class="s">&quot;not made!&quot;</span><span class="p">));</span> 
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span> <span class="n">in.path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span> <span class="s">&quot;!&quot;</span><span class="p">));</span> <span class="p">}</span>
+<span class="w">    </span><span class="c1"># the eMergerR functions put the initial baseline session into e.tbl, but not all </span>
+<span class="w">    </span><span class="c1"># of its timing info. This next bit of code confirms that the fields are indeed missing </span>
+<span class="w">    </span><span class="c1"># from e.tbl, retrieves them from the trial_info part of the eMergerR object, checks them</span>
+<span class="w">    </span><span class="c1"># and finally adds them to the correct places in e.tbl.</span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">      </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: have baseline onsets or offsets??&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">      </span><span class="n">found.error</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">;</span><span class="w">  </span><span class="c1"># change flag</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="c1"># check that the baseline period is of the expected duration</span>
+<span class="w">    </span><span class="n">tmp.vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">e.in</span><span class="o">$</span><span class="n">trial_info</span><span class="o">$</span><span class="n">`1`</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="c1"># times in msec, so divide by 1000 for seconds, and 60 for minutes</span>
+<span class="w">    </span><span class="nf">if </span><span class="p">((</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">])</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">]))</span><span class="o">/</span><span class="m">60000</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">      </span><span class="nf">print</span><span class="p">(</span><span class="s">&quot;ERROR: the baseline was not 5 minutes&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">      </span><span class="n">found.error</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">;</span><span class="w">  </span><span class="c1"># change flag</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+<span class="w">      </span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="n">found.error</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1"># all correct, so store values and write</span>
+<span class="w">      </span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OnsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OnsetTime&quot;</span><span class="p">];</span><span class="w">    </span><span class="c1"># add missing values to e.tbl</span>
+<span class="w">      </span><span class="n">e.tbl</span><span class="o">$</span><span class="n">black.OffsetTime</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tmp.vec</span><span class="p">[</span><span class="s">&quot;baseline5min.OffsetTime&quot;</span><span class="p">];</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="c1"># now have all the information, so write as a csv (commented for demo)</span>
+<span class="w">      </span><span class="c1"># write.csv(e.tbl, paste0(out.path, out.fname), row.names=FALSE);</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span><span class="w"> </span><span class="n">out.fname</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1"># confirm file present and print a success message</span>
+<span class="w">        </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;success! have&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">out.fname</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;on disk.&quot;</span><span class="p">));</span>
+<span class="w">      </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;ERROR:&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">out.fname</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;not made!&quot;</span><span class="p">));</span><span class="w"> </span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;ERROR: missing input file &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="n">fname</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;!&quot;</span><span class="p">));</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="using-the-conversion-function">
-<h4>Using the conversion function<a class="headerlink" href="#using-the-conversion-function" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="using-the-conversion-function">
+<h4>Using the conversion function<a class="headerlink" href="#using-the-conversion-function" title="Permalink to this headline">#</a></h4>
 <p>Then we can call the function to convert each participant’s data. Notice the success and error messages that are printed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -566,7 +666,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub2&quot;</span><span class="p">);</span> 
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub2&quot;</span><span class="p">);</span><span class="w"> </span>
 </pre></div>
 </div>
 </div>
@@ -578,7 +678,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub3&quot;</span><span class="p">);</span> 
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub3&quot;</span><span class="p">);</span><span class="w"> </span>
 </pre></div>
 </div>
 </div>
@@ -591,7 +691,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub4&quot;</span><span class="p">);</span> 
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">do.convert</span><span class="p">(</span><span class="s">&quot;demoSub4&quot;</span><span class="p">);</span><span class="w"> </span>
 </pre></div>
 </div>
 </div>
@@ -602,14 +702,14 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="examining-the-output">
-<h4>Examining the output<a class="headerlink" href="#examining-the-output" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="examining-the-output">
+<h4>Examining the output<a class="headerlink" href="#examining-the-output" title="Permalink to this headline">#</a></h4>
 <p>The conversion was successful for demoSubs 1 and 3, but not 2 or 4, why?</p>
 <p>Looking at the names of the input files gives one answer:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">list.files</span><span class="p">(</span><span class="n">in.path</span><span class="p">));</span>  <span class="c1"># print the names of the files in the input directory</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">list.files</span><span class="p">(</span><span class="n">in.path</span><span class="p">));</span><span class="w">  </span><span class="c1"># print the names of the files in the input directory</span>
 </pre></div>
 </div>
 </div>
@@ -626,7 +726,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># to see the created csvs:</span>
 <span class="c1"># read.csv(paste0(out.path, &quot;interoception-demoSub1-converted.csv&quot;));</span>
-<span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span> <span class="s">&quot;interoception-demoSub3-converted.csv&quot;</span><span class="p">));</span>
+<span class="nf">read.csv</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">out.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;interoception-demoSub3-converted.csv&quot;</span><span class="p">));</span>
 
 <span class="c1"># it can be easier to run a group of subjects with a loop:</span>
 <span class="c1"># for (sid in 1:length(sub.ids)) { do.convert(sub.ids[sid]); }</span>
@@ -653,10 +753,10 @@ const thebe_selector_output = ".output, .cell_output"
 </table>
 </div></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -680,9 +780,11 @@ const thebe_selector_output = ".output, .cell_output"
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -698,24 +800,28 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The tutorial authors<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The tutorial authors<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

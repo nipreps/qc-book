@@ -51,7 +51,7 @@ MRI data.
 ## What is preclinical imaging?
 
 Preclinical imaging (i.e., imaging of experimental animal models) bridges the
-gap between basic science and medical science by applying techiniques from both
+gap between basic science and medical science by applying techniques from both
 fields in the same individual.
 For example, MRI can be combined with invasive procedures, such as optogenetic
 techniques, in a single rodent subject but not in human participants.
@@ -62,7 +62,7 @@ In priniciple, preclinical MRI is equivalent to human MRI, which makes it very a
 
 However, in practice, preclinical MRI has historically trailed its human equivalent in some respects.
 This likely reflects its novelty relative to human imaging, but there are a
-number of factors including acquistion idiosyncracies for a given study's design,
+number of factors including acquistion idiosyncrasies for a given study's design,
 and the availability of software resources.
 
 We will discuss how both of these factors can contribute to data quality,

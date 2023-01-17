@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Create and consistently perform control analyses &#8212; ISMRM&#39;22 QC Book</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
@@ -88,14 +102,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../welcome.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   preamble
  </span>
@@ -215,110 +230,195 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example3.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.Rmd</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/nipreps/qc-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example3.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        <a class="jupyterhub-button" href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example3.Rmd&branch=main"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
-                data-placement="left"><img class="jupyterhub-button-logo"
-                    src="../_static/images/logo_jupyterhub.svg"
-                    alt="Interact on JupyterHub">JupyterHub</button></a>
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example3.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https%3A//github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example3.Rmd&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/nipreps/qc-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/dataset-qc/Example3.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.Rmd</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#what-are-control-analyses">
    What are control analyses?
@@ -365,12 +465,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Create and consistently perform control analyses</h1>
@@ -433,44 +532,45 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="create-and-consistently-perform-control-analyses">
-<h1>Create and consistently perform control analyses<a class="headerlink" href="#create-and-consistently-perform-control-analyses" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="what-are-control-analyses">
-<h2>What are control analyses?<a class="headerlink" href="#what-are-control-analyses" title="Permalink to this headline">¶</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="create-and-consistently-perform-control-analyses">
+<h1>Create and consistently perform control analyses<a class="headerlink" href="#create-and-consistently-perform-control-analyses" title="Permalink to this headline">#</a></h1>
+<section id="what-are-control-analyses">
+<h2>What are control analyses?<a class="headerlink" href="#what-are-control-analyses" title="Permalink to this headline">#</a></h2>
 <p>Control analyses are analyses <em>for dataset QC</em>; they are and must be separate from the experimental questions and target analyses. <strong>Positive control analyses</strong> check for the existence of effects that <em>must</em> be present if the dataset is valid. If those effects are not detected, we know that something is wrong in the dataset or analysis, and work should not proceed until the issues are resolved. Stated another way, a positive control analysis is one that is not of experimental interest, but has a very predictable outcome; so predictable that we are concerned if it is not found.</p>
 <p>The <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html">DMCC55B supplemental</a> includes two of my favorite positive control analyses, <strong>“buttons”</strong> and <strong>“ONs”</strong>, which can be adapted a wide variety of task paradigms. “buttons” is shorthand for analyzing the activity associated with the task responses (e.g., moving fingers to press buttons). Task responses like button presses are excellent targets for positive controls because the occurrence of movement can be objectively verified (unlike e.g., psychological states, whose existence is necessarily inferred), and motor activity is generally strong, focal, and located in a <a class="reference external" href="https://doi.org/10.1016/j.neuroimage.2021.117965">low g-factor area</a> (i.e., with better fMRI SNR). Further, it is nearly always possible to design a control analysis of the responses that is not tied to the experimental hypotheses. (To avoid circularity, control analyses must be independent of experimental hypotheses.) “ONs” is shorthand for “on-task”: contrasting BOLD during <em>all</em> task trials against baseline. We expect task-relevant areas (such as visual if trials include a visual stimulus) to have ONs responses resembling the HRF.</p>
 <p>A control analysis can be extremely valuable for identifying dataset errors (see examples below), even if it is quite different than the experimental effects of interest, but when possible, more tailored control analyses can be even more useful. For example, an experiment targeting reward processes likely has regions of interest much more towards the middle of the brain than the M1 relevant in a “buttons” control analysis; it would be possible for image SNR to be sufficient to detect button-pressing but not reward-related activity. In cases like these I suggest considering whether a more relevant control analysis is possible. For example, suppose the experimental questions are about the impact of different reward trial instructions, and the paradigm includes intermixed no-reward catch trials. If the contrast of reward and no-reward trials is not of experimental interest it could serve as a positive control (and also as an indication of an upper limit for effect size, since it is likely that the reward &gt; no-reward effect would be larger than a modulation in reward effect caused by the experimental manipulation).</p>
 <p>In certain cases a negative control analysis may also be relevant, such as that color is not the dominant factor in a visual experiment. Negative control analyses must be designed and used with great caution, however, and in conjunction with positive controls, not instead of them: there are many, many reasons to not find an effect, and a single analysis likely will not be able to distinguish the reasons.</p>
 <p>Positive control analyses can also serve as a way of evaluating signal strength and quality, both at the individual and group levels. For example, suppose a participant has unusual looking scans and it is unclear whether their data is usable. If the control analyses fail, you can be confident that excluding those scans is the correct choice. For another example, if you do not find a hoped-for experimental effect but the control analyses are clear and strong, you can be confident that a straightforward dataset QC error (e.g., mismatched trial onsets) was not to blame for the lack of experimental effect. Conversely, if a cognitive experimental effect is found but the (presumably) stronger and more focal motor effect in a buttons control analysis is not, I am unlikely to have much confidence in the cognitive effect.</p>
-</div>
-<div class="section" id="example-dmcc55b-stroop-ons-timecourses">
-<h2>Example: DMCC55B Stroop ONs timecourses<a class="headerlink" href="#example-dmcc55b-stroop-ons-timecourses" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="task-and-control-test">
-<h3>Task and control test<a class="headerlink" href="#task-and-control-test" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="example-dmcc55b-stroop-ons-timecourses">
+<h2>Example: DMCC55B Stroop ONs timecourses<a class="headerlink" href="#example-dmcc55b-stroop-ons-timecourses" title="Permalink to this headline">#</a></h2>
+<section id="task-and-control-test">
+<h3>Task and control test<a class="headerlink" href="#task-and-control-test" title="Permalink to this headline">#</a></h3>
 <p>This example uses Stroop task fMRI data from the first five DMCC55B participants; see the DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> and supplementals for more details, explanation, and the <a class="reference external" href="https://openneuro.org/datasets/ds003465/">full dataset</a>.</p>
 <p>This is a color-word Stroop, with spoken responses. Each participant completed two task runs. The task trials are very short: a color word is shown, printed in colored ink, and the participant names the ink color as quickly as possible. Thus, we expect trial-related BOLD activations to be strong and consistent in both visual (word stimulus) and motor (spoken answer) regions (likely other regions as well, but if the participant is performing the task they <em>must</em> have motor and visual involvement). The BOLD change in these regions should resemble a <a class="reference external" href="https://en.wikibooks.org/wiki/SPM/Haemodynamic_Response_Function">canonical HRF</a>, peaking 4-8 seconds after stimulus onset. Task-related BOLD activations should be more apparent in the motor and visual areas than others, such as default mode.</p>
-</div>
-<div class="section" id="implementing-the-control-test">
-<h3>Implementing the control test<a class="headerlink" href="#implementing-the-control-test" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="implementing-the-control-test">
+<h3>Implementing the control test<a class="headerlink" href="#implementing-the-control-test" title="Permalink to this headline">#</a></h3>
 <p>We will use the <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal">Schaefer2018_LocalGlobal</a> 1000 parcels x 17 networks parcellation for this analysis. This parcellation is independent from the task data, in the same space (fsaverage5) as the preprocessed images, and has parcels <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/blob/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/MNI/Centroid_coordinates/Schaefer2018_1000Parcels_17Networks_order_FSLMNI152_2mm.Centroid_RAS.csv">labeled by network</a>. The example uses parcel 116 (below left, 17Networks_LH_SomMotB_Cent_8) as a motor ROI that should show task activity, and default network parcel 964 (below right, 17Networks_RH_DefaultB_PFCv_2) for comparison. (Aside: these surface images were made with R, see <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">this post</a> for my function and tutorial.)
 <a class="reference internal" href="../_images/Schaefer1000x17_p116_outer.jpg"><img alt="../_images/Schaefer1000x17_p116_outer.jpg" src="../_images/Schaefer1000x17_p116_outer.jpg" style="width: 300px;" /></a> <a class="reference internal" href="../_images/Schaefer1000x17_p964_outer.jpg"><img alt="../_images/Schaefer1000x17_p964_outer.jpg" src="../_images/Schaefer1000x17_p964_outer.jpg" style="width: 300px;" /></a></p>
 <p>To keep things as simple as possible, we can plot the BOLD in each parcel (averaged over its vertices) at each timepoint during the trials (the “parcel-average timeseries”). The time each trial started is given in the BIDS <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_events.tsv files</a>. The parcel-average timeseries files used as input for this tutorial were made from the gifti files created during fmriprep preprocessing (i.e., <a class="reference external" href="https://openneuro.org/datasets/ds003465/">_space-fsaverage5_hemi-L.func.gii</a>), using AFNI to <a class="reference external" href="http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html">normalize and detrend</a> each vertex’s timecourse, and finally parcel-average timecourse text files were made with AFNI’s <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html">3dROIstats</a>. See end the of this page for script links and more details.</p>
-<div class="section" id="startup-and-a-look-at-the-input-data">
-<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">¶</a></h4>
+<section id="startup-and-a-look-at-the-input-data">
+<h4>Startup and a look at the input data<a class="headerlink" href="#startup-and-a-look-at-the-input-data" title="Permalink to this headline">#</a></h4>
 <p>First, define some variables to be used later in this script. In R scripts like these I recommend explicitly setting complete paths (e.g., <code class="docutils literal notranslate"><span class="pre">in.path</span> <span class="pre">&lt;-</span> <span class="pre">&quot;d:/projects/demo/&quot;;</span></code>) at the top of a script rather than using <code class="docutils literal notranslate"><span class="pre">setwd()</span></code> or similar, but this notebook requires relative paths.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">in.path</span> <span class="o">&lt;-</span> <span class="s">&quot;example3files/&quot;</span><span class="p">;</span>    <span class="c1"># path to input file directory</span>
-<span class="n">sub.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;f1027ao&quot;</span><span class="p">,</span> <span class="s">&quot;f1031ax&quot;</span><span class="p">,</span> <span class="s">&quot;f1342ku&quot;</span><span class="p">,</span> <span class="s">&quot;f1550bc&quot;</span><span class="p">,</span> <span class="s">&quot;f1552xo&quot;</span><span class="p">);</span>  <span class="c1"># first 5 DMCC55B people</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">in.path</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;example3files/&quot;</span><span class="p">;</span><span class="w">    </span><span class="c1"># path to input file directory</span>
+<span class="n">sub.ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;f1027ao&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;f1031ax&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;f1342ku&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;f1550bc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;f1552xo&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1"># first 5 DMCC55B people</span>
 <span class="c1"># and a color for each sub.ids, in same order</span>
-<span class="n">sub.clrs</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;lightgrey&quot;</span><span class="p">,</span> <span class="s">&quot;lightcoral&quot;</span><span class="p">,</span> <span class="s">&quot;lightgreen&quot;</span><span class="p">,</span> <span class="s">&quot;lightgoldenrod&quot;</span><span class="p">,</span> <span class="s">&quot;lightskyblue&quot;</span><span class="p">);</span>  
-<span class="n">do.trim</span> <span class="o">&lt;-</span> <span class="m">0.1</span><span class="p">;</span>  <span class="c1"># trimming for the robust means</span>
-<span class="n">n.TRs</span> <span class="o">&lt;-</span> <span class="m">9</span><span class="p">;</span>  <span class="c1"># how many TRs to plot along the x axis</span>
-<span class="n">run.ids</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;AP&quot;</span><span class="p">,</span> <span class="s">&quot;PA&quot;</span><span class="p">);</span>  <span class="c1"># run labels in the BIDS input files, 1 is AP, 2 PA</span>
-<span class="n">TR</span> <span class="o">&lt;-</span> <span class="m">1.2</span><span class="p">;</span>  <span class="c1"># in seconds</span>
+<span class="n">sub.clrs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;lightgrey&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lightcoral&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lightgreen&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lightgoldenrod&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;lightskyblue&quot;</span><span class="p">);</span><span class="w">  </span>
+<span class="n">do.trim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0.1</span><span class="p">;</span><span class="w">  </span><span class="c1"># trimming for the robust means</span>
+<span class="n">n.TRs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">9</span><span class="p">;</span><span class="w">  </span><span class="c1"># how many TRs to plot along the x axis</span>
+<span class="n">run.ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;AP&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;PA&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1"># run labels in the BIDS input files, 1 is AP, 2 PA</span>
+<span class="n">TR</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1.2</span><span class="p">;</span><span class="w">  </span><span class="c1"># in seconds</span>
 </pre></div>
 </div>
 </div>
@@ -478,11 +578,11 @@ const thebe_selector_output = ".output, .cell_output"
 <p>First, we’ll read and look at one of the parcel-average timeseries files made by 3dROIstats to understand the input data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_run1_np2_L.txt&quot;</span><span class="p">));</span>    
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">np.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_run1_np2_L.txt&quot;</span><span class="p">));</span><span class="w">    </span>
 
-<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">));</span>  <span class="c1"># 540 TRs in the run, 500 parcels/hemisphere + 2 label columns</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">));</span><span class="w">  </span><span class="c1"># 540 TRs in the run, 500 parcels/hemisphere + 2 label columns</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">[,</span><span class="m">2</span><span class="o">:</span><span class="m">10</span><span class="p">]));</span>  <span class="c1"># show information about columns 2:10 of np.tbl</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">[,</span><span class="m">2</span><span class="o">:</span><span class="m">10</span><span class="p">]));</span><span class="w">  </span><span class="c1"># show information about columns 2:10 of np.tbl</span>
 <span class="c1"># columns 3:502 have parcel names; average BOLD at each TR in each row</span>
 </pre></div>
 </div>
@@ -509,15 +609,15 @@ NULL
 <p>We can calculate statistics and plot each parcel’s timecourse. Note that the timecourse is centered around zero due to the detrending and normalizing. Try to plot other parcels or calculate other statistics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify plot size in this notebook</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify plot size in this notebook</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span><span class="w">   </span><span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
 <span class="c1"># we can view or calculate statistics about a parcel&#39;s timecourse:</span>
-<span class="nf">summary</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">);</span>  <span class="c1"># parcel 116, column 118</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">);</span><span class="w">  </span><span class="c1"># parcel 116, column 118</span>
 
 <span class="c1"># or plot it</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;seagreen&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">ann</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">np.tbl</span><span class="o">$</span><span class="n">Mean_17Networks_LH_SomMotB_Cent_8</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;seagreen&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">ann</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
 <span class="c1"># plot(np.tbl[,118], type=&#39;l&#39;, col=&#39;darkred&#39;, lwd=2, ann=FALSE);  # same, by column index</span>
 </pre></div>
 </div>
@@ -533,17 +633,17 @@ NULL
 <p>And the <code class="docutils literal notranslate"><span class="pre">_events.tsv</span></code>. The onsets are in seconds, which we can convert to TRs for ease of selecting image frames. The plot shows that there are many trials in each run, temporally grouped into three blocks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify plot size in this notebook</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2.5</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify plot size in this notebook</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span><span class="w">   </span><span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
-<span class="n">fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">)</span>
-<span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span> <span class="p">{</span>
-  <span class="n">ev.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-  <span class="nf">print</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">ev.tbl</span><span class="p">));</span>  <span class="c1"># show first rows of the table</span>
+<span class="n">fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-f1550bc_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">)</span>
+<span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">fname</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ev.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span><span class="w"> </span><span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">print</span><span class="p">(</span><span class="nf">head</span><span class="p">(</span><span class="n">ev.tbl</span><span class="p">));</span><span class="w">  </span><span class="c1"># show first rows of the table</span>
 
-  <span class="n">ev.vec</span> <span class="o">&lt;-</span> <span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span>   <span class="c1"># integer onsets in TRs</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ev.vec</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">)),</span> <span class="n">pch</span><span class="o">=</span><span class="s">&quot;|&quot;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;event onset, in TR&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">yaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">ev.vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span><span class="w">   </span><span class="c1"># integer onsets in TRs</span>
+<span class="w">  </span><span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">ev.vec</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="nf">rep</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">)),</span><span class="w"> </span><span class="n">pch</span><span class="o">=</span><span class="s">&quot;|&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;event onset, in TR&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">yaxt</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -561,52 +661,52 @@ NULL
 <img alt="../_images/Example3_10_1.png" src="../_images/Example3_10_1.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="no-stroop-congruency">
-<h3>No Stroop congruency?!<a class="headerlink" href="#no-stroop-congruency" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="no-stroop-congruency">
+<h3>No Stroop congruency?!<a class="headerlink" href="#no-stroop-congruency" title="Permalink to this headline">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">_events.tsv</span></code> includes a lot of trial information that is not used in this control analysis. Stroop experiments usually make predictions about the effects of features such as congruency (same ink color as the printed word or not) and bias (e.g., if a particular color is usually congruent); analyses for these types of effects require comparing responses for different trials. For a control analysis, we will not label or subset trials by congruency or any other hypothesis-relevant feature.</p>
-</div>
-<div class="section" id="parcel-mean-event-timecourses">
-<h3>Parcel mean event timecourses<a class="headerlink" href="#parcel-mean-event-timecourses" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="parcel-mean-event-timecourses">
+<h3>Parcel mean event timecourses<a class="headerlink" href="#parcel-mean-event-timecourses" title="Permalink to this headline">#</a></h3>
 <p>This first code block defines a function (<code class="docutils literal notranslate"><span class="pre">plot.means</span></code>) to plot the five subjects’ average (over trials) timecourses for a particular parcel and run.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># the plotting code, in a function to allow use with different parcels and runs</span>
 <span class="c1"># rid is the run to plot (1 or 2); pid is the parcel to plot (1:1000)</span>
-<span class="n">plot.means</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span> <span class="p">{</span>   <span class="c1"># rid &lt;- 1; pid &lt;- 116;  </span>
-  <span class="c1"># surface data; parcels 1:500 are in the left hemisphere file and 501:1000 on R </span>
-  <span class="nf">if </span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="m">500</span><span class="p">)</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;R&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">500</span><span class="p">;</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;L&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>  
-  
-  <span class="c1"># start an empty plot</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span> 
-  <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">1.2</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">1.2</span><span class="p">);</span>
-  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; run &quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
-  
-  <span class="n">all.means</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span>  <span class="c1"># blank array to hold each person&#39;s mean</span>
-  <span class="nf">for </span><span class="p">(</span><span class="n">sid</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">))</span> <span class="p">{</span>     <span class="c1">#   sid &lt;- 1;</span>
-    <span class="n">ev.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_acq-mb4&quot;</span><span class="p">,</span> <span class="n">run.ids</span><span class="p">[</span><span class="n">rid</span><span class="p">],</span> <span class="s">&quot;_run-&quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="s">&quot;_events.tsv&quot;</span><span class="p">);</span>
-    <span class="n">np.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_run&quot;</span><span class="p">,</span> <span class="n">rid</span><span class="p">,</span> <span class="s">&quot;_np2_&quot;</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot;.txt&quot;</span><span class="p">);</span> 
-    
-    <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nf">file.exists</span><span class="p">(</span><span class="n">np.fname</span><span class="p">))</span> <span class="p">{</span>
-      <span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">np.fname</span><span class="p">);</span> 
-      <span class="c1"># confirm file has the expected number of columns, and remove the two label columns if so for ease of indexing</span>
-      <span class="nf">if </span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">)</span> <span class="o">==</span> <span class="m">502</span><span class="p">)</span> <span class="p">{</span> <span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">502</span><span class="p">];</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;ncol(np.tbl) != 502&quot;</span><span class="p">);</span> <span class="p">}</span>
-      
-      <span class="n">ev.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">,</span> <span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-      <span class="nf">if </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="nf">which</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;is.na(ev.tbl$onset)&quot;</span><span class="p">);</span> <span class="p">}</span>
-      <span class="n">ev.vec</span> <span class="o">&lt;-</span> <span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span>   <span class="c1"># integer onsets in TRs</span>
-      
-      <span class="n">tmp.tbl</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span>  <span class="c1"># to store all trials for this person, run</span>
-      <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span> <span class="p">{</span> <span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span> <span class="p">}</span> 
-      <span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>  <span class="c1"># calculate across-trials average for this person, parcel, run</span>
-      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>   <span class="c1"># plot this person&#39;s mean</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="n">vals</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>   <span class="c1"># calculate the across-subjects (trimmed) mean</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>    <span class="c1"># and plot it</span>
-  <span class="nf">box</span><span class="p">();</span>  <span class="c1"># redraw box around plot for neatness</span>
+<span class="n">plot.means</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">rid</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1"># rid &lt;- 1; pid &lt;- 116;  </span>
+<span class="w">  </span><span class="c1"># surface data; parcels 1:500 are in the left hemisphere file and 501:1000 on R </span>
+<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">500</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">hem.lbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">hem.dif</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">500</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">hem.lbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;L&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">hem.dif</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># start an empty plot</span>
+<span class="w">  </span><span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span><span class="w"> </span><span class="m">0.027</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">  </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cex.lab</span><span class="o">=</span><span class="m">1.2</span><span class="p">,</span><span class="w"> </span><span class="n">cex.axis</span><span class="o">=</span><span class="m">1.2</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;Surface. p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">hem.lbl</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; run &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rid</span><span class="p">),</span><span class="w"> </span><span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span><span class="w">  </span><span class="c1"># title</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span><span class="w">    </span><span class="c1"># draw horizontal line at zero</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="n">all.means</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span><span class="w">  </span><span class="c1"># blank array to hold each person&#39;s mean</span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">sid</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">#   sid &lt;- 1;</span>
+<span class="w">    </span><span class="n">ev.fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;_ses-wave1bas_task-Stroop_acq-mb4&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">run.ids</span><span class="p">[</span><span class="n">rid</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;_run-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;_events.tsv&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">np.fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;_ses-wave1bas_task-Stroop_run&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">rid</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;_np2_&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">hem.lbl</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.txt&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">file.exists</span><span class="p">(</span><span class="n">np.fname</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">np.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="n">np.fname</span><span class="p">);</span><span class="w"> </span>
+<span class="w">      </span><span class="c1"># confirm file has the expected number of columns, and remove the two label columns if so for ease of indexing</span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">502</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">np.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">np.tbl</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">502</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;ncol(np.tbl) != 502&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="n">ev.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">,</span><span class="w"> </span><span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="nf">which</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="p">)))</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;is.na(ev.tbl$onset)&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">ev.vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span><span class="w">   </span><span class="c1"># integer onsets in TRs</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="n">tmp.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span><span class="w">  </span><span class="c1"># to store all trials for this person, run</span>
+<span class="w">      </span><span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span><span class="w"> </span><span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">      </span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span><span class="w">  </span><span class="c1"># calculate across-trials average for this person, parcel, run</span>
+<span class="w">      </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span><span class="w">   </span><span class="c1"># plot this person&#39;s mean</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">vals</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span><span class="w">   </span><span class="c1"># calculate the across-subjects (trimmed) mean</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span><span class="w">    </span><span class="c1"># and plot it</span>
+<span class="w">  </span><span class="nf">box</span><span class="p">();</span><span class="w">  </span><span class="c1"># redraw box around plot for neatness</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -616,17 +716,17 @@ NULL
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># set a few display parameters</span>
-<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size in notebook</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># put four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify plot size in notebook</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span><span class="w">  </span><span class="c1"># put four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="m">1.5</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span><span class="w">   </span><span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
 <span class="c1"># call the function to make the plots</span>
-<span class="nf">plot.means</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">116</span><span class="p">);</span>  <span class="c1"># run 1, parcel 116 (17Networks_LH_SomMotB_Cent_8)</span>
-<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">116</span><span class="p">);</span>  <span class="c1"># plot parcel 116 again, with run 2</span>
+<span class="nf">plot.means</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">116</span><span class="p">);</span><span class="w">  </span><span class="c1"># run 1, parcel 116 (17Networks_LH_SomMotB_Cent_8)</span>
+<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">116</span><span class="p">);</span><span class="w">  </span><span class="c1"># plot parcel 116 again, with run 2</span>
 
-<span class="nf">plot.means</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">964</span><span class="p">);</span>   <span class="c1"># run 1, parcel 964 (17Networks_RH_DefaultB_PFCv_2)</span>
-<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">964</span><span class="p">);</span>    <span class="c1"># and run 2</span>
+<span class="nf">plot.means</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">964</span><span class="p">);</span><span class="w">   </span><span class="c1"># run 1, parcel 964 (17Networks_RH_DefaultB_PFCv_2)</span>
+<span class="nf">plot.means</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">964</span><span class="p">);</span><span class="w">    </span><span class="c1"># and run 2</span>
 </pre></div>
 </div>
 </div>
@@ -642,39 +742,39 @@ NULL
 <span class="c1"># ev.suff is the last part of the _events.tsv filename</span>
 <span class="c1"># np.suff is the last part of the parcel-average timecourses filename.</span>
 <span class="c1"># rid is not needed in this version since each file only has data for one run.</span>
-<span class="n">plot.means.fn</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">ev.suff</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">)</span> <span class="p">{</span>    
-  <span class="c1"># pid &lt;- 116; ev.suff &lt;- &quot;acq-mb4AP_run-1_events.tsv&quot;; np.suff &lt;- &quot;run1_np2_L.txt&quot;; </span>
-  <span class="nf">if </span><span class="p">(</span><span class="n">pid</span> <span class="o">&gt;</span> <span class="m">500</span><span class="p">)</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;R&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">500</span><span class="p">;</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="n">hem.lbl</span> <span class="o">&lt;-</span> <span class="s">&quot;L&quot;</span><span class="p">;</span> <span class="n">hem.dif</span> <span class="o">&lt;-</span> <span class="m">0</span><span class="p">;</span> <span class="p">}</span>  <span class="c1"># parcels &gt; 500 are on R</span>
-  
-  <span class="c1"># start an empty plot</span>
-  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span> <span class="m">0.027</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span>
-    <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span> <span class="n">cex.lab</span><span class="o">=</span><span class="m">1.2</span><span class="p">,</span> <span class="n">cex.axis</span><span class="o">=</span><span class="m">1.2</span><span class="p">);</span>
-  <span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span> <span class="n">pid</span><span class="p">,</span> <span class="n">hem.lbl</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">),</span> <span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span>  <span class="c1"># title</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span>    <span class="c1"># draw horizontal line at zero</span>
-  
-  <span class="n">all.means</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span> 
-  <span class="nf">for </span><span class="p">(</span><span class="n">sid</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">))</span> <span class="p">{</span>     <span class="c1">#   sid &lt;- 1;</span>
-    <span class="n">ev.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_&quot;</span><span class="p">,</span> <span class="n">ev.suff</span><span class="p">);</span>
-    <span class="n">np.fname</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span> <span class="s">&quot;sub-&quot;</span><span class="p">,</span> <span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="s">&quot;_ses-wave1bas_task-Stroop_&quot;</span><span class="p">,</span> <span class="n">np.suff</span><span class="p">);</span> 
-    
-    <span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nf">file.exists</span><span class="p">(</span><span class="n">np.fname</span><span class="p">))</span> <span class="p">{</span>
-      <span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">np.fname</span><span class="p">);</span> 
-      <span class="c1"># surface &quot;timecourses&quot; files have parcel names for the columns, so need to use indicies.</span>
-      <span class="nf">if </span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">)</span> <span class="o">==</span> <span class="m">502</span><span class="p">)</span> <span class="p">{</span> <span class="n">np.tbl</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">502</span><span class="p">];</span> <span class="p">}</span> <span class="n">else</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;ncol(np.tbl) != 502&quot;</span><span class="p">);</span> <span class="p">}</span>
-      
-      <span class="n">ev.tbl</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">,</span> <span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
-      <span class="nf">if </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="nf">which</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="p">)))</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="p">{</span> <span class="nf">stop</span><span class="p">(</span><span class="s">&quot;is.na(ev.tbl$onset)&quot;</span><span class="p">);</span> <span class="p">}</span>
-      <span class="n">ev.vec</span> <span class="o">&lt;-</span> <span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span>   <span class="c1"># integer onsets in TRs</span>
-      
-      <span class="n">tmp.tbl</span> <span class="o">&lt;-</span> <span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span> <span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span>  <span class="c1"># to store all trials for this person, run</span>
-      <span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span> <span class="p">{</span> <span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span> <span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span> <span class="p">}</span> 
-      <span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>  <span class="c1"># calculate across-trials average for this person, parcel, run</span>
-      <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>   <span class="c1"># plot this person&#39;s mean</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="n">vals</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span>   <span class="c1"># calculate the across-subjects (trimmed) mean</span>
-  <span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>    <span class="c1"># and plot it</span>
-  <span class="nf">box</span><span class="p">();</span>  <span class="c1"># redraw box around plot for neatness</span>
+<span class="n">plot.means.fn</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">ev.suff</span><span class="p">,</span><span class="w"> </span><span class="n">np.suff</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span>
+<span class="w">  </span><span class="c1"># pid &lt;- 116; ev.suff &lt;- &quot;acq-mb4AP_run-1_events.tsv&quot;; np.suff &lt;- &quot;run1_np2_L.txt&quot;; </span>
+<span class="w">  </span><span class="nf">if </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">500</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">hem.lbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;R&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">hem.dif</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">500</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">hem.lbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&quot;L&quot;</span><span class="p">;</span><span class="w"> </span><span class="n">hem.dif</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1"># parcels &gt; 500 are on R</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="c1"># start an empty plot</span>
+<span class="w">  </span><span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="n">n.TRs</span><span class="p">),</span><span class="w"> </span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-0.015</span><span class="p">,</span><span class="w"> </span><span class="m">0.027</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;Frame (after trial onset)&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;BOLD (arbitrary units)&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">cex.lab</span><span class="o">=</span><span class="m">1.2</span><span class="p">,</span><span class="w"> </span><span class="n">cex.axis</span><span class="o">=</span><span class="m">1.2</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">mtext</span><span class="p">(</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="n">hem.lbl</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">np.suff</span><span class="p">),</span><span class="w"> </span><span class="n">side</span><span class="o">=</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="m">0.15</span><span class="p">);</span><span class="w">  </span><span class="c1"># title</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-10</span><span class="p">,</span><span class="m">1000</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">);</span><span class="w">    </span><span class="c1"># draw horizontal line at zero</span>
+<span class="w">  </span>
+<span class="w">  </span><span class="n">all.means</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span><span class="w"> </span>
+<span class="w">  </span><span class="nf">for </span><span class="p">(</span><span class="n">sid</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">sub.ids</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">#   sid &lt;- 1;</span>
+<span class="w">    </span><span class="n">ev.fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;_ses-wave1bas_task-Stroop_&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ev.suff</span><span class="p">);</span>
+<span class="w">    </span><span class="n">np.fname</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">in.path</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;sub-&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sub.ids</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;_ses-wave1bas_task-Stroop_&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">np.suff</span><span class="p">);</span><span class="w"> </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="nf">file.exists</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">file.exists</span><span class="p">(</span><span class="n">np.fname</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">np.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="n">np.fname</span><span class="p">);</span><span class="w"> </span>
+<span class="w">      </span><span class="c1"># surface &quot;timecourses&quot; files have parcel names for the columns, so need to use indices.</span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="nf">ncol</span><span class="p">(</span><span class="n">np.tbl</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">502</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">np.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">np.tbl</span><span class="p">[,</span><span class="m">3</span><span class="o">:</span><span class="m">502</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;ncol(np.tbl) != 502&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="n">ev.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.delim</span><span class="p">(</span><span class="n">ev.fname</span><span class="p">,</span><span class="w"> </span><span class="n">na.strings</span><span class="o">=</span><span class="s">&quot;n/a&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">);</span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="nf">which</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="p">)))</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="s">&quot;is.na(ev.tbl$onset)&quot;</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">ev.vec</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="n">ev.tbl</span><span class="o">$</span><span class="n">onset</span><span class="o">/</span><span class="n">TR</span><span class="p">);</span><span class="w">   </span><span class="c1"># integer onsets in TRs</span>
+<span class="w">      </span>
+<span class="w">      </span><span class="n">tmp.tbl</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">array</span><span class="p">(</span><span class="kc">NA</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="n">n.TRs</span><span class="m">+1</span><span class="p">)));</span><span class="w">  </span><span class="c1"># to store all trials for this person, run</span>
+<span class="w">      </span><span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">tmp.tbl</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">np.tbl</span><span class="p">[</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">:</span><span class="p">(</span><span class="n">ev.vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">n.TRs</span><span class="p">),</span><span class="w"> </span><span class="n">pid</span><span class="o">-</span><span class="n">hem.dif</span><span class="p">];</span><span class="w"> </span><span class="p">}</span><span class="w"> </span>
+<span class="w">      </span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">tmp.tbl</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span><span class="w">  </span><span class="c1"># calculate across-trials average for this person, parcel, run</span>
+<span class="w">      </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">all.means</span><span class="p">[</span><span class="n">sid</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="n">sub.clrs</span><span class="p">[</span><span class="n">sid</span><span class="p">],</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">);</span><span class="w">   </span><span class="c1"># plot this person&#39;s mean</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">vals</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">all.means</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="n">mean</span><span class="p">,</span><span class="w"> </span><span class="n">trim</span><span class="o">=</span><span class="n">do.trim</span><span class="p">);</span><span class="w">   </span><span class="c1"># calculate the across-subjects (trimmed) mean</span>
+<span class="w">  </span><span class="nf">lines</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0</span><span class="o">:</span><span class="n">n.TRs</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">vals</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="o">=</span><span class="m">3</span><span class="p">);</span><span class="w">    </span><span class="c1"># and plot it</span>
+<span class="w">  </span><span class="nf">box</span><span class="p">();</span><span class="w">  </span><span class="c1"># redraw box around plot for neatness</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -683,16 +783,16 @@ NULL
 <p>Now we call this new function to plot the timecourses for the motor parcel (116):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify plot size</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span><span class="w">  </span><span class="c1"># have four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="m">1.5</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span><span class="w">   </span><span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
 <span class="c1"># parcel 116 is on the left</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span> 
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>  
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span><span class="w"> </span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span><span class="w">  </span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run1_np2_L.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">116</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run2_np2_L.txt&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -704,16 +804,16 @@ NULL
 <p>… the same for the default mode parcel (964):</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span>  <span class="c1"># specify plot size</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">2.5</span><span class="p">,</span> <span class="m">1.5</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span> <span class="m">0.2</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> <span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span>   <span class="c1"># specify plot margins, spacing</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">3</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify plot size</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span><span class="w">  </span><span class="c1"># have four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="m">1.5</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">),</span><span class="w"> </span><span class="n">tcl</span><span class="o">=</span><span class="m">-0.3</span><span class="p">);</span><span class="w">   </span><span class="c1"># specify plot margins, spacing</span>
 <span class="c1"># mar: c(bottom, left, top, right) gives the number of lines of margin on the four sides of the plot.</span>
 
 <span class="c1"># parcel 964 is on the right; parcels &gt; 500 need _R.txt</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
-<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span> <span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span> <span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4AP_run-1_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run1_np2_R.txt&quot;</span><span class="p">);</span>
+<span class="nf">plot.means.fn</span><span class="p">(</span><span class="m">964</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;acq-mb4PA_run-2_events.tsv&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run2_np2_R.txt&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -722,16 +822,16 @@ NULL
 </div>
 </div>
 <p>Note how there isn’t an obvious difference between using the correct and incorrect event files with parcel 964 because it doesn’t have a clear effect in any case: control analyses work best with a strong, unambiguous signal.</p>
-</div>
-<div class="section" id="full-examples-and-additional-notes">
-<h3>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="full-examples-and-additional-notes">
+<h3>Full examples and additional notes<a class="headerlink" href="#full-examples-and-additional-notes" title="Permalink to this headline">#</a></h3>
 <p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_24.html">buttons</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial_29.html">ONs</a> positive control analyses. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>.</p>
 <p>The parcel-average timecourse files for this example were made using the code in the first block of <a class="reference external" href="https://osf.io/f79p6/">controlAnalysis_prep.R</a>, which uses <a class="reference external" href="https://github.com/muschellij2/gifti">readGIfTI</a> to read each gifti file created by <a class="reference external" href="https://openneuro.org/datasets/ds003465/">fmriprep preprocessing</a>, write it into a temporary .1D text matrix file, and then calls <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dDetrend.html">AFNI’s 3dDetrend</a> function to <a class="reference external" href="http://mvpa.blogspot.com/2018/06/detrending-and-normalizing-timecourses.html">normalize and detrend</a> each vertex’s timecourse. (At the time of writing, 3dDetrend does not accept gifti image inputs, so the “1D” text files are a work-around.)</p>
 <p>The second step is to make parcel-average timecourses with AFNI’s <a class="reference external" href="https://afni.nimh.nih.gov/pub/dist/doc/program_help/3dROIstats.html">3dROIstats</a>. The code and necessary input files for this is in the startup code chunk of <a class="reference external" href="https://osf.io/z8g4u/">controlAnalysis_ONs.rnw</a>. This uses the <a class="reference external" href="https://github.com/ThomasYeoLab/CBIG/tree/master/stable_projects/brain_parcellation/Schaefer2018_LocalGlobal/Parcellations/FreeSurfer5.3">1000-parcel, 17-network Schaefer parcellation</a>.</p>
 <p><em>Aside</em>: it’s quite possible to do all of this without calling AFNI, implementing the normalize, detrending, and averaging steps entirely in R. I prefer using the AFNI functions, however, to avoid introducing errors, and for clarity; in general, I suggest using established functions and programs whenever possible.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -755,9 +855,11 @@ NULL
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="Example2.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -773,24 +875,28 @@ NULL
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The tutorial authors<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The tutorial authors<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>

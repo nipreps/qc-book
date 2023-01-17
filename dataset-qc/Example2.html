@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Highlight important and diagnostic features as efficiently as possible &#8212; ISMRM&#39;22 QC Book</title>
     
-  <link href="../_static/css/theme.css" rel="stylesheet">
-  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,20 +20,16 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -39,12 +37,13 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
@@ -64,7 +63,21 @@ const thebe_selector_output = ".output, .cell_output"
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -73,9 +86,10 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../index.html">
       
       
@@ -88,14 +102,15 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../welcome.html">
-   Welcome!
-  </a>
- </li>
-</ul>
-<p aria-level="2" class="caption" role="heading">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   preamble
  </span>
@@ -215,110 +230,195 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/dataset-qc/Example2.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.Rmd</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/nipreps/qc-book"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example2.Rmd"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        <a class="jupyterhub-button" href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https://github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example2.Rmd&branch=main"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch JupyterHub" data-toggle="tooltip"
-                data-placement="left"><img class="jupyterhub-button-logo"
-                    src="../_static/images/logo_jupyterhub.svg"
-                    alt="Interact on JupyterHub">JupyterHub</button></a>
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/dataset-qc/Example2.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https%3A//github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/dataset-qc/Example2.Rmd&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/nipreps/qc-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/dataset-qc/Example2.Rmd"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.Rmd</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visual-displays-can-help-with-more-than-image-quality">
    Visual displays can help with more than image quality
@@ -341,12 +441,11 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Highlight important and diagnostic features as efficiently as possible</h1>
@@ -385,38 +484,39 @@ const thebe_selector_output = ".output, .cell_output"
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="highlight-important-and-diagnostic-features-as-efficiently-as-possible">
-<h1>Highlight important and diagnostic features as efficiently as possible<a class="headerlink" href="#highlight-important-and-diagnostic-features-as-efficiently-as-possible" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="highlight-important-and-diagnostic-features-as-efficiently-as-possible">
+<h1>Highlight important and diagnostic features as efficiently as possible<a class="headerlink" href="#highlight-important-and-diagnostic-features-as-efficiently-as-possible" title="Permalink to this headline">#</a></h1>
 <p>Given human nature, even the best QC reports won’t be consistently used if they are too long, ugly, or annoying. It is often more effective to quickly create short, aesthetically pleasing QC files which emphasize easy-to-check diagnostic features. If these summary files suggest something may be amiss, it can be investigated in detail; trying to fit all possibly-useful images and statistics into one document is often counterproductive.</p>
 <p>For checking the preprocessing of human fMRI data, we have found that it works well to plot temporal mean images (<a class="reference external" href="https://mvpa.blogspot.com/2020/02/when-making-qc-or-most-any-images-dont.html">without masking</a>) and confirm that the volumes <strong>look like brains</strong>. This is especially valuable if all of the participants’ runs are plotted side-by-side, like below (10 runs can fit on a single page, e.g., pages 12-14 of <a class="reference external" href="https://osf.io/z62s5/">132017_fMRI_movementSummary_fmriprep.pdf</a>), enabling many runs to be examined at a glance, and differences between the runs to be spotted.
 <img alt="../_images/volumes.jpg" src="../_images/volumes.jpg" /></p>
 <p>Surface images are more difficult to check for preprocessing errors, because a correctly-made gifti file can always be displayed as a brain. But it’s still worth looking at the surface images as large preprocessing or other problems can be spotted; one feature is that the <strong>tiger stripes</strong> along the top of the hemispheres due to the central sulcus (arrows) are plainly visible. The lower image shows how a acquisition mishap can appear on the surface; this sort or other non-anatomical patterns (like polka dots) should be investigated. Pages 15-17 of <a class="reference external" href="https://osf.io/z62s5/">132017_fMRI_movementSummary_fmriprep.pdf</a> show an array of surface temporal mean images.
 <a class="reference internal" href="../_images/good.jpg"><img alt="../_images/good.jpg" src="../_images/good.jpg" style="width: 500px;" /></a>
 <a class="reference internal" href="../_images/failure.jpg"><img alt="../_images/failure.jpg" src="../_images/failure.jpg" style="width: 500px;" /></a></p>
-<div class="section" id="visual-displays-can-help-with-more-than-image-quality">
-<h2>Visual displays can help with more than image quality<a class="headerlink" href="#visual-displays-can-help-with-more-than-image-quality" title="Permalink to this headline">¶</a></h2>
+<section id="visual-displays-can-help-with-more-than-image-quality">
+<h2>Visual displays can help with more than image quality<a class="headerlink" href="#visual-displays-can-help-with-more-than-image-quality" title="Permalink to this headline">#</a></h2>
 <p>These previous examples are of visual displays for checking MR image quality, but plots can be used to efficiently examine other things, too, such as task performance. This plot shows what a participant did during the <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">DMCC Sternberg task</a>. Time is along the x-axis, and each grey-ish plotting symbol indicates a trial onset (NN, NP, RN, 5:8 refer to trial types). The pink and red lines show the time and identity of each button press, with the black tick marks indicating if the response was correct. With a bit of practice a lot of task and performance information can be quickly seen in these types of plots, including trial jitter, randomization, and unexpected participant response patterns. For example, this participant gave the incorrect response for several trials in each run and block, but got the great majority correct, suggesting that they were attending to the task and trying to do it properly.
 <img alt="../_images/goodSternberg.jpg" src="../_images/goodSternberg.jpg" /></p>
 <p>By contrast, this participant responded to a few trials, sometimes correctly, but mostly did not respond at all. The RAs noted that the person was sleepy; we don’t want to include this person’s data in the analyses. It is important to be able to check for this (and other) strange response patterns. For example, if an analysis calculated performance as the percent of trials with a correct response out of the trials with a response, this person’s performance will seem <strong>quite good</strong> (most trials with a response are correct); the high proportion of trials without a response needs to be considered as well.
 <img alt="../_images/sleepySternberg.jpg" src="../_images/sleepySternberg.jpg" /></p>
-</div>
-<div class="section" id="example-anatomical-volume-nifti-image-plotting">
-<h2>Example: anatomical volume (nifti) image plotting<a class="headerlink" href="#example-anatomical-volume-nifti-image-plotting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="example-anatomical-volume-nifti-image-plotting">
+<h2>Example: anatomical volume (nifti) image plotting<a class="headerlink" href="#example-anatomical-volume-nifti-image-plotting" title="Permalink to this headline">#</a></h2>
 <p>Efficiently displaying QC images depends upon being able to easily access and plot the source files. This tutorial shows some basic image reading and plotting, the key foundation upon which more complex files (see links at the end of this page) are built.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span>  <span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RNifti</span><span class="p">);</span><span class="w">  </span><span class="c1"># package for NIfTI image reading; https://github.com/jonclayden/RNifti</span>
 
 <span class="c1"># S1200_AverageT1w_81x96x81.nii.gz (https://osf.io/6hdxv/) is a resampled (via afni 3dresample) </span>
 <span class="c1"># version of S1200_AverageT1w_restore.nii.gz, the HCP 1200 Group Average anatomy, </span>
 <span class="c1"># available from https://balsa.wustl.edu/file/show/7qX8N. </span>
-<span class="n">img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span>  
+<span class="n">img</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/S1200_AverageT1w_81x96x81.nii.gz&quot;</span><span class="p">);</span><span class="w">  </span>
 
 <span class="c1"># the image values are in a 3d array (since this is a single anatomical image, not a timeseries)</span>
-<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">));</span>   <span class="c1"># [1] 81 96 81</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">img</span><span class="p">));</span><span class="w">   </span><span class="c1"># [1] 81 96 81</span>
 </pre></div>
 </div>
 </div>
@@ -429,8 +529,8 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Now that the image is read in, many of the normal R commands and operations can be used with it, such as getting the value of individual voxels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">));</span>  <span class="c1"># [1] 1374.128</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">]);</span>  <span class="c1"># value of the voxel at 30,20,50</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">img</span><span class="p">));</span><span class="w">  </span><span class="c1"># [1] 1374.128</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">30</span><span class="p">,</span><span class="m">20</span><span class="p">,</span><span class="m">50</span><span class="p">]);</span><span class="w">  </span><span class="c1"># value of the voxel at 30,20,50</span>
 </pre></div>
 </div>
 </div>
@@ -446,13 +546,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Slices through the image can be plotted with the same functions as any other image.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2.5</span><span class="p">);</span>  <span class="c1"># specify size in jupyter</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)));</span>  <span class="c1"># have three images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">));</span>   <span class="c1"># specify plot margins</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2.5</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify size in jupyter</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">)));</span><span class="w">  </span><span class="c1"># have three images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">));</span><span class="w">   </span><span class="c1"># specify plot margins</span>
 
-<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">15</span><span class="p">,,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice i=15</span>
-<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice j=20</span>
-<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>   <span class="c1"># plot slice k=50</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="m">15</span><span class="p">,,],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span><span class="w">   </span><span class="c1"># plot slice i=15</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,</span><span class="m">20</span><span class="p">,],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span><span class="w">   </span><span class="c1"># plot slice j=20</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">img</span><span class="p">[,,</span><span class="m">50</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span><span class="w">   </span><span class="c1"># plot slice k=50</span>
 </pre></div>
 </div>
 </div>
@@ -460,16 +560,16 @@ const thebe_selector_output = ".output, .cell_output"
 <img alt="../_images/Example2_7_0.png" src="../_images/Example2_7_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="example-functional-volume-nifti-image-plotting">
-<h2>Example: functional volume (nifti) image plotting<a class="headerlink" href="#example-functional-volume-nifti-image-plotting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="example-functional-volume-nifti-image-plotting">
+<h2>Example: functional volume (nifti) image plotting<a class="headerlink" href="#example-functional-volume-nifti-image-plotting" title="Permalink to this headline">#</a></h2>
 <p>Functional nifti images are read in with the same command, but as a 4d matrix: the three dimensions plus time. This next bit of code reads a functional run from the first DMCC55B participant, downloaded from <a class="reference external" href="https://openneuro.org/datasets/ds003465/versions/1.0.5">https://openneuro.org/datasets/ds003465/versions/1.0.5</a>, then edited to only have the first eight frames (so the file wouldn’t be too large).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># load a (small) functional run from the first DMCC55B participant </span>
-<span class="n">in.img</span> <span class="o">&lt;-</span> <span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/sub-f1027ao_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&quot;</span><span class="p">);</span>  
+<span class="n">in.img</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">readNifti</span><span class="p">(</span><span class="s">&quot;example2files/sub-f1027ao_ses-wave1bas_task-Stroop_acq-mb4AP_run-1_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz&quot;</span><span class="p">);</span><span class="w">  </span>
 
-<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">in.img</span><span class="p">));</span>  <span class="c1"># [1]  81  96  81 8</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">dim</span><span class="p">(</span><span class="n">in.img</span><span class="p">));</span><span class="w">  </span><span class="c1"># [1]  81  96  81 8</span>
 </pre></div>
 </div>
 </div>
@@ -482,27 +582,27 @@ const thebe_selector_output = ".output, .cell_output"
 <p>We can plot the same slice at different times (frames), and calculate statistics from individual frames or across time. The frames look quite similar plotted this way, but there are differences, as reflected in the maximum voxel value on each image and the voxel timecourse below. Can you change the code to print a statistic on the first frame as well? Show different slices and TRs? The values of a different voxel?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span>  <span class="c1"># specify size in jupyter</span>
-<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span>  <span class="c1"># have four images in one row</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">,</span> <span class="m">0.1</span><span class="p">));</span>   <span class="c1"># specify plot margins</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="o">=</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="o">=</span><span class="m">2</span><span class="p">);</span><span class="w">  </span><span class="c1"># specify size in jupyter</span>
+<span class="nf">layout</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">)));</span><span class="w">  </span><span class="c1"># have four images in one row</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">));</span><span class="w">   </span><span class="c1"># specify plot margins</span>
 
-<span class="n">do.k</span> <span class="o">&lt;-</span> <span class="m">50</span><span class="p">;</span>  <span class="c1"># which k slice to plot</span>
+<span class="n">do.k</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">50</span><span class="p">;</span><span class="w">  </span><span class="c1"># which k slice to plot</span>
 <span class="c1"># so all frames will be plotted with the same color scaling, specify before plotting</span>
-<span class="n">z.lim</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,]),</span> <span class="nf">max</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,]));</span>  <span class="c1"># range calculated across all TRs</span>
+<span class="n">z.lim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,]),</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,]));</span><span class="w">  </span><span class="c1"># range calculated across all TRs</span>
 
 <span class="c1"># plot one frame</span>
-<span class="nf">image</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="m">1</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">zlim</span><span class="o">=</span><span class="n">z.lim</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>
-<span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">0.95</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="s">&quot;frame 1&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">);</span>  <span class="c1"># add a label</span>
+<span class="nf">image</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span><span class="w"> </span><span class="n">zlim</span><span class="o">=</span><span class="n">z.lim</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>
+<span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">0.95</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="o">=</span><span class="s">&quot;frame 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;green&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1"># add a label</span>
 
 <span class="c1"># plot with a loop</span>
-<span class="n">show.frames</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">5</span><span class="p">,</span> <span class="m">7</span><span class="p">);</span>  <span class="c1"># which (and how many) frames to plot</span>
-<span class="nf">for </span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">show.frames</span><span class="p">))</span> <span class="p">{</span>   <span class="c1"># i &lt;- 1;</span>
-  <span class="nf">image</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span> <span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span> <span class="n">zlim</span><span class="o">=</span><span class="n">z.lim</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>
-  <span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.15</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">0.95</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;frame&quot;</span><span class="p">,</span> <span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">);</span>  <span class="c1"># add a label</span>
-  <span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.25</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="m">0.05</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;max=&quot;</span><span class="p">,</span> <span class="nf">round</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]]),</span><span class="m">2</span><span class="p">)),</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">);</span>  <span class="c1"># add a statistic</span>
+<span class="n">show.frames</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">);</span><span class="w">  </span><span class="c1"># which (and how many) frames to plot</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">show.frames</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">   </span><span class="c1"># i &lt;- 1;</span>
+<span class="w">  </span><span class="nf">image</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">gray</span><span class="p">(</span><span class="m">0</span><span class="o">:</span><span class="m">64</span><span class="o">/</span><span class="m">64</span><span class="p">),</span><span class="w"> </span><span class="n">zlim</span><span class="o">=</span><span class="n">z.lim</span><span class="p">,</span><span class="w"> </span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">);</span>
+<span class="w">  </span><span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.15</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">0.95</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="o">=</span><span class="nf">paste</span><span class="p">(</span><span class="s">&quot;frame&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1"># add a label</span>
+<span class="w">  </span><span class="nf">text</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="m">0.25</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">0.05</span><span class="p">,</span><span class="w"> </span><span class="n">labels</span><span class="o">=</span><span class="nf">paste0</span><span class="p">(</span><span class="s">&quot;max=&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">round</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">in.img</span><span class="p">[,,</span><span class="n">do.k</span><span class="p">,</span><span class="n">show.frames</span><span class="p">[</span><span class="n">i</span><span class="p">]]),</span><span class="m">2</span><span class="p">)),</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">);</span><span class="w">  </span><span class="c1"># add a statistic</span>
 <span class="p">}</span>
 
-<span class="nf">print</span><span class="p">(</span><span class="n">in.img</span><span class="p">[</span><span class="m">20</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="m">23</span><span class="p">,]);</span>   <span class="c1"># the value of this voxel in all frames</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">in.img</span><span class="p">[</span><span class="m">20</span><span class="p">,</span><span class="m">30</span><span class="p">,</span><span class="m">23</span><span class="p">,]);</span><span class="w">   </span><span class="c1"># the value of this voxel in all frames</span>
 </pre></div>
 </div>
 </div>
@@ -513,13 +613,13 @@ const thebe_selector_output = ".output, .cell_output"
 <img alt="../_images/Example2_11_1.png" src="../_images/Example2_11_1.png" />
 </div>
 </div>
-</div>
-<div class="section" id="notes-and-links">
-<h2>Notes and links<a class="headerlink" href="#notes-and-links" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="notes-and-links">
+<h2>Notes and links<a class="headerlink" href="#notes-and-links" title="Permalink to this headline">#</a></h2>
 <p>Many neuroimaging-specific plotting functions are available (and not only for R), some static, some interactive. I suggest using the <a class="reference external" href="https://github.com/jonclayden/RNifti">RNifti</a>, <a class="reference external" href="https://github.com/muschellij2/gifti">gifti</a>, and <a class="reference external" href="https://github.com/mandymejia/ciftiTools">ciftiTools</a> R packages for file i/o; each includes plotting functions as well. I <a class="reference external" href="https://mvpa.blogspot.com/2020/03/volume-and-surface-brain-plotting-knitr.html">wrote tutorials</a> for working with nifti and gifti images using these libraries, plus my markdown-friendly plotting functions.</p>
 <p>The DMCC55B <a class="reference external" href="https://doi.org/10.1038/s41597-022-01226-4">dataset descriptor paper</a> supplemental files include multiple QC summary files, using R, knitr (latex), and afni. Particularly relevant here are the <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic_18.html">temporal mean, SD, and tSNR</a> and <a class="reference external" href="https://mvpa.blogspot.com/2021/06/dmcc55b-supplemental-as-tutorial-basic.html">motion (realignment parameters)</a> examples. Those links are to blog posts describing the supplemental materials, which reside at <a class="reference external" href="https://osf.io/vqe92/">https://osf.io/vqe92/</a>. Examples of the files created for each <a class="reference external" href="https://sites.wustl.edu/dualmechanisms/">DMCC</a> participant may also be useful; see <a class="reference external" href="https://osf.io/z62s5/">https://osf.io/z62s5/</a> and other files in the <em>analyses</em> subdirectory. More task behavior summary images and the source code are at <a class="reference external" href="https://osf.io/7xkq9/">https://osf.io/7xkq9/</a>.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -543,9 +643,11 @@ const thebe_selector_output = ".output, .cell_output"
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="Example1.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -561,24 +663,28 @@ const thebe_selector_output = ".output, .cell_output"
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The tutorial authors<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By The tutorial authors<br/>
-    
-        &copy; Copyright 2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
