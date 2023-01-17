@@ -29,7 +29,11 @@ jobs:
                              dvipng \
                              fontconfig \
                              fonts-freefont-ttf \
+                             libbz2-dev \
                              libcurl4-gnutls-dev \
+                             libcurl4-openssl-dev \
+                             libfontconfig1-dev \
+                             liblzma-dev \
                              libssl-dev \
                              libxml2-dev \
                              r-base \
@@ -37,7 +41,7 @@ jobs:
                              texlive-fonts-recommended \
                              texlive-latex-extra \
                              unzip
-
+                             
     - uses: actions/cache@v2
       with:
         path: ~/.fonts
