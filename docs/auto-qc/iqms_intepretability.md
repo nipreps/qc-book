@@ -1,3 +1,19 @@
+---
+jupytext:
+  formats: md:myst
+  notebook_metadata_filter: all,-language_info
+  split_at_heading: true
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: '0.8'
+    jupytext_version: 1.11.2
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
 # Interpretability of the Image Quality Metrics (IQMs) of MRIQC
 
 [MRIQC](https://mriqc.readthedocs.io/en/latest/) is a powerful tool to assess the quality of MR images in a research study. In addition to a visual report, a number of image quality metrics (IQMs) is generated. However, there is a large number of these metrics and it is not immediately obvious which IQM a researcher should pay most attention to when deciding over the quality of a given image.
@@ -5,7 +21,7 @@
 In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC. If you want to follow along and run the notebook yourself, please download the runnable notebook at [https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb](https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb).
 
 
-```python
+```{code-cell} python
 # imports
 import os
 import pandas as pd
@@ -45,7 +61,7 @@ The images were rated by to two expert neuroradiologists, who rated the images i
 The neuroradiologist were asked to harmonize their ratings, hence the dataset contains only one score per images.
 
 
-```python
+```{code-cell} python
 # set path to the data
 path_data = os.path.abspath("../data/")
 # import IQMs
@@ -60,7 +76,7 @@ scores.sort_index(inplace=True)
 Let's combine the motion condition and the manual ratings in one dataframe:
 
 
-```python
+```{code-cell} python
 def add_condition_column(scores):
     """Adds a column with the different movement conditions to the rating scores dataframe"""
     stand = scores.index.str.contains("standard")
@@ -81,7 +97,7 @@ scores = add_condition_column(scores)
 We can explore how well the raters align in their scores with the motion condition. Does their rating reflect how much people moved in the scanner? Let's plot the confusion matrix of the scores assigned by the rater and the motion condition :
 
 
-```python
+```{code-cell} python
 plt.figure(figsize=(8,6))
 sns.heatmap(pd.crosstab(scores["score"], scores["condition"]), annot=True, fmt=".0f")
 sns.set(font_scale=1)
@@ -90,7 +106,7 @@ plt.show()
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_7_0.png)
+![png](./iqms_interpretability_files/copy_interpretability-of_iqms_7_0.png)
     
 
 
@@ -99,7 +115,7 @@ We can see that generally there is good correspondance, with most values being o
 Some images are however completely misclassified. We can visualize this using the library [Plotly](https://plotly.com/python/), which allows for creating a variety of interactive plots. With this, it will be easier to identify the images that were rated much better or much worse than the condition they were in.
 
 
-```python
+```{code-cell} python
 px.strip(scores, x="condition", y="score", color=scores.index)
 ```
 
@@ -107,7 +123,7 @@ px.strip(scores, x="condition", y="score", color=scores.index)
 
 If you run this notebook yourself, you will be able to hover over the points to identify the subjects linked to each point. Because the markdown version of this notebook does not display Plotly's figures, we include them as images.
 
-![ScoreVScondition](../figures/ScoreVScondition.png)
+![ScoreVScondition](iqms_interpretability_files/ScoreVScondition.png)
 
 The graphing library `plotly` allows to color the points according to the name of the image, such that we can identify the outliers by hovering over them. We can see that image `sub-613957_acq-standard_T1W` got a bad rating, even though this was the image from the no-motion condition. 
 
@@ -122,7 +138,7 @@ Next, let's look at the IQMs. There are many different variables here:
 ### Preprocessing the IQMs
 
 
-```python
+```{code-cell} python
 iqms.columns
 ```
 
@@ -152,14 +168,14 @@ iqms.columns
 Some of them we can get rid of right away, as they are not image quality metrics, but measurement parameters.
 
 
-```python
+```{code-cell} python
 iqms_use = iqms.drop(["size_x", "size_y", "size_z", "spacing_x", "spacing_y", "spacing_z"], axis=1)
 ```
 
 We should also normalize the data, as the units of the IQMs vary wildly. This is required by some methods like PCA down the line, but it also makes sense computationally to have all values in the same order of magnitude.
 
 
-```python
+```{code-cell} python
 scaler = StandardScaler()
 iqms_scaled = scaler.fit_transform(iqms_use)
 iqms_scaled = pd.DataFrame(iqms_scaled, columns=iqms_use.columns, index=iqms_use.index)
@@ -168,7 +184,7 @@ iqms_scaled = pd.DataFrame(iqms_scaled, columns=iqms_use.columns, index=iqms_use
 Now that we preprocessed our IQMs, let us combine the IQMs, the manual ratings and the motion condition in one dataframe to more easily use it in our analysis.
 
 
-```python
+```{code-cell} python
 #We merge the dataframes based on their indexes, which corresponds to the bids name of each scan
 data_df = pd.merge(left=scores, left_index=True, right=iqms_scaled, right_index=True)
 data_df
@@ -519,7 +535,7 @@ data_df
 Rule number one of data analysis: always visualize your data! We can plot the pairwise scatterplots to get an idea of the relationships between the IQMs. There are quite a few IQMs, so plottings this might take a few minutes, depending on your hardware.
 
 
-```python
+```{code-cell} python
 metrics_sets = {f"set{i+1}": list(iqms_scaled.columns[i*10:i*10+9]) for i in range(6)}
 metrics_sets["set8"] = list(iqms_scaled.columns[60:])
 for metrics_set in metrics_sets.values():
@@ -528,43 +544,43 @@ for metrics_set in metrics_sets.values():
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_0.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_0.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_1.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_1.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_2.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_2.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_3.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_3.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_4.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_4.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_5.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_5.png)
     
 
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_24_6.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_24_6.png)
     
 
 
@@ -577,7 +593,7 @@ Interesting! There are quite a few non-linear relationships between the IQMs, wh
 The simplest dimension reduction technique is principal component analysis (PCA), which projects the data onto a new set of axis defined by the eigenvectors of the data matrix (principal components). The first principal component corresponds to the direction in which the variance is maximal. For PCA, it is important for all the features to be on the same scale, thus data need to be normalized. Here, as the data are already rescaled, we can directly apply it.
 
 
-```python
+```{code-cell} python
 # run PCA
 pca = PCA()
 iqms_pca = pca.fit_transform(iqms_scaled)
@@ -588,7 +604,7 @@ iqms_pca = pd.DataFrame(iqms_pca, columns=col_names_pca)
 ```
 
 
-```python
+```{code-cell} python
 # Plot the two first principal components color-coded by motion condition
 fig = px.scatter(iqms_pca, x="component1", y="component2", color=scores["condition"],
  title="Projection of the data colored by motion condition on the two first principal components")
@@ -600,7 +616,7 @@ fig.show()
 ![PCAbyCondition](../figures/PCAbyCondition.png)
 
 
-```python
+```{code-cell} python
 #Plot the two first principal components color-coded by manual ratings
 fig = px.scatter(iqms_pca, x="component1", y="component2", color=scores["score"],
 title="Projection of the data colored by manual ratings on the two first principal components")
@@ -614,7 +630,7 @@ fig.show()
 We can see that the projection of the data on the two first components already allows us to separate well both the ratings and the conditions. Let's see how much variance those two components explain.
 
 
-```python
+```{code-cell} python
 #Extract variance explained by each component
 exp_var=pca.explained_variance_ratio_
 #Compute cumulative variance explained
@@ -636,14 +652,14 @@ print('The two first principal components explain {:.0f}% of the variance.'.form
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_32_1.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_32_1.png)
     
 
 
 The two first principal components explain 62% of the variance. If the goal was to do a dimensionality reduction that retains as much variance as possible, we would want to extract more than two components. However, we already saw that the first component is able to separate the different conditions and ratings already quite well. So for exploration purposes, it makes sense to have a look at the loadings of just the first two components. This way, we will get a sense of which variables contribute most to each component.
 
 
-```python
+```{code-cell} python
 loadings = pd.DataFrame(pca.components_[:2].T, index=iqms_scaled.columns)
 px.imshow(loadings, color_continuous_midpoint=0, color_continuous_scale=px.colors.diverging.RdBu_r,
 width=500, height=1300)
@@ -660,7 +676,7 @@ As we can see do the two components capture different information. We already kn
 t-distributed Stochastic Neighbor Embedding (t-SNE) is another dimension reduction technique. Unlike PCA, it also captures non-linear relationships. It is often used for visualization purposes. Let's run t-SNE to get another visualization of the data in latent space:
 
 
-```python
+```{code-cell} python
 # run TSNE
 iqms_embedded = TSNE(n_components=2, learning_rate='auto', init='random' , perplexity=3, random_state=42).fit_transform(iqms_scaled)
 # plot TSNE
@@ -685,7 +701,7 @@ plt.show()
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_38_0.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_38_0.png)
     
 
 
@@ -702,7 +718,7 @@ While dimension reduction in general and PCA in particular can give us an idea o
 To make the interpretation of the plots easier, we will moreover binarize our target: no-motion versus motion, meaning that we pulled together in one group both levels of motion.
 
 
-```python
+```{code-cell} python
 scores["condition_bin"] = np.where(scores["condition"] == 1, 0, 1)
 ```
 
@@ -715,7 +731,7 @@ To implement SVC and Elastic-net classifications, we will follow the following s
 The final test set will be 10% the size of the data, and the cross-validation scheme will be stratified shuffled 10-fold 
 
 
-```python
+```{code-cell} python
 test_ratio = 0.1
 n_folds = 10
 
@@ -726,7 +742,7 @@ y = scores["condition_bin"]
 **Data split**. The first step of any machine learning method is to split the dataset in a train and a test set. The train set will be used to train the model in a cross-validate fashion. The test set will be used to assess the model accuracy on a set that has not been seen by the model during training.
 
 
-```python
+```{code-cell} python
 X_np = X.to_numpy()
 y_np = y.to_numpy()
 X_cv, X_finaltest, y_cv, y_finaltest = train_test_split(X_np, y_np, test_size=test_ratio, shuffle=True,
@@ -736,7 +752,7 @@ X_cv, X_finaltest, y_cv, y_finaltest = train_test_split(X_np, y_np, test_size=te
 **Cross-validation.** Next, a stratified shuffled 10-fold cross-validation is performed to find the set of best hyperparameters. Stratified means that the folds are made by preserving the percentage of samples for each class. The hyperparameters set selected is the one providing the best performance in the test folds.
 
 
-```python
+```{code-cell} python
 skf = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=42)
 ```
 
@@ -749,14 +765,14 @@ We first try to predict the motion condition based on the IQMs using Elastic-Net
 We will do a grid search to find the best parameters for our learning algorithm. In this case, these will be the C, which referes to the regularization strength, and the L1 ratio, which is the ratio of the L1 penalty to the L2 penalty (remember that elastic net combines both).
 
 
-```python
+```{code-cell} python
 Cs = [ 10.0**p for p in np.linspace(-6, 6, 100)]
 l1_ratios = np.linspace(0, 1.0, 41)
 n_cpus=20
 ```
 
 
-```python
+```{code-cell} python
 #Define the model
 en_cv = LogisticRegressionCV(max_iter=1000000, penalty='elasticnet', solver="saga", class_weight="balanced",
                              cv=skf, random_state=42, l1_ratios=l1_ratios, Cs=Cs, n_jobs=n_cpus)
@@ -803,7 +819,7 @@ en_cv.fit(X_cv, y_cv)
 
 
 
-```python
+```{code-cell} python
 print(f"The best set of paramaters are l1 ratio: {en_cv.l1_ratio_[0]} and C: {en_cv.C_[0]}")
 ```
 
@@ -815,7 +831,7 @@ print(f"The best set of paramaters are l1 ratio: {en_cv.l1_ratio_[0]} and C: {en
 To estimate the final model accuracy, we test the model on the hold-out test data and compare it to training accuracy
 
 
-```python
+```{code-cell} python
 en_best = LogisticRegression(max_iter=1000000, penalty='elasticnet', solver="saga", class_weight="balanced",
                              l1_ratio=1.0, C=en_cv.C_[0])
 en_best.fit(X_cv, y_cv)
@@ -828,7 +844,7 @@ print(f"Hold out dataset test accuracy: {accuracy_score(y_finaltest, en_best.pre
 
 
 
-```python
+```{code-cell} python
 cm = confusion_matrix(y_finaltest, en_best.predict(X_finaltest), labels=en_best.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=en_best.classes_)
 disp.plot();
@@ -836,7 +852,7 @@ disp.plot();
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_58_0.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_58_0.png)
     
 
 
@@ -845,7 +861,7 @@ disp.plot();
 Inspecting the model coefficients can tell us about what features are important for the model to make its prediction.
 
 
-```python
+```{code-cell} python
 bestmodel_coefs_df = pd.DataFrame({"coef": en_best.coef_[0]})
 bestmodel_coefs_df["abs_coef"] = bestmodel_coefs_df["coef"].abs()
 bestmodel_coefs_df["coef_name"] = iqms_scaled.columns
@@ -955,7 +971,7 @@ bestmodel_coefs_df
 Non-surprinsingly, many coefficients are zero due to the high value of L1 ratio chosen for the best model corresponding to a model favoring L1 penalty. Let's have a look only at the non-zero median features.
 
 
-```python
+```{code-cell} python
 # Sort the coefficients by absolute value and plot them
 coefs_sorted_df = bestmodel_coefs_df.sort_values(by='abs_coef',ascending=False)
 # Select only non-zero coefficients
@@ -968,14 +984,14 @@ plt.xticks(np.arange(len(coefs_sorted_non0_df)), coefs_sorted_non0_df["coef_name
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_62_0.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_62_0.png)
     
 
 
 We can also visualize them in a polar plot:
 
 
-```python
+```{code-cell} python
 %%capture --no-display 
 # Do not display warnings
 
@@ -999,14 +1015,14 @@ To see if these results also hold when using a different classifier, we follow t
 #### Training the model
 
 
-```python
+```{code-cell} python
 svc = LinearSVC(class_weight="balanced", max_iter=100000)
 ```
 
 Again, we do a grid search over the parameters in a cross-validated fashion. This time there is just one parameter, the regularization strength (parameter C).
 
 
-```python
+```{code-cell} python
 Cs = [ 10.0**p for p in np.linspace(-6, 6, 100)]
 n_cpus=20
 param_grid = {"C": Cs}
@@ -1052,7 +1068,7 @@ grid_search.fit(X_cv, y_cv)
 
 
 
-```python
+```{code-cell} python
 print(f"The best training accuracy reached in the grid search is: {grid_search.best_score_}")
 
 ```
@@ -1061,7 +1077,7 @@ print(f"The best training accuracy reached in the grid search is: {grid_search.b
 
 
 
-```python
+```{code-cell} python
 print(f"The best hyperparamater C is: {grid_search.best_params_['C']}")
 ```
 
@@ -1073,7 +1089,7 @@ print(f"The best hyperparamater C is: {grid_search.best_params_['C']}")
 To estimate the final prediction accuracy, we again test the model on the hold-out test data and compare it to training accuracy.
 
 
-```python
+```{code-cell} python
 svc_best = LinearSVC(class_weight="balanced", max_iter=100000, C=grid_search.best_params_['C'])
 svc_best.fit(X_cv, y_cv)
 print(f"Training accuracy: {accuracy_score(y_cv, svc_best.predict(X_cv))}")
@@ -1085,7 +1101,7 @@ print(f"Hold out dataset test accuracy: {accuracy_score(y_finaltest, svc_best.pr
 
 
 
-```python
+```{code-cell} python
 cm = confusion_matrix(y_finaltest, svc_best.predict(X_finaltest), labels=svc_best.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=svc_best.classes_)
 disp.plot()
@@ -1100,7 +1116,7 @@ disp.plot()
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_75_1.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_75_1.png)
     
 
 
@@ -1109,7 +1125,7 @@ disp.plot()
 Again inspecting the model coefficients can tell us about what features are important for the model to make its prediction.
 
 
-```python
+```{code-cell} python
 bestmodel_coefs_df = pd.DataFrame({"coef": svc_best.coef_[0]})
 bestmodel_coefs_df["abs_coef"] = bestmodel_coefs_df["coef"].abs()
 bestmodel_coefs_df["coef_name"] = iqms_scaled.columns
@@ -1217,7 +1233,7 @@ bestmodel_coefs_df
 
 
 
-```python
+```{code-cell} python
 #Sort the coefficients by absolute value and plot them
 coefs_sorted_df = bestmodel_coefs_df.sort_values(by='abs_coef',ascending=False)
 #Stem plot
@@ -1228,12 +1244,12 @@ plt.xticks(np.arange(len(coefs_sorted_df)), coefs_sorted_df["coef_name"], rotati
 
 
     
-![png](copy_interpretability-of_iqms_files/copy_interpretability-of_iqms_78_0.png)
+![png](iqms_interpretability_files/copy_interpretability-of_iqms_78_0.png)
     
 
 
 
-```python
+```{code-cell} python
 %%capture --no-display 
 # Do not display warnings
 
@@ -1251,7 +1267,7 @@ px.line_polar(coefs_sorted_df, r='abs_coef', theta='coef_name', color='positive'
 Because the plot is too crowded to be readable let's define a threshold on the coefficient weight. Remember that SVC unlike Elastic-Net do not perform L1 regularization, that is why we end up with many more non-zero coefficients.
 
 
-```python
+```{code-cell} python
 %%capture --no-display 
 # Do not display warnings
 
