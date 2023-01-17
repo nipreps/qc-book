@@ -31,8 +31,10 @@ jobs:
                              fonts-freefont-ttf \
                              libbz2-dev \
                              libcurl4-gnutls-dev \
+                             libfribidi-dev \
                              libfontconfig1-dev \
                              libharfbuzz0b \
+                             libharfbuzz-dev \
                              liblzma-dev \
                              libssl-dev \
                              libxml2-dev \
