@@ -27,4 +27,4 @@ parts:
   - file: auto-qc/iqms_first_contact
   - file: auto-qc/dimensionality_reduction
   - file: auto-qc/classification
-  - file: auto-qc/iqms-interpretability
+  - file: auto-qc/iqms_interpretability
