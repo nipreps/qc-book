@@ -1,0 +1,1384 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Interpretability of the Image Quality Metrics (IQMs) of MRIQC &#8212; ISMRM&#39;22 QC Book</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Making predictions about quality" href="classification.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">ISMRM'22 QC Book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Welcome!
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  preamble
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/step0.html">
+   Before we start: How to follow this tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/qa-qc-basics.html">
+   Before we dive into QA/QC : Definitions and terminology
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/define-qa-qc.html">
+   Defining QC and QA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preamble/qc-and-neuroimaging.html">
+   QC and Neuroimaging
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Dataset QC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/intro.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example1.html">
+   Is a task repetitive, boring, and/or error-prone? Script it!
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example2.html">
+   Highlight important and diagnostic features as efficiently as possible
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example3.html">
+   Create and consistently perform control analyses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../dataset-qc/Example4.html">
+   Use automated dynamic reports
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Animal QA/QC
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/intro.html">
+   Quality Control in preclinical MRI: Where do artifacts come from and how to fix them
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/acquisition.html">
+   Idiosyncrasies of acquiring data from small animals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/acquisition_examples.html">
+   “What went wrong?” data acquisition edition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/processing.html">
+   Idiosyncrasies of processing MRI data from small animals
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../animal-qc/processing_examples.html">
+   “What went wrong?” data processing edition
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Automating QA
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="iqms_first_contact.html">
+   Understanding IQMs generated by MRIQC
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dimensionality_reduction.html">
+   Reducing the dimensionality of the metrics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="classification.html">
+   Making predictions about quality
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Interpretability of the Image Quality Metrics (IQMs) of MRIQC
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/nipreps/qc-book/main?urlpath=lab/tree/docs/auto-qc/iqms_interpretability.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://ismrm.dandiarchive.org/hub/user-redirect/git-pull?repo=https%3A//github.com/nipreps/qc-book&urlpath=lab/tree/qc-book/docs/auto-qc/iqms_interpretability.md&branch=main"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on JupyterHub"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_jupyterhub.svg">
+  </span>
+<span class="headerbtn__text-container">JupyterHub</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/nipreps/qc-book"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/auto-qc/iqms_interpretability.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/auto-qc/iqms_interpretability.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rating-scores-and-image-conditions">
+   Rating scores and image conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizing-the-iqms">
+   Visualizing the IQMs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preprocessing-the-iqms">
+     Preprocessing the IQMs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-the-data-always">
+     Visualizing the data (always!)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensionality-reduction">
+   Dimensionality Reduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pca">
+     PCA
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#t-sne">
+     t-SNE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion-about-dimensionality-reduction">
+     Conclusion about dimensionality reduction
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-and-feature-importance">
+   Classification and Feature Importance
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-approach">
+     Classification approach
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-using-elastic-net">
+     Classification using Elastic-Net
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#training-the-model">
+       Training the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#testing-the-model">
+       Testing the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#visualizing-model-coefficients">
+       Visualizing model coefficients
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-using-support-vector-classifier-svc">
+     Classification using Support vector classifier (SVC)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Training the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Testing the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Visualizing model coefficients
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Interpretability of the Image Quality Metrics (IQMs) of MRIQC</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rating-scores-and-image-conditions">
+   Rating scores and image conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualizing-the-iqms">
+   Visualizing the IQMs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#preprocessing-the-iqms">
+     Preprocessing the IQMs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#visualizing-the-data-always">
+     Visualizing the data (always!)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensionality-reduction">
+   Dimensionality Reduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pca">
+     PCA
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#t-sne">
+     t-SNE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conclusion-about-dimensionality-reduction">
+     Conclusion about dimensionality reduction
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification-and-feature-importance">
+   Classification and Feature Importance
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-approach">
+     Classification approach
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-using-elastic-net">
+     Classification using Elastic-Net
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#training-the-model">
+       Training the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#testing-the-model">
+       Testing the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#visualizing-model-coefficients">
+       Visualizing model coefficients
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#classification-using-support-vector-classifier-svc">
+     Classification using Support vector classifier (SVC)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Training the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Testing the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       Visualizing model coefficients
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusion">
+   Conclusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#acknowledgements">
+   Acknowledgements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="interpretability-of-the-image-quality-metrics-iqms-of-mriqc">
+<h1>Interpretability of the Image Quality Metrics (IQMs) of MRIQC<a class="headerlink" href="#interpretability-of-the-image-quality-metrics-iqms-of-mriqc" title="Permalink to this headline">#</a></h1>
+<p><a class="reference external" href="https://mriqc.readthedocs.io/en/latest/">MRIQC</a> is a powerful tool to assess the quality of MR images in a research study.
+In addition to a visual report, a number of image quality metrics (IQMs) are generated.
+However, there is a large number of these metrics and it is not immediately obvious which IQM a researcher should pay most attention to when deciding over the quality of a given image.</p>
+<p>In this notebook, we will explore these issues in the MR-ART dataset, to provide researchers guidance in interpreting and selecting the most important IQMs from MRIQC.
+If you want to follow along and run the notebook yourself, please download the runnable notebook at <a class="reference external" href="https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb">https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">LinearSVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LogisticRegressionCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">plotly.subplots</span> <span class="kn">import</span> <span class="n">make_subplots</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;seaborn&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, let’s import the data. The <a class="reference external" href="https://openneuro.org/datasets/ds004173">Movement-Related Artifacts (MR-ART)</a> dataset contains the T1-weighted images of 148 healthy subjects (Nárai et al. 2022).
+Each subject has been acquired under three motion conditions:</p>
+<ol class="simple">
+<li><p>no head movement</p></li>
+<li><p>little head movement</p></li>
+<li><p>much head movement</p></li>
+</ol>
+<p>The motion was artifically induced by giving the subjects cues when to node their head.</p>
+<p>The images were rated by to two expert neuroradiologists, who rated the images in their quality, with ratings</p>
+<ol class="simple">
+<li><p>good quality</p></li>
+<li><p>medium quality</p></li>
+<li><p>bad quality.</p></li>
+</ol>
+<p>The neuroradiologist were asked to harmonize their ratings, hence the dataset contains only one score per images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set path to the data</span>
+<span class="n">path_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;iqms_interpretability_files/&quot;</span><span class="p">)</span>
+<span class="c1"># import IQMs</span>
+<span class="n">iqms</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_data</span><span class="p">,</span> <span class="s2">&quot;IQMs.tsv&quot;</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;bids_name&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># import rating scores</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path_data</span><span class="p">,</span> <span class="s2">&quot;scores.tsv&quot;</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="s2">&quot;bids_name&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># make sure they are in the same order</span>
+<span class="n">iqms</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">scores</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s combine the motion condition and the manual ratings in one dataframe:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_condition_column</span><span class="p">(</span><span class="n">scores</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds a column with the different movement conditions to the rating scores dataframe&quot;&quot;&quot;</span>
+    <span class="n">stand</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;standard&quot;</span><span class="p">)</span>
+    <span class="n">hm1</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;motion1&quot;</span><span class="p">)</span>
+    <span class="n">hm2</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;motion2&quot;</span><span class="p">)</span>
+    <span class="n">conditions</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">stand</span> <span class="o">==</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">hm1</span> <span class="o">==</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="p">(</span><span class="n">hm2</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span>
+    <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">scores</span><span class="p">[</span><span class="s1">&#39;condition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">choices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scores</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">add_condition_column</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="rating-scores-and-image-conditions">
+<h2>Rating scores and image conditions<a class="headerlink" href="#rating-scores-and-image-conditions" title="Permalink to this headline">#</a></h2>
+<p>We can explore how well the raters align in their scores with the motion condition.
+Does their rating reflect how much people moved in the scanner?
+Let’s plot the confusion matrix of the scores assigned by the rater and the motion condition:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">]),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.0f&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that generally there is good correspondance, with most values being on the main diagonal. Most confusion is for score 2, where there are also a lot of images from the no-motion as well as the much motion conditions.</p>
+<p>Some images are however completely misclassified. We can visualize this using the library <a class="reference external" href="https://plotly.com/python/">Plotly</a>, which allows for creating a variety of interactive plots. With this, it will be easier to identify the images that were rated much better or much worse than the condition they were in.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">px</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;condition&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The graphing library <code class="docutils literal notranslate"><span class="pre">plotly</span></code> allows to color the points according to the name of the image, such that we can identify the outliers by hovering over them. We can see that image <code class="docutils literal notranslate"><span class="pre">sub-613957_acq-standard_T1W</span></code> got a bad rating, even though this was the image from the no-motion condition.</p>
+<p>For the three images <code class="docutils literal notranslate"><span class="pre">sub-253493_acq-headmotion2_T1w</span></code>, <code class="docutils literal notranslate"><span class="pre">sub-257563_acq-headmotion2_T1w</span></code>, and <code class="docutils literal notranslate"><span class="pre">sub-567742_acq-headmotion2_T1w</span></code> we have the opposite case: these images got the best rating, even though the subjects were supposed to move their heads a lot during the acquisition of these images.</p>
+<p>Try and look at the HTML reports of these images: can you guess what was likely going on in each of these cases?</p>
+</section>
+<section id="visualizing-the-iqms">
+<h2>Visualizing the IQMs<a class="headerlink" href="#visualizing-the-iqms" title="Permalink to this headline">#</a></h2>
+<p>Next, let’s look at the IQMs. There are many different variables here:</p>
+<section id="preprocessing-the-iqms">
+<h3>Preprocessing the IQMs<a class="headerlink" href="#preprocessing-the-iqms" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqms</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Some of them we can get rid of right away, as they are not image quality metrics, but measurement parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iqms_use</span> <span class="o">=</span> <span class="n">iqms</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;size_x&quot;</span><span class="p">,</span> <span class="s2">&quot;size_y&quot;</span><span class="p">,</span> <span class="s2">&quot;size_z&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_x&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_y&quot;</span><span class="p">,</span> <span class="s2">&quot;spacing_z&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We should also normalize the data, as the units of the IQMs vary wildly.
+This is required by some methods like PCA down the line, but it also makes sense computationally to have all values in the same order of magnitude.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">iqms_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iqms_use</span><span class="p">)</span>
+<span class="n">iqms_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">iqms_use</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">iqms_use</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we preprocessed our IQMs, let us combine the IQMs, the manual ratings and the motion condition in one dataframe to more easily use it in our analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#We merge the dataframes based on their indexes, which corresponds to the bids name of each scan</span>
+<span class="n">data_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="o">=</span><span class="n">scores</span><span class="p">,</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="n">iqms_scaled</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data-always">
+<h3>Visualizing the data (always!)<a class="headerlink" href="#visualizing-the-data-always" title="Permalink to this headline">#</a></h3>
+<p>Rule number one of data analysis: always visualize your data!
+We can plot the pairwise scatterplots to get an idea of the relationships between the IQMs.
+There are quite a few IQMs, so plottings this might take a few minutes, depending on your hardware.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrics_sets</span> <span class="o">=</span> <span class="p">{</span><span class="sa">f</span><span class="s2">&quot;set</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">10</span><span class="p">:</span><span class="n">i</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">9</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)}</span>
+<span class="n">metrics_sets</span><span class="p">[</span><span class="s2">&quot;set8&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">60</span><span class="p">:])</span>
+<span class="k">for</span> <span class="n">metrics_set</span> <span class="ow">in</span> <span class="n">metrics_sets</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+     <span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="p">[</span><span class="n">metrics_set</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Interesting!
+There are quite a few non-linear relationships between the IQMs, which we should keep in mind should linear dimension reduction techniques fail.
+Also note that some metrics are heavily correlated which renders IQMs the perfect candidates for dimensionality reduction.
+Dimensionality reduction would also help us in our quest to interpret the IQMs by providing a lower dimensional representation.
+Let’s try.</p>
+</section>
+</section>
+<section id="dimensionality-reduction">
+<h2>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this headline">#</a></h2>
+<section id="pca">
+<h3>PCA<a class="headerlink" href="#pca" title="Permalink to this headline">#</a></h3>
+<p>The simplest dimension reduction technique is principal component analysis (PCA), which projects the data onto a new set of axis defined by the eigenvectors of the data matrix (principal components).
+The first principal component corresponds to the direction in which the variance is maximal.
+For PCA, it is important for all the features to be on the same scale, thus data need to be normalized.
+Here, as the data are already rescaled, we can directly apply it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run PCA</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span>
+<span class="n">iqms_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="p">)</span>
+
+<span class="c1">#Caste PCA results as a dataframe</span>
+<span class="n">col_names_pca</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;component</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">62</span><span class="p">)]</span>
+<span class="n">iqms_pca</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iqms_pca</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">col_names_pca</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the two first principal components color-coded by motion condition</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">iqms_pca</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;component1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;component2&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">],</span>
+ <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Projection of the data colored by motion condition on the two first principal components&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Plot the two first principal components color-coded by manual ratings</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">iqms_pca</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;component1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;component2&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">],</span>
+<span class="n">title</span><span class="o">=</span><span class="s2">&quot;Projection of the data colored by manual ratings on the two first principal components&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the projection of the data on the two first components already allows us to separate well both the ratings and the conditions.
+Let’s see how much variance those two components explain.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Extract variance explained by each component</span>
+<span class="n">exp_var</span><span class="o">=</span><span class="n">pca</span><span class="o">.</span><span class="n">explained_variance_ratio_</span>
+<span class="c1">#Compute cumulative variance explained</span>
+<span class="n">cum_exp_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">exp_var</span><span class="p">)</span>
+
+<span class="c1">#Plot cumulative variance explained</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cum_exp_var</span><span class="p">,</span> <span class="s1">&#39;bo-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Component index&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative variance explained&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The two first principal components explain </span><span class="si">{:.0f}% o</span><span class="s1">f the variance.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cum_exp_var</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The two first principal components explain 62% of the variance.
+If the goal was to do a dimensionality reduction that retains as much variance as possible, we would want to extract more than two components.
+However, we already saw that the first component is able to separate the different conditions and ratings already quite well.
+So for exploration purposes, it makes sense to have a look at the loadings of just the first two components.
+This way, we will get a sense of which variables contribute most to each component.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">loadings</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">components_</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">iqms_scaled</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">px</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">loadings</span><span class="p">,</span> <span class="n">color_continuous_midpoint</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color_continuous_scale</span><span class="o">=</span><span class="n">px</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">diverging</span><span class="o">.</span><span class="n">RdBu_r</span><span class="p">,</span>
+<span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see do the two components capture different information.
+We already know from the scatterplot that the first component is the one able to separate the conditions/ratings.
+When looking at the loadings of the first component, we get an idea which of the IQMs influence this component the most.
+<a class="reference external" href="https://mriqc.readthedocs.io/en/latest/iqms/t1w.html">Here</a> is an overview of the different measures, that also tells us if higher or lower values indicate a better quality image.
+E.g., for CJV, lower is better, while for CNR, higher is better.
+This means that component 1 is related to the “badness” of the image, as the polarity of the loadings of CJV and CNR is opposite to the interpretation of their value.</p>
+</section>
+<section id="t-sne">
+<h3>t-SNE<a class="headerlink" href="#t-sne" title="Permalink to this headline">#</a></h3>
+<p>T-distributed Stochastic Neighbor Embedding (t-SNE) is another dimension reduction technique.
+Unlike PCA, it also captures non-linear relationships.
+It is often used for visualization purposes.
+Let’s run t-SNE to get another visualization of the data in latent space:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># run TSNE</span>
+<span class="n">iqms_embedded</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="s1">&#39;random&#39;</span> <span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">iqms_scaled</span><span class="p">)</span>
+<span class="c1"># plot TSNE</span>
+<span class="n">iqms_embedded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">iqms_embedded</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;component1&quot;</span><span class="p">,</span> <span class="s2">&quot;component2&quot;</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;comp-1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iqms_embedded</span><span class="p">[</span><span class="s2">&quot;component1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;comp-2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iqms_embedded</span><span class="p">[</span><span class="s2">&quot;component2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;comp-1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;comp-2&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span>
+                <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;hls&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;IQMs T-SNE projection, colored by rating score&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;comp-1&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;comp-2&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;condition&quot;</span><span class="p">,</span>
+                <span class="n">palette</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;hls&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;IQMs T-SNE projection, colored by motion condition&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>While different from the PCA components, the separation does not seem to improve.
+If anything, it is worse, as now both components are needed to separate images with rating score 1 from those with 2 or 3, instead of just one component when using PCA.
+The same is true when looking at the movement condition.</p>
+</section>
+<section id="conclusion-about-dimensionality-reduction">
+<h3>Conclusion about dimensionality reduction<a class="headerlink" href="#conclusion-about-dimensionality-reduction" title="Permalink to this headline">#</a></h3>
+<p>We saw using TSNE and PCA that it is possible to separate the IQMs in a lower-dimensional space based on the motion condition or the manual ratings.
+However, that did not help us interpret the IQMs. We checked the loadings of the principal components, but it is difficult to extract a clear story.
+Let’s try another approach.</p>
+</section>
+</section>
+<section id="classification-and-feature-importance">
+<h2>Classification and Feature Importance<a class="headerlink" href="#classification-and-feature-importance" title="Permalink to this headline">#</a></h2>
+<p>While dimension reduction in general and PCA in particular can give us an idea of which IQMs are useful in telling good from bad quality images, a more direct approach is to use the IQMs as features in a classification task.
+We will try two supervised machine learning algorithm, namely a logistic regression with elastic-net regularization and support vector classification (SVC).</p>
+<p>To make the interpretation of the plots easier, we will moreover binarize our target: no-motion versus motion, meaning that we pulled together in one group both levels of motion.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition_bin&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="classification-approach">
+<h3>Classification approach<a class="headerlink" href="#classification-approach" title="Permalink to this headline">#</a></h3>
+<p>To implement SVC and Elastic-net classifications, we will follow the following steps:</p>
+<ul class="simple">
+<li><p>define a final testing set on which to assess the performance of the classifier with selected hyper-parameters</p></li>
+<li><p>do cross-validation on the remaining data to examine the stability of the best hyper-parameters chosen for each test fold</p></li>
+</ul>
+<p>The final test set will be 10% the size of the data, and the cross-validation scheme will be stratified shuffled 10-fold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_ratio</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">n_folds</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">iqms_scaled</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;condition_bin&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Data split</strong>.
+The first step of any machine learning method is to split the dataset in a train and a test set.
+The train set will be used to train the model in a cross-validate fashion.
+The test set will be used to assess the model accuracy on a set that has not been seen by the model during training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_np</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y_np</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">X_cv</span><span class="p">,</span> <span class="n">X_finaltest</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">,</span> <span class="n">y_finaltest</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_np</span><span class="p">,</span> <span class="n">y_np</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="n">test_ratio</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                          <span class="n">stratify</span><span class="o">=</span><span class="n">y_np</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Cross-validation.</strong>
+Next, a stratified shuffled 10-fold cross-validation is performed to find the set of best hyperparameters.
+Stratified means that the folds are made by preserving the percentage of samples for each class.
+The hyperparameters set selected is the one providing the best performance in the test folds.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">n_folds</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="classification-using-elastic-net">
+<h3>Classification using Elastic-Net<a class="headerlink" href="#classification-using-elastic-net" title="Permalink to this headline">#</a></h3>
+<p>We first try to predict the motion condition based on the IQMs using Elastic-Net (Zou and Hastie 2005) logistic regression.
+It combines L1 and L2 regularization, thus both promoting sparsity of the solution – which is an advantage for feature selection – and accounting for feature collinearity.</p>
+<section id="training-the-model">
+<h4>Training the model<a class="headerlink" href="#training-the-model" title="Permalink to this headline">#</a></h4>
+<p>We will do a grid search to find the best parameters for our learning algorithm.
+In this case, these will be the C, which referes to the regularization strength, and the L1 ratio, which is the ratio of the L1 penalty to the L2 penalty (remember that elastic net combines both).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cs</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">10.0</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)]</span>
+<span class="n">l1_ratios</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">n_cpus</span><span class="o">=</span><span class="mi">20</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Define the model</span>
+<span class="n">en_cv</span> <span class="o">=</span> <span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;saga&quot;</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span>
+                             <span class="n">cv</span><span class="o">=</span><span class="n">skf</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">l1_ratios</span><span class="o">=</span><span class="n">l1_ratios</span><span class="p">,</span> <span class="n">Cs</span><span class="o">=</span><span class="n">Cs</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_cpus</span><span class="p">)</span>
+                             
+<span class="c1">#Fit the model to the data using the target</span>
+<span class="n">en_cv</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cv</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The best set of paramaters are l1 ratio: </span><span class="si">{</span><span class="n">en_cv</span><span class="o">.</span><span class="n">l1_ratio_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> and C: </span><span class="si">{</span><span class="n">en_cv</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-the-model">
+<h4>Testing the model<a class="headerlink" href="#testing-the-model" title="Permalink to this headline">#</a></h4>
+<p>To estimate the final model accuracy, we test the model on the hold-out test data and compare it to training accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">en_best</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;elasticnet&#39;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;saga&quot;</span><span class="p">,</span> <span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span>
+                             <span class="n">l1_ratio</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">en_cv</span><span class="o">.</span><span class="n">C_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">en_best</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cv</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_cv</span><span class="p">,</span><span class="w"> </span><span class="n">en_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_cv</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hold out dataset test accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_finaltest</span><span class="p">,</span><span class="w"> </span><span class="n">en_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_finaltest</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_finaltest</span><span class="p">,</span> <span class="n">en_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_finaltest</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">en_best</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">en_best</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">disp</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="visualizing-model-coefficients">
+<h4>Visualizing model coefficients<a class="headerlink" href="#visualizing-model-coefficients" title="Permalink to this headline">#</a></h4>
+<p>Inspecting the model coefficients can tell us about what features are important for the model to make its prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bestmodel_coefs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;coef&quot;</span><span class="p">:</span> <span class="n">en_best</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+<span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;abs_coef&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;coef&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;coef_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iqms_scaled</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">bestmodel_coefs_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Non-surprinsingly, many coefficients are zero due to the high value of L1 ratio chosen for the best model corresponding to a model favoring L1 penalty. Let’s have a look only at the non-zero median features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort the coefficients by absolute value and plot them</span>
+<span class="n">coefs_sorted_df</span> <span class="o">=</span> <span class="n">bestmodel_coefs_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;abs_coef&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># Select only non-zero coefficients</span>
+<span class="n">coefs_sorted_non0_df</span> <span class="o">=</span> <span class="n">coefs_sorted_df</span><span class="p">[</span><span class="n">coefs_sorted_df</span><span class="p">[</span><span class="s2">&quot;abs_coef&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Stem plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;coef&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">coefs_sorted_non0_df</span><span class="p">[</span><span class="n">coefs_sorted_non0_df</span><span class="p">[</span><span class="s2">&quot;abs_coef&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coefs_sorted_non0_df</span><span class="p">)),</span> <span class="n">coefs_sorted_non0_df</span><span class="p">[</span><span class="s2">&quot;coef_name&quot;</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can also visualize them in a polar plot:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> --no-display 
+<span class="c1"># Do not display warnings</span>
+
+<span class="c1"># Visualization in form of polar plot</span>
+<span class="n">coefs_sorted_non0_df</span><span class="p">[</span><span class="s2">&quot;positive&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coefs_sorted_non0_df</span><span class="p">[</span><span class="s2">&quot;coef&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">px</span><span class="o">.</span><span class="n">line_polar</span><span class="p">(</span><span class="n">coefs_sorted_non0_df</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="s1">&#39;abs_coef&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="s1">&#39;coef_name&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">line_close</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">hover_data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;coef&quot;</span><span class="p">:</span> <span class="s1">&#39;:.3f&#39;</span><span class="p">,</span> <span class="s2">&quot;coef_name&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;abs_coef&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+              <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As a conclusion, the most important features to predict motion presence based on the IQMs are the SNR-derived metrics along with the white matter to maximum intensity ratio (wm2max) and a few summary metrics such as the kurtosis of the background (summary_bg_k) or the number of voxels in the white matter (summary_wm_n).
+Remember that you can find the list of all the IQMs and their definition <a class="reference external" href="https://mriqc.readthedocs.io/en/latest/measures.html">here</a>.</p>
+</section>
+</section>
+<section id="classification-using-support-vector-classifier-svc">
+<h3>Classification using Support vector classifier (SVC)<a class="headerlink" href="#classification-using-support-vector-classifier-svc" title="Permalink to this headline">#</a></h3>
+<p>To see if these results also hold when using a different classifier, we follow the same procedure using a Support Vector Machine (SVC).</p>
+<section id="id1">
+<h4>Training the model<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc</span> <span class="o">=</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Again, we do a grid search over the parameters in a cross-validated fashion. This time there is just one parameter, the regularization strength (parameter C).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Cs</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">10.0</span><span class="o">**</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)]</span>
+<span class="n">n_cpus</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">Cs</span><span class="p">}</span>
+<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">svc</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">n_cpus</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">skf</span><span class="p">)</span>
+<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cv</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The best training accuracy reached in the grid search is: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The best hyperparamater C is: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id2">
+<h4>Testing the model<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h4>
+<p>To estimate the final prediction accuracy, we again test the model on the hold-out test data and compare it to training accuracy.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">svc_best</span> <span class="o">=</span> <span class="n">LinearSVC</span><span class="p">(</span><span class="n">class_weight</span><span class="o">=</span><span class="s2">&quot;balanced&quot;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">])</span>
+<span class="n">svc_best</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_cv</span><span class="p">,</span> <span class="n">y_cv</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_cv</span><span class="p">,</span><span class="w"> </span><span class="n">svc_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_cv</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hold out dataset test accuracy: </span><span class="si">{</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_finaltest</span><span class="p">,</span><span class="w"> </span><span class="n">svc_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_finaltest</span><span class="p">))</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_finaltest</span><span class="p">,</span> <span class="n">svc_best</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_finaltest</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">svc_best</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="n">svc_best</span><span class="o">.</span><span class="n">classes_</span><span class="p">)</span>
+<span class="n">disp</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h4>Visualizing model coefficients<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h4>
+<p>Again inspecting the model coefficients can tell us about what features are important for the model to make its prediction.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bestmodel_coefs_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;coef&quot;</span><span class="p">:</span> <span class="n">svc_best</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]})</span>
+<span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;abs_coef&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;coef&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+<span class="n">bestmodel_coefs_df</span><span class="p">[</span><span class="s2">&quot;coef_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">iqms_scaled</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">bestmodel_coefs_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Sort the coefficients by absolute value and plot them</span>
+<span class="n">coefs_sorted_df</span> <span class="o">=</span> <span class="n">bestmodel_coefs_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;abs_coef&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1">#Stem plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;coef&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">coefs_sorted_df</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coefs_sorted_df</span><span class="p">)),</span> <span class="n">coefs_sorted_df</span><span class="p">[</span><span class="s2">&quot;coef_name&quot;</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">&#39;vertical&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> --no-display 
+<span class="c1"># Do not display warnings</span>
+
+<span class="c1"># Visualization in form of polar plot</span>
+<span class="n">coefs_sorted_df</span><span class="p">[</span><span class="s2">&quot;positive&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coefs_sorted_df</span><span class="p">[</span><span class="s2">&quot;coef&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
+<span class="n">px</span><span class="o">.</span><span class="n">line_polar</span><span class="p">(</span><span class="n">coefs_sorted_df</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="s1">&#39;abs_coef&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="s1">&#39;coef_name&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">line_close</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+              <span class="n">hover_data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;coef&quot;</span><span class="p">:</span> <span class="s1">&#39;:.3f&#39;</span><span class="p">,</span> <span class="s2">&quot;coef_name&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;abs_coef&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},</span>
+              <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because the plot is too crowded to be readable let’s define a threshold on the coefficient weight.
+Remember that SVC unlike Elastic-Net do not perform L1 regularization, that is why we end up with many more non-zero coefficients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%capture</span> --no-display 
+<span class="c1"># Do not display warnings</span>
+
+<span class="c1"># Visualize feature with highest weight. Visually we can see clusters with weight &gt; 0.1</span>
+<span class="n">coef_thr</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">px</span><span class="o">.</span><span class="n">line_polar</span><span class="p">(</span><span class="n">coefs_sorted_df</span><span class="p">[</span><span class="n">coefs_sorted_df</span><span class="p">[</span><span class="s2">&quot;abs_coef&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="n">coef_thr</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="s1">&#39;abs_coef&#39;</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="s1">&#39;coef_name&#39;</span><span class="p">,</span>
+              <span class="n">color</span><span class="o">=</span><span class="s1">&#39;positive&#39;</span><span class="p">,</span> <span class="n">line_close</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span>
+              <span class="n">hover_data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;coef&quot;</span><span class="p">:</span> <span class="s1">&#39;:.3f&#39;</span><span class="p">,</span> <span class="s2">&quot;coef_name&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;positive&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;abs_coef&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">},)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that our results from the Elastic-Net classification holds and SNR-derived metrics remain the most important features to predict motion presence based on the IQMs. The other important metrics remain stable as well.</p>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this headline">#</a></h2>
+<p>Both supervised classification methods give converging evidence that SNR-derived metrics are the most important features to classify motion strength based on the IQMs. Coming back to our original question of interpreting the IQMs, this result means that SNR-derived metrics are important for capturing motion artifacts.
+We have thus contributed to the understanding and interpretation of the IQMs.
+We hope that this notebook can now help you select the most important IQMs for your analysis or perform the analysis of your own IQMs and as such that you can help us further improve the interpretability of the IQMs generated by MRIQC.</p>
+</section>
+<section id="acknowledgements">
+<h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this headline">#</a></h2>
+<p>This notebook has been initiated at the <a class="reference external" href="https://brainhack.ch">Brainhack Global Geneva 2022</a> and springs from a joint effort of the project team composed by Mikkel Schöttner, Céline Provins, Michael Dayan, Vivi Nastase, Jenny Lunde and Oriol Mãne Benach.
+The results presented in this notebook have been submitted as an abstract to OHBM Montréal 2023.
+The abstract is entitled “Signal-to-noise ratio estimates predict head motion presence in T1-weighted MRI” and is available at <a class="reference external" href="https://osf.io/7vqzr/">https://osf.io/7vqzr/</a>.
+The full exploratory analysis we performed in the context of this project can be found at <a class="reference external" href="https://github.com/brainhack-ch/interpret-iqms">https://github.com/brainhack-ch/interpret-iqms</a>.
+The runnable notebook can be downloaded at <a class="reference external" href="https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb">https://github.com/brainhack-ch/interpret-iqms/blob/main/code/interpretability-of-iqms.ipynb</a>.</p>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
+<p>Nárai, Ádám, Petra Hermann, Tibor Auer, Péter Kemenczky, János Szalma, István    Homolya, Eszter Somogyi, Pál Vakli, Béla Weiss, and Zoltán Vidnyánszky. 2022. “Movement-Related Artefacts (MR-ART) Dataset of Matched Motion-Corrupted and Clean Structural MRI Brain Scans.” Scientific Data 9 (1): 630. <a class="reference external" href="https://doi.org/10.1038/s41597-022-01694-8">https://doi.org/10.1038/s41597-022-01694-8</a>.</p>
+<p>Zou, Hui, and Trevor Hastie. 2005. “Regularization and Variable Selection via the Elastic Net.” Journal of the Royal Statistical Society: Series B (Statistical Methodology) 67 (2): 301–20. <a class="reference external" href="https://doi.org/10.1111/j.1467-9868.2005.00503.x">https://doi.org/10.1111/j.1467-9868.2005.00503.x</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./auto-qc"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="classification.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Making predictions about quality</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By The tutorial authors<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
