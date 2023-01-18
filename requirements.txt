@@ -15,4 +15,5 @@ pytest
 requests
 scikit-learn
 scipy
+seaborn
 sphinxext-rediraffe
