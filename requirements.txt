@@ -10,7 +10,9 @@ nibabel
 nilearn
 numpy
 pandas
+plotly
 pytest
 requests
 scikit-learn
 scipy
+sphinxext-rediraffe
