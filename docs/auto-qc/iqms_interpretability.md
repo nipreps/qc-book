@@ -545,14 +545,6 @@ px.line_polar(coefs_sorted_df[coefs_sorted_df["abs_coef"]>coef_thr], r='abs_coef
               hover_data={"coef": ':.3f', "coef_name": True, "positive": False, "abs_coef": False},)
 ```
 
-
-
-Let us put side by side the polar plot from the SVC and the ElasticNet to ease comparison.
-
-SVC            |  ElasticNet
-:-------------------------:|:-------------------------:
-![PolarPlotSVC_restricted](iqms_interpretability_files/PolarPlotSVC_restricted.png) | ![PolarPlotElasticNet](iqms_interpretability_files/PolarPlotElasticNet.png)
-
 We see that our results from the Elastic-Net classification holds and SNR-derived metrics remain the most important features to predict motion presence based on the IQMs. The other important metrics remain stable as well.
 
 ## Conclusion

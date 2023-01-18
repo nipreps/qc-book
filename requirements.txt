@@ -15,3 +15,4 @@ pytest
 requests
 scikit-learn
 scipy
+sphinxext-rediraffe
